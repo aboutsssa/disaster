@@ -1,0 +1,10 @@
+[34m▶ Astro collects anonymous usage data.[39m
+  This information helps us improve Astro.
+  Run "astro telemetry disable" to opt-out.
+  [36m[4mhttps://astro.build/telemetry[24m[39m
+
+[vite] connected.
+[2m02:45:01[22m [34m[types][39m Generated [2m2ms[22m
+[42m[1m astro [22m[49m [32mv6.3.1[39m [2mready in[22m 2679 [2mms[22m
+[2m┃[22m Local    [36mhttp://127.0.0.1:4321/[39m
+[2m02:45:01[22m [32mwatching for file changes...[39m
