@@ -1,19 +1,25 @@
-[34m▶ Astro collects anonymous usage data.[39m
-  This information helps us improve Astro.
-  Run "astro telemetry disable" to opt-out.
-  [36m[4mhttps://astro.build/telemetry[24m[39m
+
+> disaster-research-site@0.1.0 dev
+> astro dev --host 127.0.0.1
 
 [vite] connected.
-[2m02:45:01[22m [34m[types][39m Generated [2m2ms[22m
-[42m[1m astro [22m[49m [32mv6.3.1[39m [2mready in[22m 2679 [2mms[22m
+[2m10:23:50[22m [34m[types][39m Generated [2m1ms[22m
+[42m[1m astro [22m[49m [32mv6.3.1[39m [2mready in[22m 1174 [2mms[22m
 [2m┃[22m Local    [36mhttp://127.0.0.1:4321/[39m
-[2m02:45:01[22m [32mwatching for file changes...[39m
-[2m02:45:26[22m [34m[200][39m / [2m81ms[22m
-[2m02:45:26[22m [34m[200][39m / [2m10ms[22m
-[2m02:46:09[22m [34m[200][39m / [2m7ms[22m
-[2m02:46:28[22m [34m[200][39m /slides [2m117ms[22m
-[2m02:46:35[22m [34m[vite][39m [32m✨ new dependencies optimized: [33mmaplibre-gl[32m[39m
-[2m02:46:35[22m [34m[vite][39m [32m✨ optimized dependencies changed. reloading[39m
-[2m02:46:35[22m [34m[200][39m /slides [2m14ms[22m
-[2m02:46:37[22m [34m[200][39m / [2m11ms[22m
-[2m02:50:32[22m [34m[200][39m /slides [2m16ms[22m
+[2m10:23:50[22m [32mwatching for file changes...[39m
+[2m10:23:57[22m [34m[200][39m / [2m33ms[22m
+[2m10:24:07[22m [34m[200][39m /map [2m33ms[22m
+[2m10:24:32[22m [33m[404][39m /SLIDES [2m1ms[22m
+[2m10:24:42[22m [33m[404][39m /SLIDES [2m1ms[22m
+[2m10:24:50[22m [34m[200][39m /slides [2m41ms[22m
+[2m10:26:29[22m Configuration file updated. Restarting...
+[2m10:26:29[22m [34m[watch][39m /src/styles/global.css
+[2m10:26:29[22m [34m[watch][39m src/components/GlobalDisasterMap.astro
+[2m10:26:29[22m [34m[watch][39m src/components/WenchuanPresentation.astro
+[vite] connected.
+[2m10:26:30[22m [34m[200][39m /slides [2m37ms[22m
+[2m10:26:30[22m [34m[200][39m /slides [2m40ms[22m
+[2m10:26:30[22m [34m[200][39m /map [2m65ms[22m
+[2m10:26:30[22m [34m[200][39m /map [2m65ms[22m
+[2m10:26:31[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m10:26:31[22m [34m[vite][39m server restarted.
