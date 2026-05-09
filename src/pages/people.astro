@@ -1,0 +1,45 @@
+---
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="People">
+  <PageHero
+    eyebrow="People"
+    title="A collaborative group for disaster, geography, and planning research."
+    text="This page is ready for faculty, graduate students, research assistants, visiting scholars, collaborators, and alumni."
+    image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
+  />
+
+  <section class="people-section">
+    <article class="person-card is-lead">
+      <div class="avatar">QL</div>
+      <div>
+        <p class="eyebrow">Principal Investigator</p>
+        <h2>Dr. Qiushan Lin</h2>
+        <p>
+          Research lead in post-disaster reconstruction, relational recovery, and the geography
+          of inhabitable environments.
+        </p>
+      </div>
+    </article>
+
+    <div class="people-grid">
+      <article class="person-card">
+        <div class="avatar">GS</div>
+        <h3>Graduate Students</h3>
+        <p>Profiles, research topics, and thesis projects can be added here.</p>
+      </article>
+      <article class="person-card">
+        <div class="avatar">RA</div>
+        <h3>Research Assistants</h3>
+        <p>Space for assistants working on fieldwork, mapping, archives, and literature review.</p>
+      </article>
+      <article class="person-card">
+        <div class="avatar">CO</div>
+        <h3>Collaborators</h3>
+        <p>Partner institutions, community organizations, and affiliated researchers.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

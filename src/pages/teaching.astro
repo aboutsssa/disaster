@@ -1,0 +1,39 @@
+---
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Teaching">
+  <PageHero
+    eyebrow="Teaching"
+    title="Courses and mentorship on disaster, place, and socio-ecological change."
+    text="Teaching materials can connect conceptual frameworks with case-based learning, field methods, mapping, and design critique."
+    image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
+  />
+
+  <section class="course-list">
+    <article>
+      <p class="eyebrow">Course Area</p>
+      <h2>Post-Disaster Reconstruction</h2>
+      <p>
+        Housing, infrastructure, governance, community recovery, heritage, and ecological repair
+        after major disasters.
+      </p>
+    </article>
+    <article>
+      <p class="eyebrow">Seminar Area</p>
+      <h2>Human Geography and More-than-Human Theory</h2>
+      <p>
+        Place, dwelling, relational ontology, multispecies worlds, and the politics of recovery.
+      </p>
+    </article>
+    <article>
+      <p class="eyebrow">Methods Area</p>
+      <h2>Comparative Case Analysis</h2>
+      <p>
+        Reading recovery trajectories through policy documents, interviews, field observation,
+        spatial evidence, and visual material.
+      </p>
+    </article>
+  </section>
+</BaseLayout>

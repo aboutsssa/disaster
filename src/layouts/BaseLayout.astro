@@ -1,0 +1,60 @@
+---
+import { navItems, site } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = site.affiliation } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | {site.name}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label={`${site.name} home`}>
+        <span class="brand-mark">RI</span>
+        <span>
+          <strong>{site.name}</strong>
+          <small>{site.owner}</small>
+        </span>
+      </a>
+      <nav aria-label="Primary navigation">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[currentPath === item.href && 'is-active']}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>{site.name}</strong>
+        <p>{site.affiliation}</p>
+      </div>
+      <div>
+        <p>{site.location}</p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </footer>
+  </body>
+</html>

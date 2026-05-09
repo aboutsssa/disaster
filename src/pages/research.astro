@@ -1,0 +1,63 @@
+---
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { researchThemes } from '../data/site';
+---
+
+<BaseLayout title="Research">
+  <PageHero
+    eyebrow="Research"
+    title="Reconstruction, relation, and inhabitable futures."
+    text="The research agenda centers post-disaster reconstruction as a long-term, uneven process of relational reassembly."
+    image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80"
+  />
+
+  <section class="section-heading">
+    <p class="eyebrow">Current Agenda</p>
+    <h2>Post-disaster work</h2>
+    <p>
+      This area draws from the paper "From Recovery to Re-inhabitability" and develops a
+      comparative vocabulary for cases where material rebuilding and meaningful dwelling diverge.
+    </p>
+    <p>
+      <a class="text-link" href="/projects/global-disaster-map/">Open the Global Disaster & Re-Inhabitability Observatory</a>
+    </p>
+  </section>
+
+  <section class="research-list">
+    {
+      researchThemes.map((theme) => (
+        <article>
+          <span>{theme.eyebrow}</span>
+          <h3>{theme.title}</h3>
+          <p>{theme.description}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="split-section">
+    <div>
+      <p class="eyebrow">Typology</p>
+      <h2>Material recovery and relational re-inhabitation</h2>
+    </div>
+    <div class="matrix">
+      <div>
+        <strong>Integrated re-inhabitation</strong>
+        <p>High material recovery and strong relational alignment.</p>
+      </div>
+      <div>
+        <strong>Technocratic restoration</strong>
+        <p>Visible reconstruction without sufficient social, ecological, or symbolic fit.</p>
+      </div>
+      <div>
+        <strong>Relational persistence</strong>
+        <p>Communities sustain dwelling relations despite limited material reconstruction.</p>
+      </div>
+      <div>
+        <strong>Collapsed recovery</strong>
+        <p>Material deficits and relational fragmentation reinforce one another.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

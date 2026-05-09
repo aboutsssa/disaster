@@ -1,0 +1,21 @@
+---
+import GlobalDisasterMap from '../components/GlobalDisasterMap.astro';
+import { site } from '../data/site';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Fullscreen global disaster and re-inhabitability observatory with public hazard and exposure layers."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map | {site.name}</title>
+  </head>
+  <body class="fullscreen-map-page">
+    <GlobalDisasterMap fullscreen />
+  </body>
+</html>

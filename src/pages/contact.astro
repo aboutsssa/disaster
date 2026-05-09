@@ -1,0 +1,29 @@
+---
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title="Contact">
+  <PageHero
+    eyebrow="Contact"
+    title="Get in touch about research, collaboration, and student projects."
+    text="Use this page for the group's contact information, office location, lab meeting schedule, and collaboration notes."
+    image="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?auto=format&fit=crop&w=1400&q=80"
+  />
+
+  <section class="contact-panel">
+    <div>
+      <p class="eyebrow">Email</p>
+      <h2><a href={`mailto:${site.email}`}>{site.email}</a></h2>
+    </div>
+    <div>
+      <p class="eyebrow">Location</p>
+      <h2>{site.location}</h2>
+    </div>
+    <p>
+      Replace this placeholder with the official department address, office hours, and preferred
+      contact pathway once those details are available.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { recoveryDimensions, researchThemes, site } from '../data/site';
+---
+
+<BaseLayout
+  title="Home"
+  description="A research group website for post-disaster reconstruction and re-inhabitability."
+>
+  <PageHero
+    eyebrow={site.owner}
+    title="Post-disaster recovery as the work of making worlds inhabitable again."
+    text="We study how communities, landscapes, infrastructures, non-human life, and symbolic meanings are reassembled after disaster. Our work connects human geography, disaster studies, planning, and more-than-human theory."
+    image="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=80"
+  />
+
+  <section class="intro-band">
+    <div>
+      <p class="eyebrow">Research Focus</p>
+      <h2>From recovery to re-inhabitability</h2>
+    </div>
+    <p>
+      Conventional recovery often measures progress by housing delivery, service restoration,
+      economic activity, and infrastructure performance. This group asks a different question:
+      when does a rebuilt environment become socially, culturally, ecologically, and materially
+      dwellable again?
+    </p>
+  </section>
+
+  <section class="content-grid">
+    {
+      researchThemes.map((theme) => (
+        <article class="theme-card">
+          <p class="eyebrow">{theme.eyebrow}</p>
+          <h3>{theme.title}</h3>
+          <p>{theme.description}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="split-section">
+    <div>
+      <p class="eyebrow">Framework</p>
+      <h2>Four dimensions of re-inhabitability</h2>
+      <p>
+        The framework treats recovery as relational alignment across domains that are often
+        planned separately. These dimensions provide the first structure for future projects,
+        case studies, seminars, and public-facing research briefs.
+      </p>
+    </div>
+    <ol class="dimension-list">
+      {recoveryDimensions.map((dimension) => <li>{dimension}</li>)}
+    </ol>
+  </section>
+
+  <section class="project-callout">
+    <div>
+      <p class="eyebrow">Featured Project</p>
+      <h2>Global Disaster & Re-Inhabitability Observatory</h2>
+      <p>
+        Explore a MapLibre-based research observatory for comparing live earthquake events,
+        population exposure, flood risk, fire activity, and future Earth Engine-derived
+        recovery layers.
+      </p>
+    </div>
+    <a href="/projects/global-disaster-map/">Open project</a>
+  </section>
+</BaseLayout>

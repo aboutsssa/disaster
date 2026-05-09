@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GlobalDisasterMap from '../../components/GlobalDisasterMap.astro';
+import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects';
+---
+
+<BaseLayout
+  title="Global Disaster & Re-Inhabitability Observatory"
+  description="A layer-based global disaster and exposure observatory using MapLibre, USGS events, WorldPop, and Earth Engine-ready remote-sensing data."
+>
+  <section class="project-hero">
+    <div>
+      <p class="eyebrow">Research Project</p>
+      <h1>Global Disaster & Re-Inhabitability Observatory</h1>
+      <p>
+        A data-driven map project for comparing global hazards, population exposure, and
+        post-disaster recovery conditions. The first version streams public web layers; the
+        next version should publish Earth Engine-derived analytical tiles from the research pipeline.
+      </p>
+    </div>
+    <div class="project-meta">
+      <p><strong>Map engine</strong><span>MapLibre GL JS</span></p>
+      <p><strong>Data model</strong><span>Raster services, live GeoJSON, GEE exports</span></p>
+      <p><strong>Earth Engine project</strong><span>{geePlan.project}</span></p>
+      <p><strong>Fullscreen app</strong><span><a href="/map/">Open /map</a></span></p>
+    </div>
+  </section>
+
+  <GlobalDisasterMap />
+
+  <section class="split-section">
+    <div>
+      <p class="eyebrow">Data Strategy</p>
+      <h2>Use Earth Engine upstream, not as a fragile public-browser dependency</h2>
+      <p>
+        The public website should read stable map layers. Earth Engine should prepare hazard
+        composites, exposure summaries, and before/after indicators, then export browser-ready
+        outputs that MapLibre can load without visitor authentication or quota problems.
+      </p>
+    </div>
+    <ol class="dimension-list">
+      {geePlan.recommendedFlow.map((item) => <li>{item}</li>)}
+    </ol>
+  </section>
+
+  <section class="section-heading">
+    <p class="eyebrow">Layer Roadmap</p>
+    <h2>Remote-sensing layers to publish next</h2>
+    <p>
+      The observatory should prioritize continuous global surfaces and time-series layers, then
+      connect them to selected case-study regions for post-disaster reconstruction questions.
+    </p>
+  </section>
+
+  <section class="layer-roadmap" aria-label="Planned remote-sensing layers">
+    {
+      plannedRemoteSensingLayers.map((layer) => (
+        <article>
+          <span>{layer.status}</span>
+          <h3>{layer.name}</h3>
+          <p>{layer.source}</p>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>
