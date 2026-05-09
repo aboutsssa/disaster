@@ -1,0 +1,347 @@
+---
+interface Props {
+  fullscreen?: boolean;
+}
+
+const { fullscreen = false } = Astro.props;
+---
+
+<section class:list={['wenchuan-atlas', fullscreen && 'is-fullscreen']}>
+  <div class="wenchuan-welcome" id="wenchuan-welcome">
+    <button class="wenchuan-lang" type="button" id="wenchuan-lang">中文</button>
+    <div class="wenchuan-welcome-card">
+      <div class="atlas-entry-logo" aria-hidden="true"><span /></div>
+      <p class="eyebrow" data-en="Qiushan Li's Lab" data-zh="黎秋杉实验室">Qiushan Li's Lab</p>
+      <h1 data-en="Wenchuan Synthetic Recovery Atlas" data-zh="汶川合成恢复图谱">
+        Wenchuan Synthetic Recovery Atlas
+      </h1>
+      <p
+        class="welcome-line"
+        data-en="A synthetic-control reading of how Sichuan counties recovered after the 2008 Wenchuan earthquake."
+        data-zh="用合成控制方法阅读 2008 年汶川地震后四川县域恢复路径。"
+      >
+        A synthetic-control reading of how Sichuan counties recovered after the 2008 Wenchuan earthquake.
+      </p>
+      <p
+        class="welcome-note"
+        data-en="For each affected county, the atlas builds a weighted combination of 42 unaffected counties that looked similar before 2008, then asks what changed after the shock."
+        data-zh="对每个受灾县，图谱用 42 个未受灾县构造灾前相似的合成反事实，再比较 2008 年冲击后的偏离。"
+      >
+        For each affected county, the atlas builds a weighted combination of 42 unaffected counties that looked similar before 2008, then asks what changed after the shock.
+      </p>
+      <button class="wenchuan-enter" type="button" id="wenchuan-enter">Enter ↗</button>
+      <span data-en="SCM · 2000-2020 · 177 counties" data-zh="SCM · 2000-2020 · 177 个县区">SCM · 2000-2020 · 177 counties</span>
+    </div>
+  </div>
+
+  <div class="wenchuan-stage">
+    <svg id="scm-viz" viewBox="0 0 1200 760" role="img" aria-label="Synthetic control visualization">
+      <g class="scm-grid" id="scm-grid" />
+      <g class="scm-plot" id="scm-plot" />
+      <g class="scm-cursor" id="scm-cursor" />
+    </svg>
+  </div>
+
+  <aside class="wenchuan-panel">
+    <div>
+      <p class="eyebrow" data-en="Synthetic Control" data-zh="合成控制">Synthetic Control</p>
+      <h2 data-en="Actual recovery against a counterfactual Sichuan" data-zh="实际恢复与反事实四川">
+        Actual recovery against a counterfactual Sichuan
+      </h2>
+      <p
+        data-en="Gold is the observed path. Silver is the synthetic counterfactual. The copper gap is the estimated earthquake-era divergence."
+        data-zh="金色是真实路径，银色是合成反事实，铜色差距表示地震时期的恢复偏离。"
+      >
+        Gold is the observed path. Silver is the synthetic counterfactual. The copper gap is the estimated earthquake-era divergence.
+      </p>
+    </div>
+
+    <div class="scm-tabs" aria-label="SCM view selector">
+      <button class="is-active" type="button" data-view="counties" data-en="10 Counties" data-zh="十县 SCM">10 Counties</button>
+      <button type="button" data-view="county" data-en="Single County" data-zh="单县">Single County</button>
+      <button type="button" data-view="average" data-en="Extreme Average" data-zh="极重平均">Extreme Average</button>
+      <button type="button" data-view="intensity" data-en="Intensity" data-zh="强度异质性">Intensity</button>
+    </div>
+
+    <label class="scm-select">
+      <span data-en="Outcome" data-zh="结果变量">Outcome</span>
+      <select id="outcome-select"></select>
+    </label>
+
+    <label class="scm-select" id="county-select-wrap">
+      <span data-en="County" data-zh="县区">County</span>
+      <select id="county-select"></select>
+    </label>
+
+    <div class="year-control">
+      <span id="scm-year">2000</span>
+      <input id="scm-slider" type="range" min="2000" max="2020" value="2000" />
+      <button type="button" id="scm-play" data-en="Play" data-zh="播放">Play</button>
+    </div>
+
+    <div class="wenchuan-legend">
+      <span><i style="--c:#d9b46d"></i><b data-en="Actual path" data-zh="实际路径">Actual path</b></span>
+      <span><i style="--c:#d7d0c0"></i><b data-en="Synthetic counterfactual" data-zh="合成反事实">Synthetic counterfactual</b></span>
+      <span><i style="--c:#c76f7e"></i><b data-en="Post-2008 gap" data-zh="2008 后差距">Post-2008 gap</b></span>
+    </div>
+
+    <article class="wenchuan-story" id="scm-story">
+      <span>SCM</span>
+      <h3>Loading synthetic controls</h3>
+      <p>Preparing county-level counterfactuals.</p>
+    </article>
+
+    <div class="wenchuan-stats">
+      <div><strong id="stat-units">10</strong><span data-en="treated units" data-zh="处理单元">treated units</span></div>
+      <div><strong id="stat-donors">42</strong><span data-en="donor counties" data-zh="供体县">donor counties</span></div>
+      <div><strong id="stat-rmse">-</strong><span data-en="pre RMSE" data-zh="灾前 RMSE">pre RMSE</span></div>
+      <div><strong id="stat-gap">-</strong><span data-en="avg post gap" data-zh="平均后期差距">avg post gap</span></div>
+    </div>
+  </aside>
+</section>
+
+<script>
+  const resultsUrl = '/data/wenchuan-scm-results.json';
+  const welcome = document.getElementById('wenchuan-welcome');
+  const enter = document.getElementById('wenchuan-enter');
+  const langButton = document.getElementById('wenchuan-lang');
+  const plot = document.getElementById('scm-plot');
+  const grid = document.getElementById('scm-grid');
+  const cursor = document.getElementById('scm-cursor');
+  const story = document.getElementById('scm-story');
+  const outcomeSelect = document.getElementById('outcome-select');
+  const countySelect = document.getElementById('county-select');
+  const countySelectWrap = document.getElementById('county-select-wrap');
+  const slider = document.getElementById('scm-slider');
+  const yearLabel = document.getElementById('scm-year');
+  const playButton = document.getElementById('scm-play');
+  const viewButtons = Array.from(document.querySelectorAll('[data-view]'));
+  const statUnits = document.getElementById('stat-units');
+  const statDonors = document.getElementById('stat-donors');
+  const statRmse = document.getElementById('stat-rmse');
+  const statGap = document.getElementById('stat-gap');
+
+  let data = null;
+  let language = 'en';
+  let view = 'counties';
+  let outcome = 'real_gdp_pc';
+  let selectedCounty = '汶川县';
+  let playing = false;
+  let timer = null;
+
+  const groupColors = {
+    extreme: '#c76f7e',
+    severe: '#d9b46d',
+    general: '#8db7d2'
+  };
+
+  const copy = {
+    counties: {
+      en: ['Ten county-level counterfactuals', 'Each extremely affected county receives its own synthetic control. The small multiples preserve local difference before averaging anything away.'],
+      zh: ['十个县，各自的反事实', '每个极重灾区县都单独构造合成控制。小倍图保留地方差异，而不是一开始就把十个县平均掉。']
+    },
+    county: {
+      en: ['Single-county SCM', 'This view opens one county as a full trajectory: observed recovery, synthetic counterfactual, and the post-2008 gap.'],
+      zh: ['单县 SCM', '这一视图展开一个县的完整轨迹：真实恢复、合成反事实，以及 2008 年之后的差距。']
+    },
+    average: {
+      en: ['Extremely affected average unit', 'The average is built by first estimating ten county SCMs, then averaging treatment effects. This avoids treating the ten counties as if they were one identical place.'],
+      zh: ['极重灾区平均单元', '平均效应先由十个县分别做 SCM，再对处理效应求平均。这样不会把十个县粗暴地当成一个地方。']
+    },
+    intensity: {
+      en: ['Disaster intensity heterogeneity', 'Extreme and severe counties are compared through their average post-2008 gaps. General affected counties remain an extension rather than the main claim.'],
+      zh: ['灾害强度异质性', '通过 2008 年后的平均差距比较极重灾区与重灾区。一般灾区作为扩展分析，而不是主结论。']
+    }
+  };
+
+  const fmt = (value) => {
+    if (!Number.isFinite(value)) return '-';
+    const meta = data.meta.outcomes.find((item) => item.id === outcome);
+    if (meta?.format === 'percent') return `${(value * 100).toFixed(1)}%`;
+    if (Math.abs(value) < 10) return value.toFixed(3);
+    if (Math.abs(value) < 100) return value.toFixed(1);
+    return Math.round(value).toLocaleString();
+  };
+
+  const scale = (value, domain, range) => {
+    const [min, max] = domain;
+    const [a, b] = range;
+    if (max === min) return (a + b) / 2;
+    return a + ((value - min) / (max - min)) * (b - a);
+  };
+
+  const domainFor = (seriesList) => {
+    const values = seriesList.flat().filter(Number.isFinite);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const pad = (max - min || 1) * 0.12;
+    return [min - pad, max + pad];
+  };
+
+  const pathFor = (series, box, domain) => series.map((value, index) => {
+    const x = scale(data.meta.years[index], [2000, 2020], [box.x, box.x + box.w]);
+    const y = scale(value, domain, [box.y + box.h, box.y]);
+    return `${index === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+
+  const areaFor = (actual, synthetic, box, domain) => {
+    const top = actual.map((value, index) => {
+      const x = scale(data.meta.years[index], [2000, 2020], [box.x, box.x + box.w]);
+      const y = scale(value, domain, [box.y + box.h, box.y]);
+      return `${index === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    const bottom = synthetic.map((value, index) => {
+      const x = scale(data.meta.years[index], [2000, 2020], [box.x, box.x + box.w]);
+      const y = scale(value, domain, [box.y + box.h, box.y]);
+      return `L${x.toFixed(1)},${y.toFixed(1)}`;
+    }).reverse().join(' ');
+    return `${top} ${bottom} Z`;
+  };
+
+  const chartFrame = (box, label = '') => `
+    <rect class="scm-frame" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" />
+    <line class="scm-shock" x1="${scale(2008, [2000, 2020], [box.x, box.x + box.w])}" x2="${scale(2008, [2000, 2020], [box.x, box.x + box.w])}" y1="${box.y}" y2="${box.y + box.h}" />
+    ${label ? `<text class="scm-label" x="${box.x}" y="${box.y - 10}">${label}</text>` : ''}
+  `;
+
+  const drawLarge = (unit, title) => {
+    const box = { x: 165, y: 130, w: 880, h: 440 };
+    const domain = domainFor([unit.actual, unit.synthetic]);
+    grid.innerHTML = chartFrame(box, title);
+    plot.innerHTML = `
+      <path class="scm-gap-area" d="${areaFor(unit.actual, unit.synthetic, box, domain)}" />
+      <path class="scm-line synthetic" d="${pathFor(unit.synthetic, box, domain)}" />
+      <path class="scm-line actual" d="${pathFor(unit.actual, box, domain)}" />
+      <text class="scm-axis-note" x="${box.x}" y="${box.y + box.h + 42}">2000-2007: pre-treatment fit · 2008: earthquake shock · 2009-2020: estimated recovery gap</text>
+    `;
+    drawCursor(box);
+  };
+
+  const drawSmallMultiples = () => {
+    const counties = data.groups.extreme.counties;
+    const units = counties.map((county) => data.groups.extreme.outcomes[outcome].units[county]);
+    const allSeries = units.flatMap((unit) => [unit.actual, unit.synthetic]);
+    const domain = domainFor(allSeries);
+    const boxes = counties.map((county, index) => ({
+      county,
+      x: 120 + (index % 5) * 205,
+      y: 110 + Math.floor(index / 5) * 280,
+      w: 165,
+      h: 160
+    }));
+    grid.innerHTML = boxes.map((box) => chartFrame(box, box.county)).join('');
+    plot.innerHTML = boxes.map((box) => {
+      const unit = data.groups.extreme.outcomes[outcome].units[box.county];
+      return `
+        <path class="scm-gap-area small" d="${areaFor(unit.actual, unit.synthetic, box, domain)}" />
+        <path class="scm-line synthetic small" d="${pathFor(unit.synthetic, box, domain)}" />
+        <path class="scm-line actual small" d="${pathFor(unit.actual, box, domain)}" />
+      `;
+    }).join('');
+    drawCursor(boxes[0], true);
+  };
+
+  const drawIntensity = () => {
+    const box = { x: 165, y: 130, w: 880, h: 440 };
+    const series = ['extreme', 'severe', 'general'].map((group) => data.groups[group].outcomes[outcome].average.gap);
+    const domain = domainFor(series);
+    grid.innerHTML = `${chartFrame(box, language === 'zh' ? '灾害强度异质性：平均处理效应' : 'Disaster intensity: average treatment gaps')}<line class="scm-zero" x1="${box.x}" x2="${box.x + box.w}" y1="${scale(0, domain, [box.y + box.h, box.y])}" y2="${scale(0, domain, [box.y + box.h, box.y])}" />`;
+    plot.innerHTML = ['extreme', 'severe', 'general'].map((group) => `
+      <path class="scm-line intensity" style="--stroke:${groupColors[group]}" d="${pathFor(data.groups[group].outcomes[outcome].average.gap, box, domain)}" />
+      <text class="scm-label" x="${box.x + box.w - 120}" y="${scale(data.groups[group].outcomes[outcome].average.gap.at(-1), domain, [box.y + box.h, box.y]) - 8}">${language === 'zh' ? data.groups[group].zh : data.groups[group].label}</text>
+    `).join('');
+    drawCursor(box);
+  };
+
+  const drawCursor = (box, small = false) => {
+    const year = Number(slider.value);
+    const x = scale(year, [2000, 2020], [box.x, box.x + box.w]);
+    cursor.innerHTML = `<line class="year-cursor" x1="${x}" x2="${x}" y1="${small ? 88 : box.y - 18}" y2="${small ? 560 : box.y + box.h + 18}" /><text class="year-cursor-label" x="${x + 8}" y="${small ? 84 : box.y - 24}">${year}</text>`;
+  };
+
+  const selectedUnit = () => data.groups.extreme.outcomes[outcome].units[selectedCounty];
+
+  const updateStats = () => {
+    const group = view === 'intensity' ? data.groups.extreme.outcomes[outcome].average : view === 'county' ? selectedUnit() : data.groups.extreme.outcomes[outcome].average;
+    statUnits.textContent = view === 'county' ? '1' : view === 'intensity' ? '10/29' : '10';
+    statDonors.textContent = data.meta.donorPool.length;
+    statRmse.textContent = fmt(group.preRmse);
+    statGap.textContent = fmt(group.postGap);
+  };
+
+  const updateStory = () => {
+    const item = copy[view];
+    story.innerHTML = `<span>${view === 'intensity' ? 'Heterogeneity' : 'SCM'}</span><h3>${item[language][0]}</h3><p>${item[language][1]}</p>`;
+  };
+
+  const render = () => {
+    if (!data) return;
+    countySelectWrap.hidden = view !== 'county';
+    viewButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.view === view));
+    if (view === 'counties') drawSmallMultiples();
+    if (view === 'county') drawLarge(selectedUnit(), selectedCounty);
+    if (view === 'average') drawLarge(data.groups.extreme.outcomes[outcome].average, language === 'zh' ? '十个极重灾区：平均实际轨迹 vs 平均合成反事实' : 'Ten extremely affected counties: average actual vs synthetic');
+    if (view === 'intensity') drawIntensity();
+    yearLabel.textContent = slider.value;
+    updateStats();
+    updateStory();
+  };
+
+  const applyLanguage = (next) => {
+    language = next;
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-en]').forEach((el) => {
+      el.textContent = el.dataset[language];
+    });
+    langButton.textContent = language === 'zh' ? 'English' : '中文';
+    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : (playing ? 'Pause' : 'Play');
+    Array.from(outcomeSelect.options).forEach((option) => {
+      const meta = data?.meta.outcomes.find((item) => item.id === option.value);
+      if (meta) option.textContent = language === 'zh' ? meta.zh : meta.label;
+    });
+    render();
+  };
+
+  const togglePlay = () => {
+    playing = !playing;
+    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : (playing ? 'Pause' : 'Play');
+    window.clearInterval(timer);
+    if (playing) {
+      timer = window.setInterval(() => {
+        const year = Number(slider.value);
+        slider.value = String(year >= 2020 ? 2000 : year + 1);
+        render();
+      }, 760);
+    }
+  };
+
+  const init = async () => {
+    data = await fetch(resultsUrl).then((response) => response.json());
+    outcomeSelect.innerHTML = data.meta.outcomes.map((item) => `<option value="${item.id}">${item.label}</option>`).join('');
+    countySelect.innerHTML = data.groups.extreme.counties.map((county) => `<option value="${county}">${county}</option>`).join('');
+    selectedCounty = data.groups.extreme.counties.includes('汶川县') ? '汶川县' : data.groups.extreme.counties[0];
+    countySelect.value = selectedCounty;
+    render();
+  };
+
+  enter.addEventListener('click', () => welcome.classList.add('is-hidden'));
+  langButton.addEventListener('click', () => applyLanguage(language === 'zh' ? 'en' : 'zh'));
+  playButton.addEventListener('click', togglePlay);
+  slider.addEventListener('input', render);
+  outcomeSelect.addEventListener('change', () => {
+    outcome = outcomeSelect.value;
+    render();
+  });
+  countySelect.addEventListener('change', () => {
+    selectedCounty = countySelect.value;
+    render();
+  });
+  viewButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      view = button.dataset.view;
+      render();
+    });
+  });
+
+  init();
+</script>

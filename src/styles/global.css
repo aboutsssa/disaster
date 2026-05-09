@@ -1386,6 +1386,487 @@ h3 {
   font-weight: 800;
 }
 
+.wenchuan-atlas {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: rgba(255, 248, 234, 0.92);
+  background:
+    radial-gradient(circle at 72% 22%, rgba(199, 111, 126, 0.13), transparent 26%),
+    radial-gradient(circle at 45% 48%, rgba(217, 180, 109, 0.09), transparent 34%),
+    linear-gradient(135deg, #040506 0%, #0a0d10 42%, #11100e 100%);
+}
+
+.wenchuan-welcome {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 28px;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(42, 29, 37, 0.52) 0%, rgba(0, 0, 0, 0.96) 70%),
+    #000;
+  backdrop-filter: blur(10px);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.wenchuan-welcome.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.wenchuan-lang {
+  position: absolute;
+  right: 32px;
+  top: 28px;
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.62);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.wenchuan-lang:hover {
+  color: rgba(255, 255, 255, 0.94);
+  border-bottom-color: rgba(255, 255, 255, 0.94);
+}
+
+.wenchuan-welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(640px, calc(100vw - 3.5rem));
+  text-align: center;
+}
+
+.wenchuan-welcome-card .eyebrow {
+  margin: 0 0 20px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.wenchuan-welcome-card h1 {
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.94);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: clamp(44px, 6.4vw, 76px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.welcome-line {
+  max-width: 560px;
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.welcome-note {
+  max-width: 560px;
+  margin: 0 0 36px;
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.wenchuan-enter {
+  padding: 14px 36px;
+  color: rgba(255, 255, 255, 0.94);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.wenchuan-enter:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.94);
+}
+
+.wenchuan-welcome-card > span {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wenchuan-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#wenchuan-viz,
+#scm-viz {
+  width: 100%;
+  height: 100%;
+}
+
+.terrain-rings path {
+  fill: none;
+  stroke: rgba(232, 209, 168, 0.1);
+  stroke-width: 1;
+}
+
+.county-point {
+  opacity: 0.78;
+  stroke: rgba(255, 248, 234, 0.28);
+  stroke-width: 0.45;
+  filter: drop-shadow(0 0 9px rgba(217, 180, 109, 0.18));
+  transition: cx 0.55s ease, cy 0.55s ease, r 0.55s ease, fill 0.4s ease, opacity 0.2s ease;
+}
+
+.county-point:hover {
+  opacity: 1;
+  stroke-width: 1.2;
+}
+
+.focus-county circle {
+  fill: none;
+  stroke: rgba(199, 111, 126, 0.7);
+  stroke-width: 1.2;
+  opacity: 0;
+  transform-origin: center;
+  animation: wenchuan-pulse 2.8s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+.focus-county text {
+  fill: rgba(255, 248, 234, 0.72);
+  font-size: 11px;
+  font-weight: 650;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.72);
+  stroke-width: 3px;
+}
+
+@keyframes wenchuan-pulse {
+  0% {
+    opacity: 0.74;
+    transform: scale(0.72);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+.wenchuan-panel {
+  position: absolute;
+  left: 1.1rem;
+  top: 1.1rem;
+  z-index: 4;
+  display: grid;
+  gap: 0.7rem;
+  width: min(330px, calc(100vw - 2.2rem));
+  max-height: calc(100vh - 2.2rem);
+  overflow-y: auto;
+  padding: 0.86rem;
+  background:
+    linear-gradient(145deg, rgba(22, 25, 29, 0.78), rgba(12, 15, 19, 0.64)),
+    rgba(10, 12, 15, 0.58);
+  border: 1px solid rgba(232, 209, 168, 0.16);
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px) saturate(0.82);
+}
+
+.wenchuan-panel .eyebrow {
+  margin: 0;
+  color: rgba(217, 180, 109, 0.72);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+}
+
+.wenchuan-panel h2 {
+  margin: 0.1rem 0 0.25rem;
+  color: rgba(255, 248, 234, 0.94);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.wenchuan-panel p {
+  margin: 0;
+  color: rgba(224, 222, 214, 0.62);
+  font-size: 0.72rem;
+  line-height: 1.48;
+}
+
+.metric-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.35rem;
+}
+
+.scm-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.35rem;
+}
+
+.metric-tabs button,
+.scm-tabs button,
+.year-control button {
+  min-height: 30px;
+  color: rgba(247, 240, 228, 0.76);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(232, 209, 168, 0.12);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.metric-tabs button.is-active,
+.scm-tabs button.is-active,
+.year-control button:hover {
+  color: rgba(255, 248, 234, 0.96);
+  background: rgba(217, 180, 109, 0.18);
+  border-color: rgba(217, 180, 109, 0.32);
+}
+
+.scm-select {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.scm-select span {
+  color: rgba(217, 180, 109, 0.72);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scm-select select {
+  width: 100%;
+  min-height: 34px;
+  padding: 0.35rem 0.5rem;
+  color: rgba(255, 248, 234, 0.92);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(232, 209, 168, 0.12);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 0.74rem;
+}
+
+.year-control {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.year-control span {
+  color: rgba(255, 248, 234, 0.92);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+.year-control input {
+  accent-color: #d9b46d;
+}
+
+.wenchuan-legend {
+  display: grid;
+  gap: 0.32rem;
+}
+
+.wenchuan-legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(224, 222, 214, 0.62);
+  font-size: 0.66rem;
+}
+
+.wenchuan-legend i {
+  width: 10px;
+  height: 10px;
+  background: var(--c);
+  border-radius: 999px;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--c) 58%, transparent);
+}
+
+.wenchuan-story {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.7rem;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(232, 209, 168, 0.09);
+  border-radius: 7px;
+}
+
+.wenchuan-story span {
+  color: rgba(217, 180, 109, 0.72);
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wenchuan-story h3 {
+  margin: 0;
+  color: rgba(255, 248, 234, 0.92);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.wenchuan-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+}
+
+.wenchuan-stats div {
+  padding: 0.56rem;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(232, 209, 168, 0.08);
+  border-radius: 7px;
+}
+
+.wenchuan-stats strong {
+  display: block;
+  color: rgba(255, 248, 234, 0.94);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.wenchuan-stats span {
+  color: rgba(224, 222, 214, 0.48);
+  font-size: 0.62rem;
+  font-weight: 650;
+}
+
+.scm-grid {
+  opacity: 1;
+}
+
+.scm-frame {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(232, 209, 168, 0.12);
+  stroke-width: 1;
+}
+
+.scm-shock {
+  stroke: rgba(199, 111, 126, 0.5);
+  stroke-dasharray: 5 7;
+  stroke-width: 1.2;
+}
+
+.scm-zero {
+  stroke: rgba(255, 248, 234, 0.24);
+  stroke-dasharray: 3 8;
+}
+
+.scm-label {
+  fill: rgba(255, 248, 234, 0.72);
+  font-size: 12px;
+  font-weight: 650;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.72);
+  stroke-width: 3px;
+}
+
+.scm-axis-note {
+  fill: rgba(224, 222, 214, 0.46);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.scm-gap-area {
+  fill: rgba(199, 111, 126, 0.12);
+  stroke: none;
+  opacity: 0.9;
+}
+
+.scm-gap-area.small {
+  fill: rgba(199, 111, 126, 0.1);
+}
+
+.scm-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px rgba(217, 180, 109, 0.16));
+  animation: scm-draw 1.1s ease both;
+}
+
+.scm-line.small {
+  stroke-width: 1.8;
+}
+
+.scm-line.actual {
+  stroke: #d9b46d;
+}
+
+.scm-line.synthetic {
+  stroke: rgba(215, 208, 192, 0.72);
+  stroke-dasharray: 5 7;
+}
+
+.scm-line.intensity {
+  stroke: var(--stroke);
+  stroke-width: 3.2;
+}
+
+.year-cursor {
+  stroke: rgba(255, 248, 234, 0.36);
+  stroke-width: 1;
+}
+
+.year-cursor-label {
+  fill: rgba(255, 248, 234, 0.72);
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+@keyframes scm-draw {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 120;
+  }
+
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
 .disaster-marker-layer {
   position: absolute;
   inset: 0;
