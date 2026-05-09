@@ -1,7 +1,7 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { researchThemes } from '../data/site';
+import { researchProjects, researchThemes } from '../data/site';
 ---
 
 <BaseLayout title="Research">
@@ -56,6 +56,28 @@ import { researchThemes } from '../data/site';
         <span>Wenchuan recovery evidence meets global disaster exposure mapping.</span>
       </div>
     </div>
+  </section>
+
+  <section class="section-heading">
+    <p class="eyebrow">Research Projects</p>
+    <h2>Current project interfaces</h2>
+    <p>
+      These pages translate the research agenda into presentation, mapping, modeling, and
+      data-pipeline outputs.
+    </p>
+  </section>
+
+  <section class="project-list" aria-label="Research project list">
+    {
+      researchProjects.map((project) => (
+        <article>
+          <span>{project.eyebrow}</span>
+          <h3>{project.title}</h3>
+          <p>{project.description}</p>
+          <a href={project.href}>Open project</a>
+        </article>
+      ))
+    }
   </section>
 
   <section class="research-list">

@@ -42,6 +42,37 @@ export const researchThemes = [
   }
 ];
 
+export const researchProjects = [
+  {
+    title: 'Post-Disaster Monitoring Slide Deck',
+    eyebrow: 'Slides',
+    description:
+      'A presentation that turns the Wenchuan synthetic-control results and Himalayan extension into a concise research narrative.',
+    href: '/slides/'
+  },
+  {
+    title: 'Global Disaster & Re-Inhabitability Map',
+    eyebrow: 'Map',
+    description:
+      'An interactive globe for comparing live earthquake events, population exposure, flood risk, heat, fire, and future recovery layers.',
+    href: '/map/'
+  },
+  {
+    title: 'Wenchuan Recovery Atlas',
+    eyebrow: 'SCM Atlas',
+    description:
+      'A county-level 2000-2020 Sichuan panel application that compares actual recovery against synthetic counterfactual paths.',
+    href: '/wenchuan/'
+  },
+  {
+    title: 'Earth Engine Layer Roadmap',
+    eyebrow: 'Project Notes',
+    description:
+      'A working plan for publishing browser-ready remote-sensing layers from Earth Engine into the public observatory.',
+    href: '/projects/global-disaster-map/'
+  }
+] as const;
+
 export const recoveryDimensions = [
   'Social relationality',
   'Ecological embeddedness',
