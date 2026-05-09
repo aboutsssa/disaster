@@ -1,0 +1,1037 @@
+---
+import 'maplibre-gl/dist/maplibre-gl.css';
+---
+
+<main class="wenchuan-slides" id="wenchuan-slides">
+  <div class="slides-progress" aria-hidden="true"><span id="slides-progress-bar"></span></div>
+  <div class="slide-lang" role="group" aria-label="Presentation language">
+    <button class="is-active" type="button" data-slide-language="en">EN</button>
+    <button type="button" data-slide-language="zh">中文</button>
+    <button type="button" data-slide-language="hi">हिन्दी</button>
+  </div>
+
+  <section class="slide title-slide is-active" data-slide>
+    <div class="title-copy">
+      <p
+        class="slide-kicker"
+        data-en="Qiushan Li's Lab · Progress Report"
+        data-zh="黎秋杉实验室 · 进展汇报"
+        data-hi="च्यूशान ली प्रयोगशाला · प्रगति रिपोर्ट"
+      >
+        Qiushan Li's Lab · Progress Report
+      </p>
+      <h1
+        data-en="Post-Disaster Socioeconomic and Environmental Monitoring"
+        data-zh="灾后社会经济与环境监测"
+        data-hi="आपदा के बाद सामाजिक-आर्थिक और पर्यावरणीय निगरानी"
+      >
+        Post-Disaster Socioeconomic and Environmental Monitoring
+      </h1>
+      <p
+        class="slide-lede"
+        data-en="A synthetic-control and remote-sensing framework for reading recovery after major mountain disasters."
+        data-zh="一个结合合成控制与遥感指标的重大山地灾害恢复监测框架。"
+        data-hi="प्रमुख पर्वतीय आपदाओं के बाद पुनर्प्राप्ति को पढ़ने के लिए सिंथेटिक कंट्रोल और रिमोट सेंसिंग आधारित ढांचा।"
+      >
+        A synthetic-control and remote-sensing framework for reading recovery after major mountain disasters.
+      </p>
+      <div class="title-meta">
+        <span
+          data-en="Presenter: Qiushan Li's Lab"
+          data-zh="汇报：黎秋杉实验室"
+          data-hi="प्रस्तुतकर्ता: च्यूशान ली प्रयोगशाला"
+        >
+          Presenter: Qiushan Li's Lab
+        </span>
+        <span
+          data-en="May 2026"
+          data-zh="2026 年 5 月"
+          data-hi="मई 2026"
+        >
+          May 2026
+        </span>
+      </div>
+      <div class="slide-hero-stat">
+        <span data-en="Wenchuan case · 2000-2020 panel" data-zh="汶川案例 · 2000-2020 面板" data-hi="वेनचुआन केस · 2000-2020 पैनल">Wenchuan case · 2000-2020 panel</span>
+        <span data-en="177 counties" data-zh="177 个县区" data-hi="177 काउंटी">177 counties</span>
+        <span data-en="42 donor counties" data-zh="42 个供体县" data-hi="42 दाता काउंटी">42 donor counties</span>
+      </div>
+    </div>
+    <div class="title-globe-card" aria-label="Himalayan disaster globe">
+      <div id="slide-title-globe" class="slide-title-globe"></div>
+      <div class="title-globe-caption">
+        <span id="title-globe-year">2008</span>
+        <strong id="title-globe-name">Wenchuan Earthquake</strong>
+        <em id="title-globe-place">Sichuan, China</em>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide two-column" data-slide>
+    <div>
+      <p class="slide-kicker" data-en="Introduction" data-zh="引言" data-hi="परिचय">Introduction</p>
+      <h2
+        data-en="Disaster recovery is not one story."
+        data-zh="灾后恢复不是一个故事。"
+        data-hi="आपदा के बाद पुनर्प्राप्ति एक ही कहानी नहीं है।"
+      >
+        Disaster recovery is not one story.
+      </h2>
+      <p
+        data-en="The earthquake shock is shared, but county trajectories diverge. Some places appear to catch up quickly; others remain below what similar, unaffected counties would have suggested."
+        data-zh="地震冲击是共同的，但县域恢复轨迹并不相同。有些地方快速追赶，有些地方长期低于相似未受灾县所构成的反事实路径。"
+        data-hi="भूकंप का झटका साझा है, लेकिन काउंटी पुनर्प्राप्ति पथ अलग-अलग हैं। कुछ स्थान तेजी से पकड़ बनाते हैं; कुछ समान अप्रभावित काउंटियों से बने प्रतिकल्पित पथ से नीचे रहते हैं।"
+      >
+        The earthquake shock is shared, but county trajectories diverge. Some
+        places appear to catch up quickly; others remain below what similar,
+        unaffected counties would have suggested.
+      </p>
+    </div>
+    <div class="slide-quote">
+      <strong data-en="Question" data-zh="问题" data-hi="प्रश्न">Question</strong>
+      <span
+        data-en="How can we monitor social, economic, and environmental recovery after a disaster?"
+        data-zh="灾后社会、经济与环境恢复应该如何被持续监测？"
+        data-hi="आपदा के बाद सामाजिक, आर्थिक और पर्यावरणीय पुनर्प्राप्ति की निगरानी कैसे की जाए?"
+      >
+        How can we monitor social, economic, and environmental recovery after a disaster?
+      </span>
+    </div>
+  </section>
+
+  <section class="slide roadmap-slide" data-slide>
+    <p class="slide-kicker" data-en="Analytical Structure" data-zh="分析结构" data-hi="विश्लेषण संरचना">Analytical Structure</p>
+    <h2
+      data-en="Three views, one recovery argument."
+      data-zh="三种视角，讲清一个恢复逻辑。"
+      data-hi="तीन दृष्टिकोण, पुनर्प्राप्ति का एक तर्क।"
+    >
+      Three views, one recovery argument.
+    </h2>
+    <div class="roadmap-grid">
+      <article>
+        <span>01</span>
+        <strong data-en="Ten county SCMs" data-zh="十个极重灾区县 SCM" data-hi="दस काउंटी SCM">Ten county SCMs</strong>
+        <em
+          data-en="Each extremely affected county receives its own counterfactual path."
+          data-zh="每个极重灾区县都拥有一条独立的反事实轨迹。"
+          data-hi="हर अत्यधिक प्रभावित काउंटी के लिए अलग प्रतिकल्पित पथ बनाया गया है।"
+        >
+          Each extremely affected county receives its own counterfactual path.
+        </em>
+      </article>
+      <article>
+        <span>02</span>
+        <strong data-en="Extreme average unit" data-zh="极重灾区平均单元" data-hi="अत्यधिक प्रभावित औसत इकाई">Extreme average unit</strong>
+        <em
+          data-en="Ten county-level treatment effects are averaged into one core recovery signal."
+          data-zh="先分别估计十个县的处理效应，再汇总成核心恢复信号。"
+          data-hi="दस काउंटी-स्तरीय प्रभावों को मिलाकर एक मुख्य पुनर्प्राप्ति संकेत बनाया गया है।"
+        >
+          Ten county-level treatment effects are averaged into one core recovery signal.
+        </em>
+      </article>
+      <article>
+        <span>03</span>
+        <strong data-en="Intensity heterogeneity" data-zh="灾害强度异质性" data-hi="आपदा तीव्रता की विषमता">Intensity heterogeneity</strong>
+        <em
+          data-en="Extreme and severe counties are compared; general affected counties remain an extension."
+          data-zh="重点比较极重灾区与重灾区，一般灾区作为扩展分析。"
+          data-hi="मुख्य तुलना अत्यधिक और गंभीर प्रभावित काउंटियों के बीच है; सामान्य प्रभावित काउंटी विस्तार विश्लेषण हैं।"
+        >
+          Extreme and severe counties are compared; general affected counties remain an extension.
+        </em>
+      </article>
+    </div>
+  </section>
+
+  <section class="slide split-visual" data-slide>
+    <div>
+      <p class="slide-kicker" data-en="Data" data-zh="数据" data-hi="डेटा">Data</p>
+      <h2
+        data-en="County-year indicators become a recovery narrative."
+        data-zh="县域年度指标，转化为一条恢复叙事。"
+        data-hi="काउंटी-वर्ष संकेतक पुनर्प्राप्ति की कथा बनते हैं।"
+      >
+        County-year indicators become a recovery narrative.
+      </h2>
+      <p
+        data-en="The deck focuses on GDP per capita, with environmental and urban indicators available as supporting signals for resilience, reconstruction pressure, and land transformation."
+        data-zh="本演示重点关注人均 GDP，同时将环境与城镇化指标作为韧性、重建压力和土地转型的辅助信号。"
+        data-hi="यह प्रस्तुति प्रति व्यक्ति GDP पर केंद्रित है, और पर्यावरण व शहरी संकेतकों को लचीलापन, पुनर्निर्माण दबाव और भूमि परिवर्तन के सहायक संकेतों के रूप में उपयोग करती है।"
+      >
+        The deck focuses on GDP per capita, with environmental and urban indicators
+        available as supporting signals for resilience, reconstruction pressure,
+        and land transformation.
+      </p>
+    </div>
+    <div class="unit-table">
+      <span><b data-en="GDP per capita" data-zh="人均 GDP" data-hi="प्रति व्यक्ति GDP">GDP per capita</b><em data-en="current-year USD/person" data-zh="当年美元 / 人" data-hi="वर्तमान-वर्ष USD / व्यक्ति">current-year USD/person</em></span>
+      <span><b data-en="NDVI" data-zh="植被指数 NDVI" data-hi="NDVI वनस्पति सूचकांक">NDVI</b><em data-en="index" data-zh="指数" data-hi="सूचकांक">index</em></span>
+      <span><b data-en="PM10" data-zh="PM10 颗粒物" data-hi="PM10 कण">PM10</b><em data-en="µg/m³" data-zh="微克 / 立方米" data-hi="µg/m³">µg/m³</em></span>
+      <span><b data-en="Urbanization" data-zh="城镇化" data-hi="शहरीकरण">Urbanization</b><em data-en="population share" data-zh="人口占比" data-hi="जनसंख्या अनुपात">population share</em></span>
+      <span><b data-en="Impervious surface" data-zh="不透水面" data-hi="अभेद्य सतह">Impervious surface</b><em data-en="land-area share" data-zh="土地面积占比" data-hi="भूमि क्षेत्र अनुपात">land-area share</em></span>
+    </div>
+    <p
+      class="slide-footnote"
+      data-en="GDP is fitted in original yuan/person and displayed as current-year USD/person using World Bank annual average RMB/USD exchange rates."
+      data-zh="GDP 以原始元 / 人进行拟合，并按世界银行年度人民币兑美元平均汇率展示为当年美元 / 人。"
+      data-hi="GDP को मूल युआन / व्यक्ति में फिट किया गया है, और विश्व बैंक की वार्षिक औसत RMB/USD विनिमय दर से वर्तमान-वर्ष USD / व्यक्ति में प्रदर्शित किया गया है।"
+    >
+      GDP is fitted in original yuan/person and displayed as current-year USD/person using World Bank annual average RMB/USD exchange rates.
+    </p>
+  </section>
+
+  <section class="slide method-slide" data-slide>
+    <p class="slide-kicker" data-en="Method" data-zh="方法" data-hi="विधि">Method</p>
+    <h2
+      data-en="Synthetic control asks a simple counterfactual question."
+      data-zh="合成控制回答一个清晰的反事实问题。"
+      data-hi="सिंथेटिक कंट्रोल एक सरल प्रतिकल्पित प्रश्न पूछता है।"
+    >
+      Synthetic control asks a simple counterfactual question.
+    </h2>
+    <div class="method-flow">
+      <span data-en="affected county" data-zh="受灾县" data-hi="प्रभावित काउंटी">affected county</span>
+      <i></i>
+      <span data-en="weighted donors" data-zh="加权供体县" data-hi="भारित दाता काउंटी">weighted donors</span>
+      <i></i>
+      <span data-en="synthetic path" data-zh="合成路径" data-hi="सिंथेटिक पथ">synthetic path</span>
+      <i></i>
+      <span data-en="post-2008 gap" data-zh="2008 年后差距" data-hi="2008 के बाद अंतर">post-2008 gap</span>
+    </div>
+    <p
+      data-en="For each extremely affected county, 42 unaffected counties are weighted to match the 2000-2007 pre-earthquake trajectory. The post-2008 difference is read as a recovery gap, not as a single causal slogan."
+      data-zh="对每个极重灾区县，用 42 个未受灾县加权匹配 2000-2007 年震前轨迹。2008 年后的差异被解读为恢复差距，而不是一句简单的因果口号。"
+      data-hi="हर अत्यधिक प्रभावित काउंटी के लिए 42 अप्रभावित काउंटियों को भार देकर 2000-2007 के भूकंप-पूर्व पथ से मिलाया गया। 2008 के बाद का अंतर पुनर्प्राप्ति अंतर के रूप में पढ़ा गया है, न कि किसी एक सरल causal दावे के रूप में।"
+    >
+      For each extremely affected county, 42 unaffected counties are weighted to
+      match the 2000-2007 pre-earthquake trajectory. The post-2008 difference is
+      read as a recovery gap, not as a single causal slogan.
+    </p>
+  </section>
+
+  <section class="slide county-matrix-slide" data-slide>
+    <div>
+      <p class="slide-kicker" data-en="01 · Ten County SCMs" data-zh="01 · 十个县域 SCM" data-hi="01 · दस काउंटी SCM">01 · Ten County SCMs</p>
+      <h2
+        data-en="Start with local trajectories before averaging them away."
+        data-zh="先看地方轨迹，再谈平均结果。"
+        data-hi="औसत निकालने से पहले स्थानीय पथों से शुरू करें।"
+      >
+        Start with local trajectories before averaging them away.
+      </h2>
+      <p
+        data-en="Every extremely affected county gets a separate SCM. This protects the local story: Anzhou, Wenchuan, Mianzhu, Beichuan, and Dujiangyan do not recover in the same way."
+        data-zh="每个极重灾区县都有独立的 SCM。这能保留地方故事：安州、汶川、绵竹、北川、都江堰的恢复方式并不相同。"
+        data-hi="हर अत्यधिक प्रभावित काउंटी का अलग SCM है। इससे स्थानीय कथा सुरक्षित रहती है: अन्झोउ, वेनचुआन, मियानझू, बेइचुआन और दुजियांगयान समान ढंग से पुनर्प्राप्त नहीं होते।"
+      >
+        Every extremely affected county gets a separate SCM. This protects the
+        local story: Anzhou, Wenchuan, Mianzhu, Beichuan, and Dujiangyan do not
+        recover in the same way.
+      </p>
+    </div>
+    <svg class="mini-matrix" id="chart-ten-counties" viewBox="0 0 820 460" aria-label="Ten county SCM small multiples"></svg>
+  </section>
+
+  <section class="slide chart-slide" data-slide>
+    <div class="chart-copy">
+      <p class="slide-kicker" data-en="02 · Extreme Average SCM" data-zh="02 · 极重灾区平均 SCM" data-hi="02 · अत्यधिक प्रभावित औसत SCM">02 · Extreme Average SCM</p>
+      <h2
+        data-en="The average unit summarizes a collective recovery deficit."
+        data-zh="平均单元概括了集体恢复缺口。"
+        data-hi="औसत इकाई सामूहिक पुनर्प्राप्ति कमी को संक्षेपित करती है।"
+      >
+        The average unit summarizes a collective recovery deficit.
+      </h2>
+      <p
+        data-en="The average is not built by pretending ten counties are one place. It is built by estimating ten county SCMs first, then averaging their treatment effects into a single extreme-zone signal."
+        data-zh="平均结果不是把十个县假装成一个地方，而是先分别估计十个县的 SCM，再把处理效应汇总成一个极重灾区信号。"
+        data-hi="यह औसत दस काउंटियों को एक स्थान मानकर नहीं बनाया गया। पहले दस काउंटी SCM अनुमानित किए गए, फिर उनके प्रभावों को एक अत्यधिक प्रभावित क्षेत्र संकेत में औसत किया गया।"
+      >
+        The average is not built by pretending ten counties are one place. It is
+        built by estimating ten county SCMs first, then averaging their treatment
+        effects into a single extreme-zone signal.
+      </p>
+    </div>
+    <svg class="slide-chart" id="chart-average" viewBox="0 0 760 430" aria-label="Average SCM chart"></svg>
+  </section>
+
+  <section class="slide chart-slide intensity-story" data-slide>
+    <div class="chart-copy">
+      <p class="slide-kicker" data-en="03 · Disaster Intensity Heterogeneity" data-zh="03 · 灾害强度异质性" data-hi="03 · आपदा तीव्रता विषमता">03 · Disaster Intensity Heterogeneity</p>
+      <h2
+        data-en="Intensity changes the recovery comparison."
+        data-zh="灾害强度会改变恢复比较。"
+        data-hi="तीव्रता पुनर्प्राप्ति तुलना को बदल देती है।"
+      >
+        Intensity changes the recovery comparison.
+      </h2>
+      <p
+        id="story-intensity"
+        data-en="Extreme counties are the main treatment group; severe counties provide the comparison of stronger versus weaker disaster exposure. General affected counties are shown as an extension."
+        data-zh="极重灾区是主处理组；重灾区用于比较较强与较弱灾害暴露的恢复差异；一般灾区作为扩展呈现。"
+        data-hi="अत्यधिक प्रभावित काउंटी मुख्य treatment group हैं; गंभीर प्रभावित काउंटी अधिक और कम आपदा exposure की तुलना देती हैं; सामान्य प्रभावित काउंटी विस्तार के रूप में दिखाई गई हैं।"
+      >
+        Extreme counties are the main treatment group; severe counties provide
+        the comparison of stronger versus weaker disaster exposure. General
+        affected counties are shown as an extension.
+      </p>
+    </div>
+    <svg class="slide-chart" id="chart-intensity" viewBox="0 0 760 430" aria-label="Disaster intensity heterogeneity chart"></svg>
+  </section>
+
+  <section class="slide chart-slide story-positive" data-slide>
+    <div class="chart-copy">
+      <p class="slide-kicker" data-en="Story from 01 · Anzhou" data-zh="故事 01 · 安州" data-hi="कथा 01 · अन्झोउ">Story from 01 · Anzhou</p>
+      <h2
+        data-en="Anzhou looks like a delayed catch-up story."
+        data-zh="安州像是一个延迟追赶的故事。"
+        data-hi="अन्झोउ विलंबित पकड़ बनाने की कहानी जैसा दिखता है।"
+      >
+        Anzhou looks like a delayed catch-up story.
+      </h2>
+      <p
+        id="story-anzhou"
+        data-en="Pre-disaster fit is tight. The county falls below its counterfactual immediately after the earthquake, then gradually closes the gap and ends above the synthetic path."
+        data-zh="灾前拟合较好。地震后安州一度低于反事实轨迹，随后逐步缩小差距，并在期末高于合成路径。"
+        data-hi="आपदा-पूर्व फिट मजबूत है। भूकंप के तुरंत बाद काउंटी प्रतिकल्पित पथ से नीचे जाती है, फिर धीरे-धीरे अंतर बंद करती है और अंत में सिंथेटिक पथ से ऊपर आती है।"
+      >
+        Pre-disaster fit is tight. The county falls below its counterfactual
+        immediately after the earthquake, then gradually closes the gap and ends
+        above the synthetic path.
+      </p>
+    </div>
+    <svg class="slide-chart" id="chart-anzhou" viewBox="0 0 760 430" aria-label="Anzhou SCM chart"></svg>
+  </section>
+
+  <section class="slide chart-slide story-positive" data-slide>
+    <div class="chart-copy">
+      <p class="slide-kicker" data-en="Story from 01 · Wenchuan" data-zh="故事 01 · 汶川" data-hi="कथा 01 · वेनचुआन">Story from 01 · Wenchuan</p>
+      <h2
+        data-en="Wenchuan becomes the emblem of visible reconstruction momentum."
+        data-zh="汶川呈现出最具象征性的重建动能。"
+        data-hi="वेनचुआन स्पष्ट पुनर्निर्माण गति का प्रतीक बनता है।"
+      >
+        Wenchuan becomes the emblem of visible reconstruction momentum.
+      </h2>
+      <p
+        id="story-wenchuan"
+        data-en="The observed path rises above the synthetic counterfactual throughout the post-2008 period, suggesting a reconstruction-led growth trajectory."
+        data-zh="2008 年后，实际轨迹持续高于合成反事实路径，显示出重建带动增长的恢复特征。"
+        data-hi="2008 के बाद वास्तविक पथ लगातार सिंथेटिक प्रतिकल्प से ऊपर रहता है, जो पुनर्निर्माण-प्रेरित वृद्धि पथ का संकेत देता है।"
+      >
+        The observed path rises above the synthetic counterfactual throughout the
+        post-2008 period, suggesting a reconstruction-led growth trajectory.
+      </p>
+    </div>
+    <svg class="slide-chart" id="chart-wenchuan" viewBox="0 0 760 430" aria-label="Wenchuan SCM chart"></svg>
+  </section>
+
+  <section class="slide regional-slide" data-slide>
+    <p
+      class="slide-kicker"
+      data-en="Regional Extension · Trans-Himalaya"
+      data-zh="区域延展 · 环喜马拉雅"
+      data-hi="क्षेत्रीय विस्तार · ट्रांस-हिमालय"
+    >
+      Regional Extension · Trans-Himalaya
+    </p>
+    <h2
+      data-en="Wenchuan is one window into a wider mountain disaster system."
+      data-zh="汶川是理解更广泛山地灾害系统的一扇窗口。"
+      data-hi="वेनचुआन व्यापक पर्वतीय आपदा प्रणाली को समझने की एक खिड़की है।"
+    >
+      Wenchuan is one window into a wider mountain disaster system.
+    </h2>
+    <p
+      data-en="After the Wenchuan case, the same monitoring logic can travel along the Himalayan disaster belt: earthquakes, landslides, floods, glacier-lake risk, and uneven recovery."
+      data-zh="在汶川案例之后，同样的监测逻辑可以延展到环喜马拉雅灾害带：地震、滑坡、洪水、冰湖风险，以及不均衡的灾后恢复。"
+      data-hi="वेनचुआन केस के बाद यही निगरानी तर्क हिमालयी आपदा पट्टी तक फैल सकता है: भूकंप, भूस्खलन, बाढ़, हिमनद झील जोखिम और असमान पुनर्प्राप्ति।"
+    >
+      After the Wenchuan case, the same monitoring logic can travel along the Himalayan disaster belt:
+      earthquakes, landslides, floods, glacier-lake risk, and uneven recovery.
+    </p>
+    <div class="regional-cases">
+      <article>
+        <span>2015</span>
+        <strong
+          data-en="Nepal Gorkha earthquake"
+          data-zh="尼泊尔廓尔喀地震"
+          data-hi="नेपाल गोरखा भूकंप"
+        >
+          Nepal Gorkha earthquake
+        </strong>
+        <em
+          data-en="Mountain settlements, heritage cities, and livelihood recovery."
+          data-zh="山地聚落、遗产城市与生计恢复。"
+          data-hi="पर्वतीय बस्तियां, विरासत शहर और आजीविका पुनर्प्राप्ति।"
+        >
+          Mountain settlements, heritage cities, and livelihood recovery.
+        </em>
+      </article>
+      <article>
+        <span>2005</span>
+        <strong
+          data-en="Kashmir earthquake"
+          data-zh="克什米尔地震"
+          data-hi="कश्मीर भूकंप"
+        >
+          Kashmir earthquake
+        </strong>
+        <em
+          data-en="Cross-border mountain vulnerability and reconstruction capacity."
+          data-zh="跨境山地脆弱性与重建能力。"
+          data-hi="सीमापार पर्वतीय संवेदनशीलता और पुनर्निर्माण क्षमता।"
+        >
+          Cross-border mountain vulnerability and reconstruction capacity.
+        </em>
+      </article>
+      <article>
+        <span>2013</span>
+        <strong
+          data-en="Uttarakhand flood and landslides"
+          data-zh="北阿坎德洪水与滑坡"
+          data-hi="उत्तराखंड बाढ़ और भूस्खलन"
+        >
+          Uttarakhand flood and landslides
+        </strong>
+        <em
+          data-en="Compound hydro-climatic hazard in steep terrain."
+          data-zh="陡峭地形中的复合水文气候灾害。"
+          data-hi="खड़ी भू-आकृति में संयुक्त जलवायु-जल विज्ञान संबंधी जोखिम।"
+        >
+          Compound hydro-climatic hazard in steep terrain.
+        </em>
+      </article>
+    </div>
+  </section>
+
+  <section class="slide chart-slide story-negative" data-slide>
+    <div class="chart-copy">
+      <p class="slide-kicker" data-en="Story from 01 · Mianzhu" data-zh="故事 01 · 绵竹" data-hi="कथा 01 · मियानझू">Story from 01 · Mianzhu</p>
+      <h2
+        data-en="Mianzhu shows the cost of being below the counterfactual."
+        data-zh="绵竹展示了低于反事实路径的恢复代价。"
+        data-hi="मियानझू counterfactual से नीचे रहने की कीमत दिखाता है।"
+      >
+        Mianzhu shows the cost of being below the counterfactual.
+      </h2>
+      <p
+        id="story-mianzhu"
+        data-en="After 2008, observed GDP per capita remains persistently lower than the synthetic path. The gap grows by 2020 rather than disappearing."
+        data-zh="2008 年后，实际人均 GDP 持续低于合成路径。到 2020 年，这个缺口并没有消失，反而继续扩大。"
+        data-hi="2008 के बाद observed प्रति व्यक्ति GDP लगातार synthetic path से नीचे रहता है। 2020 तक यह अंतर खत्म होने के बजाय बढ़ता है।"
+      >
+        After 2008, observed GDP per capita remains persistently lower than the
+        synthetic path. The gap grows by 2020 rather than disappearing.
+      </p>
+    </div>
+    <svg class="slide-chart" id="chart-mianzhu" viewBox="0 0 760 430" aria-label="Mianzhu SCM chart"></svg>
+  </section>
+
+  <section class="slide insight-slide" data-slide>
+    <p class="slide-kicker" data-en="Discussion" data-zh="讨论" data-hi="चर्चा">Discussion</p>
+    <h2
+      data-en="The recovery map is heterogeneous."
+      data-zh="恢复版图高度异质。"
+      data-hi="पुनर्प्राप्ति का मानचित्र विषम है।"
+    >
+      The recovery map is heterogeneous.
+    </h2>
+    <div class="insight-grid">
+      <article>
+        <strong data-en="Positive divergence" data-zh="正向偏离" data-hi="सकारात्मक विचलन">Positive divergence</strong>
+        <span
+          data-en="Wenchuan and Mao County sit above their synthetic trajectories."
+          data-zh="汶川与茂县高于各自的合成轨迹。"
+          data-hi="वेनचुआन और माओ काउंटी अपने synthetic trajectories से ऊपर हैं।"
+        >
+          Wenchuan and Mao County sit above their synthetic trajectories.
+        </span>
+      </article>
+      <article>
+        <strong data-en="Persistent deficit" data-zh="持续缺口" data-hi="स्थायी कमी">Persistent deficit</strong>
+        <span
+          data-en="Mianzhu, Shifang, Dujiangyan, and Beichuan remain below their counterfactual paths."
+          data-zh="绵竹、什邡、都江堰和北川仍低于各自反事实路径。"
+          data-hi="मियानझू, शिफांग, दुजियांगयान और बेइचुआन अपने प्रतिकल्पित पथों से नीचे बने रहते हैं।"
+        >
+          Mianzhu, Shifang, Dujiangyan, and Beichuan remain below their counterfactual paths.
+        </span>
+      </article>
+      <article>
+        <strong data-en="Interpret with care" data-zh="谨慎解释" data-hi="सावधानी से व्याख्या">Interpret with care</strong>
+        <span
+          data-en="SCM clarifies divergence, but mechanisms need policy, investment, migration, and industrial evidence."
+          data-zh="SCM 能揭示偏离，但机制解释仍需要政策、投资、迁移与产业证据支撑。"
+          data-hi="SCM विचलन को स्पष्ट करता है, लेकिन mechanism समझने के लिए policy, investment, migration और industrial evidence चाहिए।"
+        >
+          SCM clarifies divergence, but mechanisms need policy, investment, migration, and industrial evidence.
+        </span>
+      </article>
+    </div>
+  </section>
+
+  <section class="slide conclusion-slide" data-slide>
+    <p class="slide-kicker" data-en="Conclusion" data-zh="结论" data-hi="निष्कर्ष">Conclusion</p>
+    <h2
+      data-en="From disaster impact to re-inhabitability."
+      data-zh="从灾害冲击，走向重新宜居。"
+      data-hi="आपदा प्रभाव से फिर से रहने योग्य भविष्य तक।"
+    >
+      From disaster impact to re-inhabitability.
+    </h2>
+    <p
+      data-en="The Wenchuan case shows that recovery is not simply a return to trend. It is a spatially uneven reconstruction of livelihoods, population, infrastructure, and ecological conditions."
+      data-zh="汶川案例表明，恢复并不只是回到原有趋势，而是生计、人口、基础设施与生态条件在空间上的不均衡重建。"
+      data-hi="वेनचुआन केस दिखाता है कि recovery केवल पुराने trend पर लौटना नहीं है। यह livelihoods, population, infrastructure और ecological conditions का spatially uneven reconstruction है।"
+    >
+      The Wenchuan case shows that recovery is not simply a return to trend.
+      It is a spatially uneven reconstruction of livelihoods, population,
+      infrastructure, and ecological conditions.
+    </p>
+    <div class="closing-line">
+      <span data-en="Measure the counterfactual." data-zh="测量反事实。" data-hi="Counterfactual को मापें।">Measure the counterfactual.</span>
+      <span data-en="Tell the local story." data-zh="讲清地方故事。" data-hi="स्थानीय कहानी कहें।">Tell the local story.</span>
+      <span data-en="Design for recovery." data-zh="为恢复而设计。" data-hi="Recovery के लिए design करें।">Design for recovery.</span>
+    </div>
+  </section>
+
+  <section class="slide references-slide" data-slide>
+    <p class="slide-kicker" data-en="References · Thanks" data-zh="参考文献 · 致谢" data-hi="संदर्भ · धन्यवाद">References · Thanks</p>
+    <h2 data-en="Thank you" data-zh="谢谢" data-hi="धन्यवाद">Thank you</h2>
+    <ul>
+      <li
+        data-en="Abadie, Diamond, and Hainmueller. Synthetic control methods for comparative case studies."
+        data-zh="Abadie、Diamond 与 Hainmueller：比较案例研究中的合成控制方法。"
+        data-hi="Abadie, Diamond और Hainmueller: comparative case studies के लिए synthetic control methods।"
+      >
+        Abadie, Diamond, and Hainmueller. Synthetic control methods for comparative case studies.
+      </li>
+      <li
+        data-en="World Bank PA.NUS.FCRF. Official exchange rate, China, annual period average."
+        data-zh="世界银行 PA.NUS.FCRF：中国官方汇率，年度平均。"
+        data-hi="World Bank PA.NUS.FCRF: China official exchange rate, annual period average।"
+      >
+        World Bank PA.NUS.FCRF. Official exchange rate, China, annual period average.
+      </li>
+      <li
+        data-en="Sichuan county-year panel, 2000-2020. Wenchuan earthquake recovery indicators."
+        data-zh="四川县域年度面板，2000-2020：汶川地震恢复指标。"
+        data-hi="Sichuan county-year panel, 2000-2020: Wenchuan earthquake recovery indicators।"
+      >
+        Sichuan county-year panel, 2000-2020. Wenchuan earthquake recovery indicators.
+      </li>
+    </ul>
+    <p
+      class="thanks"
+      data-en="Qiushan Li's Lab · Humanistic Disaster GIS"
+      data-zh="黎秋杉实验室 · 人文灾害 GIS"
+      data-hi="च्यूशान ली प्रयोगशाला · Humanistic Disaster GIS"
+    >
+      Qiushan Li's Lab · Humanistic Disaster GIS
+    </p>
+  </section>
+
+  <nav class="slide-nav" aria-label="Slide navigation">
+    <button type="button" id="slide-prev" aria-label="Previous slide">‹</button>
+    <span id="slide-count">1 / 15</span>
+    <button type="button" id="slide-next" aria-label="Next slide">›</button>
+  </nav>
+</main>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+
+  const deck = document.getElementById('wenchuan-slides');
+  const slides = Array.from(document.querySelectorAll('[data-slide]'));
+  const prevButton = document.getElementById('slide-prev');
+  const nextButton = document.getElementById('slide-next');
+  const slideCount = document.getElementById('slide-count');
+  const progress = document.getElementById('slides-progress-bar');
+  const languageButtons = Array.from(document.querySelectorAll('[data-slide-language]'));
+  const titleGlobeContainer = document.getElementById('slide-title-globe');
+  const titleGlobeYear = document.getElementById('title-globe-year');
+  const titleGlobeName = document.getElementById('title-globe-name');
+  const titleGlobePlace = document.getElementById('title-globe-place');
+  let current = 0;
+  let data = null;
+  let language = 'en';
+  let titleGlobe = null;
+  let titleGlobeTimer = null;
+  let titleGlobeIndex = 0;
+
+  const years = Array.from({ length: 21 }, (_, index) => 2000 + index);
+
+  const copy = {
+    en: {
+      fallbackGlobe: 'Himalayan disaster belt',
+      earthquake2008: '2008 earthquake',
+      actual: 'actual',
+      synthetic: 'synthetic',
+      gdpNote: 'GDP per capita, current-year USD/person',
+      postGapAvg: 'post gap avg',
+      countyMatrixCaption: 'Each panel is one county SCM · label shows average post-2008 gap',
+      averageTitle: 'Extremely affected counties · average SCM',
+      anzhouTitle: 'Anzhou District · delayed catch-up',
+      wenchuanTitle: 'Wenchuan County · reconstruction momentum',
+      mianzhuTitle: 'Mianzhu City · persistent deficit',
+      intensityTitle: 'Average treatment gaps by disaster intensity',
+      intensityNote: 'Extreme: main treatment · Severe: comparison · General: extension',
+      extreme: 'Extremely affected',
+      severe: 'Severely affected',
+      general: 'Generally affected',
+      anzhouStory: (gap2009, gap2020) =>
+        `Pre-disaster fit is almost exact. The 2009 gap is ${gap2009}, but by 2020 Anzhou is ${gap2020} above its synthetic path.`,
+      wenchuanStory: (postGap, gap2020) =>
+        `Wenchuan stays above its counterfactual after 2008, with an average post-earthquake gap of ${postGap} and a 2020 gap of ${gap2020}.`,
+      mianzhuStory: (gap2020) =>
+        `Mianzhu remains below its synthetic path in every post-2008 year, ending 2020 at ${gap2020} relative to the counterfactual.`,
+      intensityStory: (extreme, severe, general) =>
+        `Extreme counties average ${extreme} after 2008, while severe counties average ${severe}. General affected counties average ${general} and are treated as an extension.`
+    },
+    zh: {
+      fallbackGlobe: '环喜马拉雅灾害带',
+      earthquake2008: '2008 年地震',
+      actual: '实际轨迹',
+      synthetic: '合成反事实',
+      gdpNote: '人均 GDP，当年美元 / 人',
+      postGapAvg: '灾后平均差距',
+      countyMatrixCaption: '每个小图代表一个县域 SCM · 标签为 2008 年后平均差距',
+      averageTitle: '极重灾区 · 平均 SCM',
+      anzhouTitle: '安州区 · 延迟追赶',
+      wenchuanTitle: '汶川县 · 重建动能',
+      mianzhuTitle: '绵竹市 · 持续缺口',
+      intensityTitle: '按灾害强度分组的平均处理差距',
+      intensityNote: '极重灾区：主处理组 · 重灾区：比较组 · 一般灾区：扩展分析',
+      extreme: '极重灾区',
+      severe: '重灾区',
+      general: '一般灾区',
+      anzhouStory: (gap2009, gap2020) =>
+        `灾前拟合几乎重合。2009 年差距为 ${gap2009}，但到 2020 年，安州已高于合成路径 ${gap2020}。`,
+      wenchuanStory: (postGap, gap2020) =>
+        `2008 年后汶川持续高于反事实路径，灾后平均差距为 ${postGap}，2020 年差距为 ${gap2020}。`,
+      mianzhuStory: (gap2020) =>
+        `绵竹在 2008 年后每一年都低于合成路径，到 2020 年相对反事实路径的差距为 ${gap2020}。`,
+      intensityStory: (extreme, severe, general) =>
+        `极重灾区在 2008 年后的平均差距为 ${extreme}，重灾区平均为 ${severe}。一般灾区平均为 ${general}，在这里作为扩展分析呈现。`
+    },
+    hi: {
+      fallbackGlobe: 'हिमालयी आपदा पट्टी',
+      earthquake2008: '2008 भूकंप',
+      actual: 'वास्तविक',
+      synthetic: 'सिंथेटिक प्रतिकल्प',
+      gdpNote: 'प्रति व्यक्ति GDP, वर्तमान-वर्ष USD / व्यक्ति',
+      postGapAvg: 'आपदा-बाद औसत अंतर',
+      countyMatrixCaption: 'हर panel एक county SCM है · label 2008 के बाद औसत अंतर दिखाता है',
+      averageTitle: 'अत्यधिक प्रभावित काउंटी · औसत SCM',
+      anzhouTitle: 'अन्झोउ जिला · विलंबित पकड़',
+      wenchuanTitle: 'वेनचुआन काउंटी · पुनर्निर्माण गति',
+      mianzhuTitle: 'मियानझू शहर · स्थायी कमी',
+      intensityTitle: 'आपदा तीव्रता के अनुसार औसत treatment gaps',
+      intensityNote: 'अत्यधिक: मुख्य treatment · गंभीर: तुलना · सामान्य: विस्तार',
+      extreme: 'अत्यधिक प्रभावित',
+      severe: 'गंभीर प्रभावित',
+      general: 'सामान्य प्रभावित',
+      anzhouStory: (gap2009, gap2020) =>
+        `आपदा-पूर्व fit लगभग सटीक है। 2009 का अंतर ${gap2009} है, लेकिन 2020 तक अन्झोउ अपने synthetic path से ${gap2020} ऊपर है।`,
+      wenchuanStory: (postGap, gap2020) =>
+        `वेनचुआन 2008 के बाद counterfactual से ऊपर रहता है; औसत post-earthquake gap ${postGap} और 2020 gap ${gap2020} है।`,
+      mianzhuStory: (gap2020) =>
+        `मियानझू 2008 के बाद हर वर्ष synthetic path से नीचे रहता है, और 2020 में counterfactual की तुलना में ${gap2020} पर समाप्त होता है।`,
+      intensityStory: (extreme, severe, general) =>
+        `अत्यधिक प्रभावित काउंटियों का 2008 के बाद औसत ${extreme} है, जबकि गंभीर प्रभावित काउंटियों का औसत ${severe} है। सामान्य प्रभावित काउंटियों का औसत ${general} है और उन्हें विस्तार के रूप में पढ़ा गया है।`
+    }
+  };
+
+  const t = (key) => copy[language]?.[key] ?? copy.en[key] ?? key;
+
+  const titleGlobeCases = [
+    {
+      coordinates: [103.4, 31.0],
+      year: 2008,
+      en: ['Wenchuan Earthquake', 'Sichuan, China'],
+      zh: ['汶川地震', '中国四川'],
+      hi: ['वेनचुआन भूकंप', 'सिचुआन, चीन']
+    },
+    {
+      coordinates: [84.7, 28.15],
+      year: 2015,
+      en: ['Gorkha Earthquake', 'Central Nepal Himalaya'],
+      zh: ['尼泊尔廓尔喀地震', '尼泊尔中部喜马拉雅'],
+      hi: ['गोरखा भूकंप', 'मध्य नेपाल हिमालय']
+    },
+    {
+      coordinates: [73.59, 34.49],
+      year: 2005,
+      en: ['Kashmir Earthquake', 'Kashmir Himalaya'],
+      zh: ['克什米尔地震', '克什米尔喜马拉雅'],
+      hi: ['कश्मीर भूकंप', 'कश्मीर हिमालय']
+    },
+    {
+      coordinates: [88.15, 27.72],
+      year: 2011,
+      en: ['Sikkim Himalayan Earthquake', 'Eastern Himalaya'],
+      zh: ['锡金喜马拉雅地震', '喜马拉雅东段'],
+      hi: ['सिक्किम हिमालयी भूकंप', 'पूर्वी हिमालय']
+    },
+    {
+      coordinates: [102.08, 29.59],
+      year: 2022,
+      en: ['Luding Earthquake', 'Eastern Tibetan Plateau'],
+      zh: ['泸定地震', '青藏高原东缘'],
+      hi: ['लुडिंग भूकंप', 'पूर्वी तिब्बती पठार']
+    }
+  ];
+
+  const applyLanguage = (next) => {
+    language = next;
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language === 'hi' ? 'hi-IN' : 'en';
+    document.querySelectorAll('[data-en]').forEach((element) => {
+      element.textContent = element.dataset[language] ?? element.dataset.en;
+    });
+    languageButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.slideLanguage === language));
+    updateTitleGlobeCaption(titleGlobeCases[(titleGlobeIndex + titleGlobeCases.length - 1) % titleGlobeCases.length]);
+    if (data) drawAll();
+  };
+
+  const updateTitleGlobeCaption = (item) => {
+    if (!item || !titleGlobeYear || !titleGlobeName || !titleGlobePlace) return;
+    const [name, place] = item[language] ?? item.en;
+    titleGlobeYear.textContent = item.year;
+    titleGlobeName.textContent = name;
+    titleGlobePlace.textContent = place;
+  };
+
+  const flyTitleGlobe = () => {
+    if (!titleGlobe) return;
+    const item = titleGlobeCases[titleGlobeIndex % titleGlobeCases.length];
+    titleGlobeIndex = (titleGlobeIndex + 1) % titleGlobeCases.length;
+    updateTitleGlobeCaption(item);
+    const [lng, lat] = item.coordinates;
+    titleGlobe.flyTo({
+      center: [lng * 0.42, Math.max(Math.min(lat * 0.42, 30), -30)],
+      zoom: 1.45,
+      speed: 0.42,
+      curve: 1.35,
+      essential: true
+    });
+    window.setTimeout(() => {
+      titleGlobe?.flyTo({
+        center: [lng, lat],
+        zoom: 4.45,
+        speed: 0.58,
+        curve: 1.22,
+        essential: true
+      });
+    }, 1600);
+  };
+
+  const initTitleGlobe = () => {
+    if (!titleGlobeContainer || titleGlobe) return;
+    try {
+      titleGlobe = new maplibregl.Map({
+        container: titleGlobeContainer,
+        style: {
+          version: 8,
+          sources: {
+            basemap: {
+              type: 'raster',
+              tiles: [
+                'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+              ],
+              tileSize: 256,
+              attribution: ''
+            },
+            cases: {
+              type: 'geojson',
+              data: {
+                type: 'FeatureCollection',
+                features: titleGlobeCases.map((item) => ({
+                  type: 'Feature',
+                  geometry: { type: 'Point', coordinates: item.coordinates },
+                  properties: { year: item.year }
+                }))
+              }
+            }
+          },
+          layers: [
+            {
+              id: 'basemap',
+              type: 'raster',
+              source: 'basemap',
+              paint: {
+                'raster-opacity': 0.76,
+                'raster-saturation': -0.78,
+                'raster-contrast': 0.12,
+                'raster-brightness-min': 0,
+                'raster-brightness-max': 0.7
+              }
+            }
+          ]
+        },
+        center: [86, 27],
+        zoom: 1.45,
+        interactive: false,
+        attributionControl: false
+      });
+      titleGlobe.on('style.load', () => {
+        try {
+          titleGlobe.setProjection({ type: 'globe' });
+        } catch {
+          // MapLibre globe may be unavailable in older renderers; the raster map still works.
+        }
+        titleGlobe.addLayer({
+          id: 'title-disaster-heat',
+          type: 'heatmap',
+          source: 'cases',
+          paint: {
+            'heatmap-weight': 1,
+            'heatmap-intensity': 1.2,
+            'heatmap-color': [
+              'interpolate',
+              ['linear'],
+              ['heatmap-density'],
+              0,
+              'rgba(0,0,0,0)',
+              0.35,
+              'rgba(217,180,109,0.35)',
+              0.75,
+              'rgba(199,111,126,0.72)',
+              1,
+              'rgba(255,248,234,0.86)'
+            ],
+            'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 1, 14, 5, 32],
+            'heatmap-opacity': 0.72
+          }
+        });
+        titleGlobe.addLayer({
+          id: 'title-disaster-points',
+          type: 'circle',
+          source: 'cases',
+          paint: {
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 1, 3, 5, 7],
+            'circle-color': '#d9b46d',
+            'circle-stroke-color': 'rgba(255,248,234,0.82)',
+            'circle-stroke-width': 1,
+            'circle-opacity': 0.92
+          }
+        });
+        flyTitleGlobe();
+        titleGlobeTimer = window.setInterval(flyTitleGlobe, 6800);
+      });
+    } catch {
+      titleGlobeContainer.classList.add('is-fallback');
+      titleGlobeContainer.innerHTML = `<span>${t('fallbackGlobe')}</span>`;
+      updateTitleGlobeCaption(titleGlobeCases[0]);
+    }
+  };
+
+  const fmtUsd = (value) => {
+    const sign = value < 0 ? '-' : '';
+    const absolute = Math.abs(value);
+    if (absolute >= 1000) return `${sign}$${(absolute / 1000).toFixed(absolute >= 10000 ? 0 : 1)}k`;
+    return `${sign}$${Math.round(absolute)}`;
+  };
+
+  const scale = (value, domain, range) => {
+    const [min, max] = domain;
+    const [start, end] = range;
+    return start + ((value - min) / (max - min || 1)) * (end - start);
+  };
+
+  const domainFor = (series) => {
+    const values = series.flat().filter(Number.isFinite);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const pad = (max - min || 1) * 0.14;
+    return [min - pad, max + pad];
+  };
+
+  const pathFor = (series, box, domain) =>
+    series.map((value, index) => {
+      const x = scale(years[index], [2000, 2020], [box.x, box.x + box.w]);
+      const y = scale(value, domain, [box.y + box.h, box.y]);
+      return `${index === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+
+  const countyNames = {
+    安州区: { en: 'Anzhou', zh: '安州', hi: 'अन्झोउ' },
+    北川县: { en: 'Beichuan', zh: '北川', hi: 'बेइचुआन' },
+    都江堰市: { en: 'Dujiangyan', zh: '都江堰', hi: 'दुजियांगयान' },
+    茂县: { en: 'Mao', zh: '茂县', hi: 'माओ' },
+    绵竹市: { en: 'Mianzhu', zh: '绵竹', hi: 'मियानझू' },
+    彭州市: { en: 'Pengzhou', zh: '彭州', hi: 'पेंगझोउ' },
+    平武县: { en: 'Pingwu', zh: '平武', hi: 'पिंगवू' },
+    青川县: { en: 'Qingchuan', zh: '青川', hi: 'छिंगचुआन' },
+    什邡市: { en: 'Shifang', zh: '什邡', hi: 'शिफांग' },
+    汶川县: { en: 'Wenchuan', zh: '汶川', hi: 'वेनचुआन' }
+  };
+
+  const countyLabel = (county) => countyNames[county]?.[language] ?? countyNames[county]?.en ?? county;
+
+  const drawChart = (targetId, unit, title, tone = 'neutral') => {
+    const svg = document.getElementById(targetId);
+    if (!svg || !unit) return;
+    const box = { x: 72, y: 54, w: 560, h: 278 };
+    const domain = domainFor([unit.actual, unit.synthetic]);
+    const ticks = [2000, 2008, 2020];
+    const yTicks = [domain[0], (domain[0] + domain[1]) / 2, domain[1]];
+    const shockX = scale(2008, [2000, 2020], [box.x, box.x + box.w]);
+    const endActualY = scale(unit.actual.at(-1), domain, [box.y + box.h, box.y]);
+    const endSyntheticY = scale(unit.synthetic.at(-1), domain, [box.y + box.h, box.y]);
+    svg.innerHTML = `
+      <rect class="deck-chart-frame" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" />
+      ${yTicks.map((tick) => {
+        const y = scale(tick, domain, [box.y + box.h, box.y]);
+        return `<line class="deck-chart-guide" x1="${box.x}" x2="${box.x + box.w}" y1="${y}" y2="${y}" />
+          <text class="deck-chart-tick y" x="${box.x - 14}" y="${y + 4}">${fmtUsd(tick)}</text>`;
+      }).join('')}
+      ${ticks.map((year) => {
+        const x = scale(year, [2000, 2020], [box.x, box.x + box.w]);
+        return `<text class="deck-chart-tick" x="${x}" y="${box.y + box.h + 30}">${year}</text>`;
+      }).join('')}
+      <line class="deck-shock" x1="${shockX}" x2="${shockX}" y1="${box.y}" y2="${box.y + box.h}" />
+      <text class="deck-shock-label" x="${shockX + 8}" y="${box.y + 18}">${t('earthquake2008')}</text>
+      <path class="deck-line synthetic" d="${pathFor(unit.synthetic, box, domain)}" />
+      <path class="deck-line actual ${tone}" d="${pathFor(unit.actual, box, domain)}" />
+      <text class="deck-series actual" x="${box.x + box.w + 18}" y="${endActualY + 4}">${t('actual')}</text>
+      <text class="deck-series synthetic" x="${box.x + box.w + 18}" y="${endSyntheticY + 4}">${t('synthetic')}</text>
+      <text class="deck-chart-title" x="${box.x}" y="${box.y - 22}">${title}</text>
+      <text class="deck-chart-note" x="${box.x}" y="${box.y + box.h + 62}">${t('gdpNote')} · ${t('postGapAvg')} ${fmtUsd(unit.postGap)}</text>
+    `;
+  };
+
+  const drawTenCounties = () => {
+    const svg = document.getElementById('chart-ten-counties');
+    if (!svg) return;
+    const counties = data.groups.extreme.counties;
+    const units = counties.map((county) => data.groups.extreme.outcomes.real_gdp_pc.units[county]);
+    const domain = domainFor(units.flatMap((unit) => [unit.actual, unit.synthetic]));
+    const boxes = counties.map((county, index) => ({
+      county,
+      x: 42 + (index % 5) * 154,
+      y: 56 + Math.floor(index / 5) * 188,
+      w: 116,
+      h: 104
+    }));
+    svg.innerHTML = boxes.map((box) => {
+      const unit = data.groups.extreme.outcomes.real_gdp_pc.units[box.county];
+      const tone = unit.postGap >= 0 ? 'positive' : 'negative';
+      const shockX = scale(2008, [2000, 2020], [box.x, box.x + box.w]);
+      return `
+        <g class="mini-county ${tone}">
+          <rect class="mini-frame" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" />
+          <line class="mini-shock" x1="${shockX}" x2="${shockX}" y1="${box.y}" y2="${box.y + box.h}" />
+          <path class="mini-line synthetic" d="${pathFor(unit.synthetic, box, domain)}" />
+          <path class="mini-line actual ${tone}" d="${pathFor(unit.actual, box, domain)}" />
+          <text class="mini-title" x="${box.x}" y="${box.y - 10}">${countyLabel(box.county)}</text>
+          <text class="mini-gap" x="${box.x + box.w}" y="${box.y + box.h + 20}">${fmtUsd(unit.postGap)}</text>
+        </g>
+      `;
+    }).join('') + `<text class="mini-caption" x="42" y="432">${t('countyMatrixCaption')}</text>`;
+  };
+
+  const drawIntensity = () => {
+    const svg = document.getElementById('chart-intensity');
+    if (!svg) return;
+    const groups = [
+      { id: 'extreme', label: t('extreme'), color: '#c76f7e' },
+      { id: 'severe', label: t('severe'), color: '#d9b46d' },
+      { id: 'general', label: t('general'), color: '#8db7d2' }
+    ];
+    const box = { x: 72, y: 54, w: 560, h: 278 };
+    const series = groups.map((group) => data.groups[group.id].outcomes.real_gdp_pc.average.gap);
+    const domain = domainFor(series);
+    const zeroY = scale(0, domain, [box.y + box.h, box.y]);
+    svg.innerHTML = `
+      <rect class="deck-chart-frame" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" />
+      <line class="deck-zero" x1="${box.x}" x2="${box.x + box.w}" y1="${zeroY}" y2="${zeroY}" />
+      ${[-1000, 0, 1000].map((tick) => {
+        const y = scale(tick, domain, [box.y + box.h, box.y]);
+        return `<text class="deck-chart-tick y" x="${box.x - 14}" y="${y + 4}">${fmtUsd(tick)}</text>`;
+      }).join('')}
+      ${[2000, 2008, 2020].map((year) => {
+        const x = scale(year, [2000, 2020], [box.x, box.x + box.w]);
+        return `<text class="deck-chart-tick" x="${x}" y="${box.y + box.h + 30}">${year}</text>`;
+      }).join('')}
+      ${groups.map((group) => {
+        const unit = data.groups[group.id].outcomes.real_gdp_pc.average;
+        const y = scale(unit.gap.at(-1), domain, [box.y + box.h, box.y]);
+        return `
+          <path class="deck-line intensity" style="--stroke:${group.color}" d="${pathFor(unit.gap, box, domain)}" />
+          <text class="deck-series intensity" style="--fill:${group.color}" x="${box.x + box.w + 18}" y="${y + 4}">${group.label}</text>
+        `;
+      }).join('')}
+      <text class="deck-chart-title" x="${box.x}" y="${box.y - 22}">${t('intensityTitle')}</text>
+      <text class="deck-chart-note" x="${box.x}" y="${box.y + box.h + 62}">${t('intensityNote')}</text>
+    `;
+  };
+
+  const unitFor = (county) => data.groups.extreme.outcomes.real_gdp_pc.units[county];
+
+  const setStoryNumbers = () => {
+    const anzhou = unitFor('安州区');
+    const wenchuan = unitFor('汶川县');
+    const mianzhu = unitFor('绵竹市');
+    document.getElementById('story-anzhou').textContent = t('anzhouStory')(fmtUsd(anzhou.gap[9]), fmtUsd(anzhou.gap.at(-1)));
+    document.getElementById('story-wenchuan').textContent = t('wenchuanStory')(fmtUsd(wenchuan.postGap), fmtUsd(wenchuan.gap.at(-1)));
+    document.getElementById('story-mianzhu').textContent = t('mianzhuStory')(fmtUsd(mianzhu.gap.at(-1)));
+    const extreme = data.groups.extreme.outcomes.real_gdp_pc.average;
+    const severe = data.groups.severe.outcomes.real_gdp_pc.average;
+    const general = data.groups.general.outcomes.real_gdp_pc.average;
+    document.getElementById('story-intensity').textContent =
+      t('intensityStory')(fmtUsd(extreme.postGap), fmtUsd(severe.postGap), fmtUsd(general.postGap));
+  };
+
+  const drawAll = () => {
+    const average = data.groups.extreme.outcomes.real_gdp_pc.average;
+    drawTenCounties();
+    drawChart('chart-average', average, t('averageTitle'), average.postGap >= 0 ? 'positive' : 'negative');
+    drawIntensity();
+    drawChart('chart-anzhou', unitFor('安州区'), t('anzhouTitle'), 'positive');
+    drawChart('chart-wenchuan', unitFor('汶川县'), t('wenchuanTitle'), 'positive');
+    drawChart('chart-mianzhu', unitFor('绵竹市'), t('mianzhuTitle'), 'negative');
+    setStoryNumbers();
+  };
+
+  const showSlide = (index) => {
+    const previous = current;
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    deck.dataset.direction = current >= previous ? 'forward' : 'backward';
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('is-active', slideIndex === current);
+      slide.classList.toggle('is-before', slideIndex < current);
+      slide.classList.toggle('is-after', slideIndex > current);
+    });
+    slideCount.textContent = `${current + 1} / ${slides.length}`;
+    progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+    deck.dataset.index = String(current + 1);
+  };
+
+  prevButton.addEventListener('click', () => showSlide(current - 1));
+  nextButton.addEventListener('click', () => showSlide(current + 1));
+  languageButtons.forEach((button) => {
+    button.addEventListener('click', () => applyLanguage(button.dataset.slideLanguage));
+  });
+  window.addEventListener('keydown', (event) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+      event.preventDefault();
+      showSlide(current + 1);
+    }
+    if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+      event.preventDefault();
+      showSlide(current - 1);
+    }
+  });
+
+  fetch('/data/wenchuan-scm-results.json')
+    .then((response) => response.json())
+    .then((payload) => {
+      data = payload;
+      drawAll();
+      initTitleGlobe();
+      showSlide(0);
+    });
+</script>

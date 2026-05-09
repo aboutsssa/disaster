@@ -7,18 +7,23 @@ const { fullscreen = false } = Astro.props;
 ---
 
 <section class:list={['wenchuan-atlas', fullscreen && 'is-fullscreen']}>
+  <div class="wenchuan-lang" id="wenchuan-lang" role="group" aria-label="Language selector">
+    <button class="is-active" type="button" data-language="en">EN</button>
+    <button type="button" data-language="zh">中文</button>
+    <button type="button" data-language="hi">हिन्दी</button>
+  </div>
   <div class="wenchuan-welcome" id="wenchuan-welcome">
-    <button class="wenchuan-lang" type="button" id="wenchuan-lang">中文</button>
     <div class="wenchuan-welcome-card">
       <div class="atlas-entry-logo" aria-hidden="true"><span /></div>
-      <p class="eyebrow" data-en="Qiushan Li's Lab" data-zh="黎秋杉实验室">Qiushan Li's Lab</p>
-      <h1 data-en="Wenchuan Synthetic Recovery Atlas" data-zh="汶川合成恢复图谱">
+      <p class="eyebrow" data-en="Qiushan Li's Lab" data-zh="黎秋杉实验室" data-hi="च्यूशान ली प्रयोगशाला">Qiushan Li's Lab</p>
+      <h1 data-en="Wenchuan Synthetic Recovery Atlas" data-zh="汶川合成恢复图谱" data-hi="वेनचुआन सिंथेटिक रिकवरी एटलस">
         Wenchuan Synthetic Recovery Atlas
       </h1>
       <p
         class="welcome-line"
         data-en="A synthetic-control reading of how Sichuan counties recovered after the 2008 Wenchuan earthquake."
         data-zh="用合成控制方法阅读 2008 年汶川地震后四川县域恢复路径。"
+        data-hi="2008 वेनचुआन भूकंप के बाद सिचुआन के काउंटी क्षेत्रों की पुनर्प्राप्ति को सिंथेटिक कंट्रोल से पढ़ना।"
       >
         A synthetic-control reading of how Sichuan counties recovered after the 2008 Wenchuan earthquake.
       </p>
@@ -26,11 +31,12 @@ const { fullscreen = false } = Astro.props;
         class="welcome-note"
         data-en="For each affected county, the atlas builds a weighted combination of 42 unaffected counties that looked similar before 2008, then asks what changed after the shock."
         data-zh="对每个受灾县，图谱用 42 个未受灾县构造灾前相似的合成反事实，再比较 2008 年冲击后的偏离。"
+        data-hi="हर प्रभावित काउंटी के लिए, यह एटलस 2008 से पहले समान दिखने वाली 42 अप्रभावित काउंटियों से एक प्रतिकल्पित पथ बनाता है।"
       >
         For each affected county, the atlas builds a weighted combination of 42 unaffected counties that looked similar before 2008, then asks what changed after the shock.
       </p>
       <button class="wenchuan-enter" type="button" id="wenchuan-enter">Enter ↗</button>
-      <span data-en="SCM · 2000-2020 · 177 counties" data-zh="SCM · 2000-2020 · 177 个县区">SCM · 2000-2020 · 177 counties</span>
+      <span data-en="SCM · 2000-2020 · 177 counties" data-zh="SCM · 2000-2020 · 177 个县区" data-hi="SCM · 2000-2020 · 177 काउंटी">SCM · 2000-2020 · 177 counties</span>
     </div>
   </div>
 
@@ -44,45 +50,46 @@ const { fullscreen = false } = Astro.props;
 
   <aside class="wenchuan-panel">
     <div>
-      <p class="eyebrow" data-en="Synthetic Control" data-zh="合成控制">Synthetic Control</p>
-      <h2 data-en="Actual recovery against a counterfactual Sichuan" data-zh="实际恢复与反事实四川">
+      <p class="eyebrow" data-en="Synthetic Control" data-zh="合成控制" data-hi="सिंथेटिक कंट्रोल">Synthetic Control</p>
+      <h2 data-en="Actual recovery against a counterfactual Sichuan" data-zh="实际恢复与反事实四川" data-hi="वास्तविक पुनर्प्राप्ति बनाम प्रतिकल्पित सिचुआन">
         Actual recovery against a counterfactual Sichuan
       </h2>
       <p
         data-en="Gold is the observed path. Silver is the synthetic counterfactual. The copper gap is the estimated earthquake-era divergence."
         data-zh="金色是真实路径，银色是合成反事实，铜色差距表示地震时期的恢复偏离。"
+        data-hi="सुनहरी रेखा वास्तविक पथ है। रजत रेखा सिंथेटिक प्रतिकल्पना है। तांबे का अंतर भूकंप-कालीन विचलन को दिखाता है।"
       >
         Gold is the observed path. Silver is the synthetic counterfactual. The copper gap is the estimated earthquake-era divergence.
       </p>
     </div>
 
     <div class="scm-tabs" aria-label="SCM view selector">
-      <button class="is-active" type="button" data-view="counties" data-en="10 Counties" data-zh="十县 SCM">10 Counties</button>
-      <button type="button" data-view="county" data-en="Single County" data-zh="单县">Single County</button>
-      <button type="button" data-view="average" data-en="Extreme Average" data-zh="极重平均">Extreme Average</button>
-      <button type="button" data-view="intensity" data-en="Intensity" data-zh="强度异质性">Intensity</button>
+      <button class="is-active" type="button" data-view="counties" data-en="10 Counties" data-zh="十县 SCM" data-hi="10 काउंटी">10 Counties</button>
+      <button type="button" data-view="county" data-en="Single County" data-zh="单县" data-hi="एक काउंटी">Single County</button>
+      <button type="button" data-view="average" data-en="Extreme Average" data-zh="极重平均" data-hi="अत्यधिक औसत">Extreme Average</button>
+      <button type="button" data-view="intensity" data-en="Intensity" data-zh="强度异质性" data-hi="तीव्रता">Intensity</button>
     </div>
 
     <label class="scm-select">
-      <span data-en="Outcome" data-zh="结果变量">Outcome</span>
+      <span data-en="Outcome" data-zh="结果变量" data-hi="परिणाम">Outcome</span>
       <select id="outcome-select"></select>
     </label>
 
     <label class="scm-select" id="county-select-wrap">
-      <span data-en="County" data-zh="县区">County</span>
+      <span data-en="County" data-zh="县区" data-hi="काउंटी">County</span>
       <select id="county-select"></select>
     </label>
 
     <div class="year-control">
       <span id="scm-year">2000</span>
       <input id="scm-slider" type="range" min="2000" max="2020" value="2000" />
-      <button type="button" id="scm-play" data-en="Play" data-zh="播放">Play</button>
+      <button type="button" id="scm-play" data-en="Play" data-zh="播放" data-hi="चलाएँ">Play</button>
     </div>
 
     <div class="wenchuan-legend">
-      <span><i style="--c:#d9b46d"></i><b data-en="Actual path" data-zh="实际路径">Actual path</b></span>
-      <span><i style="--c:#d7d0c0"></i><b data-en="Synthetic counterfactual" data-zh="合成反事实">Synthetic counterfactual</b></span>
-      <span><i style="--c:#c76f7e"></i><b data-en="Post-2008 gap" data-zh="2008 后差距">Post-2008 gap</b></span>
+      <span><i style="--c:#d9b46d"></i><b data-en="Actual path" data-zh="实际路径" data-hi="वास्तविक पथ">Actual path</b></span>
+      <span><i style="--c:#d7d0c0"></i><b data-en="Synthetic counterfactual" data-zh="合成反事实" data-hi="सिंथेटिक प्रतिकल्पना">Synthetic counterfactual</b></span>
+      <span><i style="--c:#c76f7e"></i><b data-en="Post-2008 gap" data-zh="2008 后差距" data-hi="2008 के बाद का अंतर">Post-2008 gap</b></span>
     </div>
 
     <article class="wenchuan-story" id="scm-story">
@@ -92,10 +99,10 @@ const { fullscreen = false } = Astro.props;
     </article>
 
     <div class="wenchuan-stats">
-      <div><strong id="stat-units">10</strong><span data-en="treated units" data-zh="处理单元">treated units</span></div>
-      <div><strong id="stat-donors">42</strong><span data-en="donor counties" data-zh="供体县">donor counties</span></div>
-      <div><strong id="stat-rmse">-</strong><span data-en="pre RMSE" data-zh="灾前 RMSE">pre RMSE</span></div>
-      <div><strong id="stat-gap">-</strong><span data-en="avg post gap" data-zh="平均后期差距">avg post gap</span></div>
+      <div><strong id="stat-units">10</strong><span data-en="treated units" data-zh="处理单元" data-hi="उपचार इकाइयाँ">treated units</span></div>
+      <div><strong id="stat-donors">42</strong><span data-en="donor counties" data-zh="供体县" data-hi="दाता काउंटी">donor counties</span></div>
+      <div><strong id="stat-rmse">-</strong><span data-en="pre RMSE" data-zh="灾前 RMSE" data-hi="पूर्व RMSE">pre RMSE</span></div>
+      <div><strong id="stat-gap">-</strong><span data-en="avg post gap" data-zh="平均后期差距" data-hi="औसत अंतर">avg post gap</span></div>
     </div>
   </aside>
 </section>
@@ -104,7 +111,7 @@ const { fullscreen = false } = Astro.props;
   const resultsUrl = '/data/wenchuan-scm-results.json';
   const welcome = document.getElementById('wenchuan-welcome');
   const enter = document.getElementById('wenchuan-enter');
-  const langButton = document.getElementById('wenchuan-lang');
+  const languageButtons = Array.from(document.querySelectorAll('[data-language]'));
   const plot = document.getElementById('scm-plot');
   const grid = document.getElementById('scm-grid');
   const cursor = document.getElementById('scm-cursor');
@@ -135,28 +142,96 @@ const { fullscreen = false } = Astro.props;
     general: '#8db7d2'
   };
 
+  const largeBox = { x: 410, y: 126, w: 600, h: 438 };
+
+  const textFor = (entry) => entry[language] ?? entry.en;
+
+  const localized = (entry) => entry[language] ?? entry.en;
+
+  const countyLabels = {
+    安州区: { en: 'Anzhou District', zh: '安州区', hi: 'अन्झोउ जिला' },
+    北川县: { en: 'Beichuan County', zh: '北川县', hi: 'बेइचुआन काउंटी' },
+    都江堰市: { en: 'Dujiangyan City', zh: '都江堰市', hi: 'दुजियांगयान शहर' },
+    茂县: { en: 'Mao County', zh: '茂县', hi: 'माओ काउंटी' },
+    绵竹市: { en: 'Mianzhu City', zh: '绵竹市', hi: 'मियानझू शहर' },
+    彭州市: { en: 'Pengzhou City', zh: '彭州市', hi: 'पेंगझोउ शहर' },
+    平武县: { en: 'Pingwu County', zh: '平武县', hi: 'पिंगवू काउंटी' },
+    青川县: { en: 'Qingchuan County', zh: '青川县', hi: 'छिंगचुआन काउंटी' },
+    什邡市: { en: 'Shifang City', zh: '什邡市', hi: 'शिफांग शहर' },
+    汶川县: { en: 'Wenchuan County', zh: '汶川县', hi: 'वेनचुआन काउंटी' }
+  };
+
+  const countyLabel = (county) => countyLabels[county]?.[language] ?? countyLabels[county]?.en ?? county;
+
+  const updateLanguageButtons = () => {
+    languageButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.language === language));
+  };
+
+  const outcomeLabel = () => {
+    const meta = data?.meta.outcomes.find((item) => item.id === outcome);
+    if (!meta) return '';
+    const label = language === 'zh' ? meta.zh : language === 'hi' ? meta.hi ?? outcomeHi[meta.id] ?? meta.label : meta.label;
+    const unit = language === 'zh' ? meta.unitZh : language === 'hi' ? meta.unitHi : meta.unit;
+    return unit ? `${label} (${unit})` : label;
+  };
+
+  const chartFootnote = () => {
+    const meta = data?.meta.outcomes.find((item) => item.id === outcome);
+    if (meta?.id === 'real_gdp_pc') {
+      return localized({
+        en: 'GDP note: source real GDP per capita is yuan/person; displayed as current-year USD/person using World Bank annual average RMB/USD.',
+        zh: 'GDP 注：源数据人均 GDP 为人民币元/人；图中按世界银行年度平均人民币/美元汇率换算为当年美元/人。',
+        hi: 'GDP टिप्पणी: स्रोत प्रति व्यक्ति GDP युआन/व्यक्ति है; यहाँ विश्व बैंक वार्षिक औसत RMB/USD से वर्तमान-वर्ष USD/व्यक्ति में दिखाया गया है।'
+      });
+    }
+    return localized({
+      en: `Unit note: ${meta?.unit ?? 'source-unit value'}.`,
+      zh: `单位注：${meta?.unitZh ?? '原始口径数值'}。`,
+      hi: `इकाई टिप्पणी: ${meta?.unitHi ?? 'स्रोत-इकाई मान'}।`
+    });
+  };
+
   const copy = {
     counties: {
       en: ['Ten county-level counterfactuals', 'Each extremely affected county receives its own synthetic control. The small multiples preserve local difference before averaging anything away.'],
-      zh: ['十个县，各自的反事实', '每个极重灾区县都单独构造合成控制。小倍图保留地方差异，而不是一开始就把十个县平均掉。']
+      zh: ['十个县，各自的反事实', '每个极重灾区县都单独构造合成控制。小倍图保留地方差异，而不是一开始就把十个县平均掉。'],
+      hi: ['दस काउंटियों की प्रतिकल्पना', 'हर अत्यधिक प्रभावित काउंटी के लिए अलग सिंथेटिक कंट्रोल बनाया गया है। छोटे चार्ट स्थानीय अंतर को बनाए रखते हैं।']
     },
     county: {
       en: ['Single-county SCM', 'This view opens one county as a full trajectory: observed recovery, synthetic counterfactual, and the post-2008 gap.'],
-      zh: ['单县 SCM', '这一视图展开一个县的完整轨迹：真实恢复、合成反事实，以及 2008 年之后的差距。']
+      zh: ['单县 SCM', '这一视图展开一个县的完整轨迹：真实恢复、合成反事实，以及 2008 年之后的差距。'],
+      hi: ['एक काउंटी SCM', 'यह दृश्य एक काउंटी की पूरी राह खोलता है：वास्तविक पुनर्प्राप्ति, सिंथेटिक प्रतिकल्पना और 2008 के बाद का अंतर।']
     },
     average: {
       en: ['Extremely affected average unit', 'The average is built by first estimating ten county SCMs, then averaging treatment effects. This avoids treating the ten counties as if they were one identical place.'],
-      zh: ['极重灾区平均单元', '平均效应先由十个县分别做 SCM，再对处理效应求平均。这样不会把十个县粗暴地当成一个地方。']
+      zh: ['极重灾区平均单元', '平均效应先由十个县分别做 SCM，再对处理效应求平均。这样不会把十个县粗暴地当成一个地方。'],
+      hi: ['अत्यधिक प्रभावित औसत इकाई', 'पहले दस काउंटियों के SCM अलग-अलग अनुमानित किए जाते हैं, फिर उपचार प्रभावों का औसत लिया जाता है।']
     },
     intensity: {
       en: ['Disaster intensity heterogeneity', 'Extreme and severe counties are compared through their average post-2008 gaps. General affected counties remain an extension rather than the main claim.'],
-      zh: ['灾害强度异质性', '通过 2008 年后的平均差距比较极重灾区与重灾区。一般灾区作为扩展分析，而不是主结论。']
+      zh: ['灾害强度异质性', '通过 2008 年后的平均差距比较极重灾区与重灾区。一般灾区作为扩展分析，而不是主结论。'],
+      hi: ['आपदा तीव्रता की विषमता', 'अत्यधिक और गंभीर प्रभावित काउंटियों की तुलना 2008 के बाद के औसत अंतर से की जाती है। सामान्य प्रभावित काउंटी विस्तार विश्लेषण हैं।']
     }
   };
 
-  const fmt = (value) => {
+  const outcomeHi = {
+    real_gdp_pc: 'प्रति व्यक्ति GDP',
+    ndvi: 'NDVI',
+    esv: 'पारिस्थितिकी सेवा मूल्य',
+    pm10: 'PM10',
+    urban: 'शहरीकरण',
+    land_impervious_share: 'अभेद्य सतह अनुपात'
+  };
+
+  const fmt = (value, { compact = false } = {}) => {
     if (!Number.isFinite(value)) return '-';
     const meta = data.meta.outcomes.find((item) => item.id === outcome);
+    if (meta?.format === 'usd') {
+      const sign = value < 0 ? '-' : '';
+      const absolute = Math.abs(value);
+      if (compact || absolute >= 1000) return `${sign}$${(absolute / 1000).toFixed(absolute >= 10000 ? 0 : 1)}k`;
+      return `${sign}$${Math.round(absolute).toLocaleString()}`;
+    }
     if (meta?.format === 'percent') return `${(value * 100).toFixed(1)}%`;
     if (Math.abs(value) < 10) return value.toFixed(3);
     if (Math.abs(value) < 100) return value.toFixed(1);
@@ -204,15 +279,92 @@ const { fullscreen = false } = Astro.props;
     ${label ? `<text class="scm-label" x="${box.x}" y="${box.y - 10}">${label}</text>` : ''}
   `;
 
+  const axisLayer = (box, domain) => {
+    const xTicks = [2000, 2004, 2008, 2012, 2016, 2020];
+    const yTicks = Array.from({ length: 4 }, (_, index) => domain[0] + ((domain[1] - domain[0]) * index) / 3);
+    const xLabel = localized({ en: 'Year', zh: '年份', hi: 'वर्ष' });
+    return `
+      <line class="scm-axis-line" x1="${box.x}" x2="${box.x + box.w}" y1="${box.y + box.h}" y2="${box.y + box.h}" />
+      <line class="scm-axis-line" x1="${box.x}" x2="${box.x}" y1="${box.y}" y2="${box.y + box.h}" />
+      ${xTicks.map((year) => {
+        const x = scale(year, [2000, 2020], [box.x, box.x + box.w]);
+        return `
+          <line class="scm-tick" x1="${x}" x2="${x}" y1="${box.y + box.h}" y2="${box.y + box.h + 7}" />
+          <text class="scm-tick-label" x="${x}" y="${box.y + box.h + 24}">${year}</text>
+        `;
+      }).join('')}
+      ${yTicks.map((tick) => {
+        const y = scale(tick, domain, [box.y + box.h, box.y]);
+        return `
+          <line class="scm-guide" x1="${box.x}" x2="${box.x + box.w}" y1="${y}" y2="${y}" />
+          <line class="scm-tick" x1="${box.x - 7}" x2="${box.x}" y1="${y}" y2="${y}" />
+          <text class="scm-tick-label y" x="${box.x - 13}" y="${y + 4}">${fmt(tick, { compact: true })}</text>
+        `;
+      }).join('')}
+      <text class="scm-axis-title x" x="${box.x + box.w / 2}" y="${box.y + box.h + 52}">${xLabel}</text>
+      <text class="scm-axis-title y" x="${box.x - 56}" y="${box.y + box.h / 2}" transform="rotate(-90 ${box.x - 56} ${box.y + box.h / 2})">${outcomeLabel()}</text>
+    `;
+  };
+
+  const milestoneLayer = (box) => {
+    const items = [
+      {
+        year: 2008,
+        label: localized({ en: 'Wenchuan earthquake', zh: '汶川地震', hi: 'वेनचुआन भूकंप' }),
+        anchor: 'middle',
+        dx: 0
+      },
+      {
+        year: 2013,
+        label: localized({ en: 'medium-term recovery', zh: '中期恢复窗口', hi: 'मध्यम अवधि पुनर्प्राप्ति' }),
+        anchor: 'start',
+        dx: 8
+      },
+      {
+        year: 2020,
+        label: localized({ en: 'long-run endpoint', zh: '长期观察终点', hi: 'दीर्घकालीन अंतिम बिंदु' }),
+        anchor: 'end',
+        dx: -8
+      }
+    ];
+    return items.map((item, index) => {
+      const x = scale(item.year, [2000, 2020], [box.x, box.x + box.w]);
+      const y = box.y + 26 + index * 28;
+      return `
+        <line class="scm-milestone-line" x1="${x}" x2="${x}" y1="${box.y}" y2="${box.y + box.h}" />
+        <text class="scm-milestone-label" text-anchor="${item.anchor}" x="${x + item.dx}" y="${y}">${item.year} · ${item.label}</text>
+      `;
+    }).join('');
+  };
+
+  const lineLabels = (unit, box, domain) => {
+    const actualY = scale(unit.actual.at(-1), domain, [box.y + box.h, box.y]);
+    const syntheticY = scale(unit.synthetic.at(-1), domain, [box.y + box.h, box.y]);
+    const close = Math.abs(actualY - syntheticY) < 24;
+    const actualLabelY = close && actualY > syntheticY ? actualY + 16 : actualY - 8;
+    const syntheticLabelY = close && syntheticY >= actualY ? syntheticY + 18 : syntheticY + 15;
+    return `
+      <text class="scm-series-label actual" x="${box.x + box.w + 14}" y="${actualLabelY}">${localized({ en: 'Actual', zh: '实际', hi: 'वास्तविक' })}</text>
+      <text class="scm-series-label synthetic" x="${box.x + box.w + 14}" y="${syntheticLabelY}">${localized({ en: 'Synthetic', zh: '合成反事实', hi: 'सिंथेटिक' })}</text>
+    `;
+  };
+
   const drawLarge = (unit, title) => {
-    const box = { x: 165, y: 130, w: 880, h: 440 };
+    const box = largeBox;
     const domain = domainFor([unit.actual, unit.synthetic]);
-    grid.innerHTML = chartFrame(box, title);
+    const axisNote = language === 'zh'
+      ? '2000-2007：灾前拟合 · 2008：地震冲击 · 2009-2020：估计恢复差距'
+      : language === 'hi'
+        ? '2000-2007: पूर्व-आपदा फिट · 2008: भूकंप · 2009-2020: अनुमानित पुनर्प्राप्ति अंतर'
+        : '2000-2007: pre-treatment fit · 2008: earthquake shock · 2009-2020: estimated recovery gap';
+    grid.innerHTML = `${chartFrame(box, title)}${axisLayer(box, domain)}${milestoneLayer(box)}`;
     plot.innerHTML = `
       <path class="scm-gap-area" d="${areaFor(unit.actual, unit.synthetic, box, domain)}" />
       <path class="scm-line synthetic" d="${pathFor(unit.synthetic, box, domain)}" />
       <path class="scm-line actual" d="${pathFor(unit.actual, box, domain)}" />
-      <text class="scm-axis-note" x="${box.x}" y="${box.y + box.h + 42}">2000-2007: pre-treatment fit · 2008: earthquake shock · 2009-2020: estimated recovery gap</text>
+      ${lineLabels(unit, box, domain)}
+      <text class="scm-axis-note" x="${box.x}" y="${box.y + box.h + 70}">${axisNote}</text>
+      <text class="scm-source-note" x="${box.x}" y="${box.y + box.h + 92}">${chartFootnote()}</text>
     `;
     drawCursor(box);
   };
@@ -224,12 +376,12 @@ const { fullscreen = false } = Astro.props;
     const domain = domainFor(allSeries);
     const boxes = counties.map((county, index) => ({
       county,
-      x: 120 + (index % 5) * 205,
+      x: 390 + (index % 5) * 142,
       y: 110 + Math.floor(index / 5) * 280,
-      w: 165,
-      h: 160
+      w: 116,
+      h: 150
     }));
-    grid.innerHTML = boxes.map((box) => chartFrame(box, box.county)).join('');
+    grid.innerHTML = boxes.map((box) => chartFrame(box, countyLabel(box.county))).join('');
     plot.innerHTML = boxes.map((box) => {
       const unit = data.groups.extreme.outcomes[outcome].units[box.county];
       return `
@@ -242,14 +394,15 @@ const { fullscreen = false } = Astro.props;
   };
 
   const drawIntensity = () => {
-    const box = { x: 165, y: 130, w: 880, h: 440 };
+    const box = largeBox;
     const series = ['extreme', 'severe', 'general'].map((group) => data.groups[group].outcomes[outcome].average.gap);
     const domain = domainFor(series);
-    grid.innerHTML = `${chartFrame(box, language === 'zh' ? '灾害强度异质性：平均处理效应' : 'Disaster intensity: average treatment gaps')}<line class="scm-zero" x1="${box.x}" x2="${box.x + box.w}" y1="${scale(0, domain, [box.y + box.h, box.y])}" y2="${scale(0, domain, [box.y + box.h, box.y])}" />`;
+    const title = language === 'zh' ? '灾害强度异质性：平均处理效应' : language === 'hi' ? 'आपदा तीव्रता: औसत उपचार प्रभाव' : 'Disaster intensity: average treatment gaps';
+    grid.innerHTML = `${chartFrame(box, title)}${axisLayer(box, domain)}${milestoneLayer(box)}<line class="scm-zero" x1="${box.x}" x2="${box.x + box.w}" y1="${scale(0, domain, [box.y + box.h, box.y])}" y2="${scale(0, domain, [box.y + box.h, box.y])}" />`;
     plot.innerHTML = ['extreme', 'severe', 'general'].map((group) => `
       <path class="scm-line intensity" style="--stroke:${groupColors[group]}" d="${pathFor(data.groups[group].outcomes[outcome].average.gap, box, domain)}" />
-      <text class="scm-label" x="${box.x + box.w - 120}" y="${scale(data.groups[group].outcomes[outcome].average.gap.at(-1), domain, [box.y + box.h, box.y]) - 8}">${language === 'zh' ? data.groups[group].zh : data.groups[group].label}</text>
-    `).join('');
+      <text class="scm-series-label intensity" style="--fill:${groupColors[group]}" x="${box.x + box.w + 14}" y="${scale(data.groups[group].outcomes[outcome].average.gap.at(-1), domain, [box.y + box.h, box.y]) + 4}">${language === 'zh' ? data.groups[group].zh : language === 'hi' ? ({extreme:'अत्यधिक प्रभावित', severe:'गंभीर प्रभावित', general:'सामान्य प्रभावित'}[group]) : data.groups[group].label}</text>
+    `).join('') + `<text class="scm-source-note" x="${box.x}" y="${box.y + box.h + 92}">${chartFootnote()}</text>`;
     drawCursor(box);
   };
 
@@ -271,17 +424,38 @@ const { fullscreen = false } = Astro.props;
 
   const updateStory = () => {
     const item = copy[view];
-    story.innerHTML = `<span>${view === 'intensity' ? 'Heterogeneity' : 'SCM'}</span><h3>${item[language][0]}</h3><p>${item[language][1]}</p>`;
+    const selected = textFor(item);
+    const heading = selected[0];
+    const body = selected[1];
+    story.innerHTML = `
+      <span>${language === 'zh' ? (view === 'intensity' ? '异质性' : '合成控制') : language === 'hi' ? (view === 'intensity' ? 'विषमता' : 'SCM') : (view === 'intensity' ? 'Heterogeneity' : 'SCM')}</span>
+      <h3>${heading}</h3>
+      <p>${body}</p>
+    `;
   };
 
-  const render = () => {
+  const updateCursorOnly = () => {
+    if (!data) return;
+    yearLabel.textContent = slider.value;
+    if (view === 'counties') {
+      drawCursor({ x: 390, y: 110, w: 132, h: 150 }, true);
+      return;
+    }
+    drawCursor(largeBox);
+  };
+
+  const render = ({ redraw = true } = {}) => {
     if (!data) return;
     countySelectWrap.hidden = view !== 'county';
     viewButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.view === view));
-    if (view === 'counties') drawSmallMultiples();
-    if (view === 'county') drawLarge(selectedUnit(), selectedCounty);
-    if (view === 'average') drawLarge(data.groups.extreme.outcomes[outcome].average, language === 'zh' ? '十个极重灾区：平均实际轨迹 vs 平均合成反事实' : 'Ten extremely affected counties: average actual vs synthetic');
-    if (view === 'intensity') drawIntensity();
+    if (redraw) {
+      if (view === 'counties') drawSmallMultiples();
+      if (view === 'county') drawLarge(selectedUnit(), countyLabel(selectedCounty));
+      if (view === 'average') drawLarge(data.groups.extreme.outcomes[outcome].average, language === 'zh' ? '十个极重灾区：平均实际轨迹 vs 平均合成反事实' : language === 'hi' ? 'दस अत्यधिक प्रभावित काउंटी: औसत वास्तविक बनाम सिंथेटिक' : 'Ten extremely affected counties: average actual vs synthetic');
+      if (view === 'intensity') drawIntensity();
+    } else {
+      updateCursorOnly();
+    }
     yearLabel.textContent = slider.value;
     updateStats();
     updateStory();
@@ -289,45 +463,50 @@ const { fullscreen = false } = Astro.props;
 
   const applyLanguage = (next) => {
     language = next;
-    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language === 'hi' ? 'hi-IN' : 'en';
     document.querySelectorAll('[data-en]').forEach((el) => {
-      el.textContent = el.dataset[language];
+      el.textContent = el.dataset[language] ?? el.dataset.en;
     });
-    langButton.textContent = language === 'zh' ? 'English' : '中文';
-    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : (playing ? 'Pause' : 'Play');
+    updateLanguageButtons();
+    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : language === 'hi' ? (playing ? 'रोकें' : 'चलाएँ') : (playing ? 'Pause' : 'Play');
     Array.from(outcomeSelect.options).forEach((option) => {
       const meta = data?.meta.outcomes.find((item) => item.id === option.value);
-      if (meta) option.textContent = language === 'zh' ? meta.zh : meta.label;
+      if (meta) option.textContent = language === 'zh' ? meta.zh : language === 'hi' ? outcomeHi[meta.id] : meta.label;
+    });
+    Array.from(countySelect.options).forEach((option) => {
+      option.textContent = countyLabel(option.value);
     });
     render();
   };
 
   const togglePlay = () => {
     playing = !playing;
-    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : (playing ? 'Pause' : 'Play');
+    playButton.textContent = language === 'zh' ? (playing ? '暂停' : '播放') : language === 'hi' ? (playing ? 'रोकें' : 'चलाएँ') : (playing ? 'Pause' : 'Play');
     window.clearInterval(timer);
     if (playing) {
       timer = window.setInterval(() => {
         const year = Number(slider.value);
         slider.value = String(year >= 2020 ? 2000 : year + 1);
-        render();
-      }, 760);
+        render({ redraw: false });
+      }, 1400);
     }
   };
 
   const init = async () => {
     data = await fetch(resultsUrl).then((response) => response.json());
     outcomeSelect.innerHTML = data.meta.outcomes.map((item) => `<option value="${item.id}">${item.label}</option>`).join('');
-    countySelect.innerHTML = data.groups.extreme.counties.map((county) => `<option value="${county}">${county}</option>`).join('');
+    countySelect.innerHTML = data.groups.extreme.counties.map((county) => `<option value="${county}">${countyLabel(county)}</option>`).join('');
     selectedCounty = data.groups.extreme.counties.includes('汶川县') ? '汶川县' : data.groups.extreme.counties[0];
     countySelect.value = selectedCounty;
     render();
   };
 
   enter.addEventListener('click', () => welcome.classList.add('is-hidden'));
-  langButton.addEventListener('click', () => applyLanguage(language === 'zh' ? 'en' : 'zh'));
+  languageButtons.forEach((button) => {
+    button.addEventListener('click', () => applyLanguage(button.dataset.language));
+  });
   playButton.addEventListener('click', togglePlay);
-  slider.addEventListener('input', render);
+  slider.addEventListener('input', () => render({ redraw: false }));
   outcomeSelect.addEventListener('change', () => {
     outcome = outcomeSelect.value;
     render();
