@@ -1,7 +1,7 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { recoveryDimensions, researchThemes, site } from '../data/site';
+import { recoveryDimensions, researchThemes, site, withBase } from '../data/site';
 ---
 
 <BaseLayout
@@ -65,7 +65,7 @@ import { recoveryDimensions, researchThemes, site } from '../data/site';
         recovery layers.
       </p>
     </div>
-    <a href="/projects/global-disaster-map/">Open project</a>
+    <a href={withBase('/projects/global-disaster-map/')}>Open project</a>
   </section>
 
   <section class="project-callout">
@@ -77,6 +77,6 @@ import { recoveryDimensions, researchThemes, site } from '../data/site';
         reconstruction, ecological recovery, air pressure, and uneven re-inhabitability.
       </p>
     </div>
-    <a href="/wenchuan/">Open atlas</a>
+    <a href={withBase('/wenchuan/')}>Open atlas</a>
   </section>
 </BaseLayout>

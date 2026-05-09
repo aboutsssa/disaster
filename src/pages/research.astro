@@ -1,7 +1,7 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { researchProjects, researchThemes } from '../data/site';
+import { researchProjects, researchThemes, withBase } from '../data/site';
 ---
 
 <BaseLayout title="Research">
@@ -37,10 +37,10 @@ import { researchProjects, researchThemes } from '../data/site';
         <span><strong>Public interface</strong> The globe and slide deck turn analytical results into a research story.</span>
       </div>
       <div class="project-actions" aria-label="Project links">
-        <a href="/slides/">Presentation</a>
-        <a href="/wenchuan/">Wenchuan SCM Atlas</a>
-        <a href="/map/">Global Globe</a>
-        <a href="/projects/global-disaster-map/">Project Notes</a>
+        <a href={withBase('/slides/')}>Presentation</a>
+        <a href={withBase('/wenchuan/')}>Wenchuan SCM Atlas</a>
+        <a href={withBase('/map/')}>Global Globe</a>
+        <a href={withBase('/projects/global-disaster-map/')}>Project Notes</a>
       </div>
     </div>
     <div class="research-project-visual" aria-hidden="true">
@@ -74,7 +74,7 @@ import { researchProjects, researchThemes } from '../data/site';
           <span>{project.eyebrow}</span>
           <h3>{project.title}</h3>
           <p>{project.description}</p>
-          <a href={project.href}>Open project</a>
+          <a href={withBase(project.href)}>Open project</a>
         </article>
       ))
     }

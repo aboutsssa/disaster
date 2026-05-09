@@ -1,5 +1,5 @@
 ---
-import { navItems, site } from '../data/site';
+import { navItems, site, withBase } from '../data/site';
 import '../styles/global.css';
 
 interface Props {
@@ -8,7 +8,10 @@ interface Props {
 }
 
 const { title, description = site.affiliation } = Astro.props;
-const currentPath = Astro.url.pathname;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
+const isActivePath = (href: string) =>
+  currentPath === href || (href !== '/' && currentPath.startsWith(href));
 ---
 
 <!doctype html>
@@ -21,7 +24,7 @@ const currentPath = Astro.url.pathname;
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/" aria-label={`${site.name} home`}>
+      <a class="brand" href={withBase('/')} aria-label={`${site.name} home`}>
         <span class="brand-mark">RI</span>
         <span>
           <strong>{site.name}</strong>
@@ -32,8 +35,8 @@ const currentPath = Astro.url.pathname;
         {
           navItems.map((item) => (
             <a
-              href={item.href}
-              class:list={[currentPath === item.href && 'is-active']}
+              href={withBase(item.href)}
+              class:list={[isActivePath(item.href) && 'is-active']}
             >
               {item.label}
             </a>

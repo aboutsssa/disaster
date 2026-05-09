@@ -1026,7 +1026,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
     }
   });
 
-  fetch('/data/wenchuan-scm-results.json')
+  fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}data/wenchuan-scm-results.json`)
     .then((response) => response.json())
     .then((payload) => {
       data = payload;
