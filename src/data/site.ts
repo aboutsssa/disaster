@@ -6,9 +6,9 @@ export const withBase = (path: string) => {
 };
 
 export const site = {
-  name: 'Re-Inhabitability Lab',
-  owner: 'Dr. Qiushan Lin Research Group',
-  affiliation: 'Post-Disaster Reconstruction, Human Geography, and Relational Recovery',
+  name: 'ReSpace Lab',
+  owner: '恢复空间实验室',
+  affiliation: 'Post-Disaster Recovery, Resilient Spatial Governance, and Re-Space',
   email: 'contact@example.edu',
   location: 'Seattle, WA'
 };
@@ -24,28 +24,28 @@ export const navItems = [
 
 export const researchThemes = [
   {
-    title: 'Relational Recovery',
-    eyebrow: 'Theory',
+    title: '恢复公平性与空间不平等机制识别',
+    eyebrow: 'Equity',
     description:
-      'Rethinking disaster recovery as the reassembly of social, ecological, material, multispecies, and symbolic relations rather than the restoration of separate sectors.'
+      '构建“恢复绩效—政策干预—地理嵌套”的空间因果推断框架，识别灾后恢复中的公平性差异与空间不平等机制。'
   },
   {
-    title: 'Re-Inhabitability',
-    eyebrow: 'Framework',
+    title: '文化景观与人居环境的复原建构',
+    eyebrow: 'Landscape',
     description:
-      'Studying how rebuilt environments become livable, meaningful, and dwellable after disruption, especially when material reconstruction and everyday life do not align.'
+      '推动气候适应型空间设计与传统聚落可持续规划融合，关注灾后文化连续性、地方意义与人居环境重建。'
   },
   {
-    title: 'Post-Disaster Reconstruction',
-    eyebrow: 'Practice',
+    title: '区域韧性演化路径建模',
+    eyebrow: 'Resilience',
     description:
-      'Comparing reconstruction trajectories across contexts to understand how housing, livelihoods, heritage, ecological repair, and community life are reconnected.'
+      '发展可推广的“恢复—适应—协同”系统动力模型，支撑灾后土地利用、城乡空间治理与规划决策。'
   },
   {
-    title: 'More-than-Human Worlds',
-    eyebrow: 'Perspective',
+    title: '空间科学与公众参与方法',
+    eyebrow: 'Methods',
     description:
-      'Extending disaster studies beyond human-centered recovery to include animals, plants, landscapes, sacred sites, and environmental processes.'
+      '融合参与式GIS、遥感技术、系统建模与因果推断，建设数据驱动与公众参与并重的灾后治理研究平台。'
   }
 ];
 
@@ -58,7 +58,7 @@ export const researchProjects = [
     href: '/slides/'
   },
   {
-    title: 'Global Disaster & Re-Inhabitability Map',
+    title: 'Global Disaster & ReSpace Map',
     eyebrow: 'Map',
     description:
       'An interactive globe for comparing live earthquake events, population exposure, flood risk, heat, fire, and future recovery layers.',
@@ -81,8 +81,8 @@ export const researchProjects = [
 ] as const;
 
 export const recoveryDimensions = [
-  'Social relationality',
-  'Ecological embeddedness',
-  'Multispecies coexistence',
-  'Cultural-symbolic continuity'
+  '社会适应力',
+  '生态承载力',
+  '文化连续性',
+  '空间治理能力'
 ];
