@@ -235,6 +235,23 @@ h3 {
     -28px 28px 0 rgba(217, 232, 234, 0.46);
 }
 
+.research-page-hero {
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.research-page-hero .page-hero-copy {
+  max-width: min(1180px, 100%);
+}
+
+.research-page-hero h1 {
+  max-width: 26ch;
+}
+
+.research-page-hero .page-hero-copy > p:last-child {
+  max-width: 86ch;
+}
+
 .intro-band,
 .split-section,
 .section-heading,
