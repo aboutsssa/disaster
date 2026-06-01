@@ -10,6 +10,7 @@ interface Props {
   textEn?: string;
   textZh?: string;
   image?: string;
+  className?: string;
 }
 
 const {
@@ -22,11 +23,12 @@ const {
   text,
   textEn = text,
   textZh = text,
-  image
+  image,
+  className
 } = Astro.props;
 ---
 
-<section class:list={['page-hero', image && 'has-image']}>
+<section class:list={['page-hero', image && 'has-image', className]}>
   <div class="page-hero-copy">
     {
       eyebrowZh && (

@@ -208,6 +208,33 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.home-page-hero {
+  grid-template-columns: minmax(360px, 0.92fr) minmax(280px, 0.58fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: center;
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.home-page-hero .page-hero-copy {
+  max-width: 760px;
+}
+
+.home-page-hero img {
+  justify-self: end;
+  width: min(100%, 620px);
+  height: auto;
+  min-height: 0;
+  max-height: 560px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 56% 48%;
+  border: 1px solid rgba(217, 223, 220, 0.9);
+  box-shadow:
+    0 24px 70px rgba(29, 37, 40, 0.12),
+    -28px 28px 0 rgba(217, 232, 234, 0.46);
+}
+
 .intro-band,
 .split-section,
 .section-heading,
