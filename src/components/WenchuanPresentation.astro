@@ -5,19 +5,20 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 <main class="wenchuan-slides" id="wenchuan-slides">
   <div class="slides-progress" aria-hidden="true"><span id="slides-progress-bar"></span></div>
   <div class="slide-lang" role="group" aria-label="Presentation language">
-    <button class="is-active" type="button" data-slide-language="zh">中文</button>
-    <button type="button" data-slide-language="en">EN</button>
+    <button class="is-active" type="button" data-slide-language="en">EN</button>
+    <button type="button" data-slide-language="zh">中文</button>
+    <button type="button" data-slide-language="hi">हिन्दी</button>
   </div>
 
   <section class="slide title-slide is-active" data-slide>
     <div class="title-copy">
       <p
         class="slide-kicker"
-        data-en="ReSpace Lab · Progress Report"
-        data-zh="恢复空间实验室 · 进展汇报"
+        data-en="Qiushan Li's Lab · Progress Report"
+        data-zh="黎秋杉实验室 · 进展汇报"
         data-hi="च्यूशान ली प्रयोगशाला · प्रगति रिपोर्ट"
       >
-        ReSpace Lab · Progress Report
+        Qiushan Li's Lab · Progress Report
       </p>
       <h1
         data-en="Post-Disaster Socioeconomic and Environmental Monitoring"
@@ -36,11 +37,11 @@ import 'maplibre-gl/dist/maplibre-gl.css';
       </p>
       <div class="title-meta">
         <span
-          data-en="Presenter: ReSpace Lab"
-          data-zh="汇报：恢复空间实验室"
+          data-en="Presenter: Qiushan Li's Lab"
+          data-zh="汇报：黎秋杉实验室"
           data-hi="प्रस्तुतकर्ता: च्यूशान ली प्रयोगशाला"
         >
-          Presenter: ReSpace Lab
+          Presenter: Qiushan Li's Lab
         </span>
         <span
           data-en="May 2026"
@@ -475,11 +476,11 @@ import 'maplibre-gl/dist/maplibre-gl.css';
   <section class="slide conclusion-slide" data-slide>
     <p class="slide-kicker" data-en="Conclusion" data-zh="结论" data-hi="निष्कर्ष">Conclusion</p>
     <h2
-      data-en="From disaster impact to Re-Space."
-      data-zh="从灾害冲击走向复原空间。"
+      data-en="From disaster impact to re-inhabitability."
+      data-zh="从灾害冲击，走向重新宜居。"
       data-hi="आपदा प्रभाव से फिर से रहने योग्य भविष्य तक।"
     >
-      From disaster impact to Re-Space.
+      From disaster impact to re-inhabitability.
     </h2>
     <p
       data-en="The Wenchuan case shows that recovery is not simply a return to trend. It is a spatially uneven reconstruction of livelihoods, population, infrastructure, and ecological conditions."
@@ -525,11 +526,11 @@ import 'maplibre-gl/dist/maplibre-gl.css';
     </ul>
     <p
       class="thanks"
-      data-en="ReSpace Lab · Humanistic Disaster GIS"
-      data-zh="恢复空间实验室 · 人文灾害 GIS"
+      data-en="Qiushan Li's Lab · Humanistic Disaster GIS"
+      data-zh="黎秋杉实验室 · 人文灾害 GIS"
       data-hi="च्यूशान ली प्रयोगशाला · Humanistic Disaster GIS"
     >
-      ReSpace Lab · Humanistic Disaster GIS
+      Qiushan Li's Lab · Humanistic Disaster GIS
     </p>
   </section>
 
@@ -554,11 +555,9 @@ import 'maplibre-gl/dist/maplibre-gl.css';
   const titleGlobeYear = document.getElementById('title-globe-year');
   const titleGlobeName = document.getElementById('title-globe-name');
   const titleGlobePlace = document.getElementById('title-globe-place');
-  const STORAGE_KEY = 'respace-language';
-  const normalizeLanguage = (value) => (value === 'en' ? 'en' : 'zh');
   let current = 0;
   let data = null;
-  let language = normalizeLanguage(localStorage.getItem(STORAGE_KEY) || 'zh');
+  let language = 'en';
   let titleGlobe = null;
   let titleGlobeTimer = null;
   let titleGlobeIndex = 0;
@@ -687,10 +686,8 @@ import 'maplibre-gl/dist/maplibre-gl.css';
   ];
 
   const applyLanguage = (next) => {
-    language = normalizeLanguage(next);
-    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
-    document.documentElement.dataset.language = language;
-    localStorage.setItem(STORAGE_KEY, language);
+    language = next;
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language === 'hi' ? 'hi-IN' : 'en';
     document.querySelectorAll('[data-en]').forEach((element) => {
       element.textContent = element.dataset[language] ?? element.dataset.en;
     });
@@ -1016,15 +1013,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
   prevButton.addEventListener('click', () => showSlide(current - 1));
   nextButton.addEventListener('click', () => showSlide(current + 1));
   languageButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      applyLanguage(button.dataset.slideLanguage);
-      window.dispatchEvent(new CustomEvent('respace-language-change', { detail: { language } }));
-    });
-  });
-  window.addEventListener('respace-language-change', (event) => {
-    if (event.detail?.language && event.detail.language !== language) {
-      applyLanguage(event.detail.language);
-    }
+    button.addEventListener('click', () => applyLanguage(button.dataset.slideLanguage));
   });
   window.addEventListener('keydown', (event) => {
     if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
@@ -1037,13 +1026,10 @@ import 'maplibre-gl/dist/maplibre-gl.css';
     }
   });
 
-  applyLanguage(language);
-
   fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}data/wenchuan-scm-results.json`)
     .then((response) => response.json())
     .then((payload) => {
       data = payload;
-      applyLanguage(language);
       drawAll();
       initTitleGlobe();
       showSlide(0);
