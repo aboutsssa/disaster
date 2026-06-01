@@ -145,6 +145,10 @@ nav a.is-active {
   border-bottom: 1px solid var(--line);
 }
 
+.page-hero:not(.has-image) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .page-hero-copy {
   align-self: center;
   max-width: 780px;

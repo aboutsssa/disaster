@@ -9,7 +9,7 @@ interface Props {
   text: string;
   textEn?: string;
   textZh?: string;
-  image: string;
+  image?: string;
 }
 
 const {
@@ -26,7 +26,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class:list={['page-hero', image && 'has-image']}>
   <div class="page-hero-copy">
     {
       eyebrowZh && (
@@ -38,5 +38,5 @@ const {
     <h1 data-lang-en={titleEn} data-lang-zh={titleZh}>{titleZh}</h1>
     <p data-lang-en={textEn} data-lang-zh={textZh}>{textZh}</p>
   </div>
-  <img src={image} alt="" loading="eager" />
+  {image && <img src={image} alt="" loading="eager" />}
 </section>
