@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Typology of Post-Disaster Recovery Trajectories</title>
+  <desc id="desc">A four-quadrant typology comparing material reconstruction and relational reassembly after disasters.</desc>
+  <defs>
+    <style>
+      .serif { font-family: Georgia, 'Times New Roman', serif; }
+      .sans { font-family: Arial, Helvetica, sans-serif; }
+      .title { font-size: 30px; font-weight: 800; fill: #1f2729; }
+      .subtitle { font-size: 15px; font-style: italic; fill: #657070; }
+      .axis-title { font-size: 15px; font-weight: 800; fill: #1f2729; }
+      .axis-note { font-size: 12px; fill: #566160; }
+      .quadrant-title { font-size: 18px; font-weight: 800; }
+      .quadrant-subtitle { font-size: 13px; font-style: italic; font-weight: 700; }
+      .body { font-size: 12.5px; line-height: 1.35; fill: #283131; }
+      .body-italic { font-size: 12.5px; font-style: italic; fill: #4f5958; }
+      .small { font-size: 12px; font-weight: 700; }
+      .label { font-size: 12px; font-weight: 800; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222b2d"/>
+    </marker>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#1f2729" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="600" fill="#ffffff"/>
+
+  <text x="520" y="34" text-anchor="middle" class="sans title">Typology of Post-Disaster Recovery Trajectories</text>
+  <text x="520" y="58" text-anchor="middle" class="sans subtitle">Recovery outcomes as a function of material reconstruction</text>
+  <text x="520" y="78" text-anchor="middle" class="sans subtitle">and relational reassembly across four dimensions of re-inhabitability</text>
+
+  <g class="sans">
+    <text x="58" y="118" class="axis-title">Degree of</text>
+    <text x="58" y="137" class="axis-title">Relational</text>
+    <text x="58" y="156" class="axis-title">Reassembly</text>
+    <text x="58" y="181" class="axis-note">(across four</text>
+    <text x="58" y="198" class="axis-note">dimensions of</text>
+    <text x="58" y="215" class="axis-note">re-inhabitability)</text>
+
+    <text x="147" y="112" text-anchor="middle" fill="#28763e" class="label">High</text>
+    <text x="147" y="486" text-anchor="middle" fill="#c73535" class="label">Low</text>
+    <text x="260" y="562" text-anchor="middle" fill="#c73535" class="label">Low</text>
+    <text x="850" y="562" text-anchor="middle" fill="#28763e" class="label">High</text>
+
+    <text x="550" y="553" text-anchor="middle" class="axis-title">Degree of Material Reconstruction</text>
+    <text x="550" y="571" text-anchor="middle" class="axis-note">(infrastructure, housing, services, economic systems)</text>
+  </g>
+
+  <g class="sans">
+    <circle cx="74" cy="262" r="18" fill="#e8f2fb" stroke="#2b72b7" stroke-width="2"/>
+    <circle cx="67" cy="257" r="5" fill="#2b72b7"/>
+    <circle cx="75" cy="254" r="5" fill="#2b72b7"/>
+    <circle cx="82" cy="258" r="5" fill="#2b72b7"/>
+    <path d="M59 273c4-10 25-10 30 0" fill="#2b72b7"/>
+    <text x="111" y="258" fill="#2b72b7" class="small">Social</text>
+    <text x="111" y="274" fill="#2b72b7" class="small">relations</text>
+
+    <circle cx="74" cy="318" r="18" fill="#eef8ed" stroke="#3c853c" stroke-width="2"/>
+    <path d="M74 306c11 9 10 22 0 29c-10-7-11-20 0-29z" fill="#3c853c"/>
+    <path d="M74 312v24M66 321l8 7M82 319l-8 8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="111" y="313" fill="#3c853c" class="small">Ecological</text>
+    <text x="111" y="329" fill="#3c853c" class="small">processes</text>
+
+    <circle cx="74" cy="374" r="18" fill="#f3eef9" stroke="#72509c" stroke-width="2"/>
+    <path d="M64 384c12-25 23-25 20-2M71 365l12-8M79 365l-13-8" stroke="#72509c" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="83" cy="355" r="3" fill="#72509c"/>
+    <text x="111" y="369" fill="#72509c" class="small">Multispecies</text>
+    <text x="111" y="385" fill="#72509c" class="small">co-existence</text>
+
+    <circle cx="74" cy="430" r="18" fill="#fff3e6" stroke="#d9781f" stroke-width="2"/>
+    <path d="M61 426h26M65 426v15M73 426v15M81 426v15M60 443h28M74 414l15 9H59z" stroke="#d9781f" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+    <text x="111" y="424" fill="#d9781f" class="small">Cultural-</text>
+    <text x="111" y="440" fill="#d9781f" class="small">symbolic</text>
+    <text x="111" y="456" fill="#d9781f" class="small">continuity</text>
+  </g>
+
+  <g stroke="#222b2d" stroke-width="2.1" fill="none" marker-end="url(#arrow)">
+    <path d="M170 490V94"/>
+    <path d="M170 303H902"/>
+    <path d="M535 490V94"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="190" y="100" width="305" height="210" rx="10" fill="#f1f8ed" stroke="#3c853c" stroke-width="1.7"/>
+    <rect x="575" y="100" width="305" height="210" rx="10" fill="#eef6fd" stroke="#2b72b7" stroke-width="1.7"/>
+    <rect x="190" y="323" width="305" height="205" rx="10" fill="#fff1ee" stroke="#cf4b43" stroke-width="1.7"/>
+    <rect x="575" y="323" width="305" height="205" rx="10" fill="#fff6e8" stroke="#d9781f" stroke-width="1.7"/>
+  </g>
+
+  <g class="sans">
+    <text x="342" y="129" text-anchor="middle" fill="#2e7639" class="quadrant-title">Relational Persistence</text>
+    <text x="342" y="151" text-anchor="middle" fill="#2e7639" class="quadrant-subtitle">Low material / High relational</text>
+    <circle cx="244" cy="204" r="43" fill="#e0f0dc" stroke="#3c853c" stroke-width="1.7"/>
+    <path d="M222 223h43v9h-43zM228 203h8v20h-8zM244 195h8v28h-8zM260 209h8v14h-8z" fill="#3c853c"/>
+    <path d="M221 195c-10 8-7 21 5 23c14-6 13-24-5-23zM265 192c13 8 11 25-4 29c-13-8-11-25 4-29z" fill="#3c853c"/>
+    <text x="299" y="188" class="body">Strong relational continuity is</text>
+    <text x="299" y="205" class="body">maintained through social ties,</text>
+    <text x="299" y="222" class="body">ecological practices, multispecies</text>
+    <text x="299" y="239" class="body">relations, and cultural meanings,</text>
+    <text x="299" y="256" class="body">despite limited material recovery.</text>
+    <text x="299" y="282" class="body-italic">Relational systems adapt and</text>
+    <text x="299" y="299" class="body-italic">sustain inhabitable conditions.</text>
+
+    <text x="728" y="129" text-anchor="middle" fill="#145489" class="quadrant-title">Integrated Re-inhabitation</text>
+    <text x="728" y="151" text-anchor="middle" fill="#145489" class="quadrant-subtitle">High material / High relational</text>
+    <circle cx="630" cy="204" r="43" fill="#dcecf8" stroke="#2b72b7" stroke-width="1.7"/>
+    <path d="M607 222h49v10h-49zM613 194h11v28h-11zM629 181h13v41h-13zM647 202h10v20h-10zM632 188h6M632 198h6M616 202h5M616 212h5" stroke="#2b72b7" stroke-width="2" fill="none"/>
+    <circle cx="617" cy="183" r="5" fill="#2b72b7"/>
+    <path d="M608 218c-8-8-8-17 0-25c8 8 8 17 0 25zM660 219c8-8 8-17 0-25c-8 8-8 17 0 25z" fill="#2b72b7"/>
+    <text x="684" y="188" class="body">Material reconstruction progresses</text>
+    <text x="684" y="205" class="body">in tandem with the reassembly of</text>
+    <text x="684" y="222" class="body">social, ecological, multispecies, and</text>
+    <text x="684" y="239" class="body">cultural-symbolic relations.</text>
+    <text x="684" y="265" class="body-italic">Relational and material systems</text>
+    <text x="684" y="282" class="body-italic">co-evolve to produce inhabitable</text>
+    <text x="684" y="299" class="body-italic">worlds.</text>
+
+    <text x="342" y="353" text-anchor="middle" fill="#bc3d3a" class="quadrant-title">Collapsed Recovery</text>
+    <text x="342" y="375" text-anchor="middle" fill="#bc3d3a" class="quadrant-subtitle">Low material / Low relational</text>
+    <circle cx="244" cy="427" r="43" fill="#fae1df" stroke="#cf4b43" stroke-width="1.7"/>
+    <path d="M216 447h54v9h-54zM223 425l22-19l22 19v22h-44z" fill="#cf4b43"/>
+    <path d="M220 411l13 13M234 392v42M225 400l9 8M246 404l-10 8M263 397v50M254 410l10 12M275 414l-12 10" stroke="#cf4b43" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="299" y="412" class="body">Both material reconstruction and</text>
+    <text x="299" y="429" class="body">relational reassembly fail to</text>
+    <text x="299" y="446" class="body">progress.</text>
+    <text x="299" y="472" class="body-italic">Social fragmentation, ecological</text>
+    <text x="299" y="489" class="body-italic">degradation, multispecies loss, and</text>
+    <text x="299" y="506" class="body-italic">symbolic dislocation reinforce</text>
+    <text x="299" y="523" class="body-italic">uninhabitable conditions.</text>
+
+    <text x="728" y="353" text-anchor="middle" fill="#d06d16" class="quadrant-title">Disembedded Reconstruction</text>
+    <text x="728" y="375" text-anchor="middle" fill="#d06d16" class="quadrant-subtitle">High material / Low relational</text>
+    <circle cx="630" cy="427" r="43" fill="#fff0da" stroke="#d9781f" stroke-width="1.7"/>
+    <path d="M607 446h53M612 416h34v30h-34zM605 407h52M623 407v39M640 407v39M612 422h34M616 429h8M631 429h8" stroke="#d9781f" stroke-width="3" fill="none"/>
+    <path d="M610 405l33-20l20 20" stroke="#d9781f" stroke-width="3" fill="none" stroke-linejoin="round"/>
+    <text x="684" y="412" class="body">Physical reconstruction is achieved,</text>
+    <text x="684" y="429" class="body">but relational systems remain</text>
+    <text x="684" y="446" class="body">weak, fragmented, or excluded.</text>
+    <text x="684" y="472" class="body-italic">Lack of social cohesion, ecological</text>
+    <text x="684" y="489" class="body-italic">fit, multispecies relations, and</text>
+    <text x="684" y="506" class="body-italic">cultural continuity results in</text>
+    <text x="684" y="523" class="body-italic">environments that are not fully</text>
+    <text x="684" y="540" class="body-italic">inhabitable.</text>
+  </g>
+
+  <g>
+    <circle cx="535" cy="303" r="62" fill="#fbf7ff" stroke="#72509c" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="535" y="277" text-anchor="middle" fill="#72509c" class="sans quadrant-title" font-size="16">Uneven</text>
+    <text x="535" y="296" text-anchor="middle" fill="#72509c" class="sans quadrant-title" font-size="16">Relational</text>
+    <text x="535" y="315" text-anchor="middle" fill="#72509c" class="sans quadrant-title" font-size="16">Reassembly</text>
+    <text x="535" y="338" text-anchor="middle" class="sans body">Recovery is not linear</text>
+    <text x="535" y="354" text-anchor="middle" class="sans body">or uniform, but an</text>
+    <text x="535" y="370" text-anchor="middle" class="sans body">uneven process across</text>
+    <text x="535" y="386" text-anchor="middle" class="sans body">interdependent</text>
+    <text x="535" y="402" text-anchor="middle" class="sans body">dimensions.</text>
+  </g>
+
+  <g stroke="#3b4547" stroke-width="1.8" fill="none" stroke-dasharray="7 7" marker-end="url(#arrow)">
+    <path d="M496 247L463 218"/>
+    <path d="M572 247L605 218"/>
+    <path d="M496 360L463 389"/>
+    <path d="M572 360L605 389"/>
+  </g>
+</svg>

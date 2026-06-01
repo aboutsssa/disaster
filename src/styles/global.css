@@ -617,6 +617,20 @@ h3 {
   color: var(--forest);
 }
 
+.typology-figure {
+  margin: 0;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 55px rgba(29, 37, 40, 0.08);
+}
+
+.typology-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .people-section {
   display: grid;
   gap: 1rem;
