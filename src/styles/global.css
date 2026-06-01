@@ -616,8 +616,8 @@ h3 {
 }
 
 .typology-section {
-  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1.58fr);
-  gap: clamp(2rem, 4vw, 4.5rem);
+  grid-template-columns: minmax(240px, 0.46fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
 
@@ -625,21 +625,296 @@ h3 {
   max-width: 14ch;
 }
 
-.typology-figure {
-  justify-self: stretch;
-  margin: 0;
-  overflow: hidden;
+.typology-panel {
+  justify-self: end;
+  width: min(100%, 960px);
+  padding: clamp(1rem, 2vw, 1.4rem);
   background: var(--white);
   border: 1px solid var(--line);
   box-shadow: 0 22px 55px rgba(29, 37, 40, 0.08);
 }
 
-.typology-figure img {
+.typology-panel-header {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.typology-panel-header h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-weight: 800;
+}
+
+.typology-panel-header p {
+  max-width: 72ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.typology-body {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.26fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.typology-legend {
+  display: grid;
+  gap: 1.1rem;
+  align-content: center;
+}
+
+.typology-legend strong,
+.typology-legend span {
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 801 / 497;
-  object-fit: contain;
+}
+
+.typology-legend strong {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+.typology-legend > div > span {
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.typology-legend ul {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.typology-legend li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+.typology-legend i {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+.typology-legend i::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  border-radius: 999px;
+}
+
+.legend-social {
+  color: #2f72b7;
+}
+
+.legend-ecological {
+  color: #3f8441;
+}
+
+.legend-multispecies {
+  color: #72519c;
+}
+
+.legend-cultural {
+  color: #d27725;
+}
+
+.typology-map {
+  position: relative;
+  padding: 1.65rem 1.25rem 2rem;
+}
+
+.typology-map::before,
+.typology-map::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  background: rgba(31, 41, 44, 0.7);
+}
+
+.typology-map::before {
+  top: 0.65rem;
+  bottom: 1.5rem;
+  left: 50%;
+  width: 2px;
+}
+
+.typology-map::after {
+  top: calc(50% - 0.8rem);
+  left: 0.4rem;
+  right: 0.4rem;
+  height: 2px;
+}
+
+.typology-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(112px, 0.38fr) minmax(0, 1fr);
+  grid-template-areas:
+    "relational . integrated"
+    ". center ."
+    "collapsed . disembedded";
+  gap: 0.9rem 1rem;
+}
+
+.typology-card,
+.typology-center {
+  position: relative;
+  background: var(--white);
+}
+
+.typology-card {
+  min-height: 168px;
+  padding: 1rem;
+  border: 1.5px solid currentColor;
+  border-radius: 8px;
+  box-shadow: 0 14px 35px rgba(29, 37, 40, 0.06);
+}
+
+.typology-card h4 {
+  margin: 0;
+  color: currentColor;
+  font-size: clamp(0.98rem, 1.4vw, 1.22rem);
+  line-height: 1.12;
+}
+
+.typology-card p {
+  margin: 0.55rem 0 0;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.typology-card .typology-sub {
+  color: currentColor;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.typology-icon {
+  float: right;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-left: 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, white);
+  color: currentColor;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.typology-card.relational {
+  grid-area: relational;
+  color: #3f8441;
+  background: #f2f8ee;
+}
+
+.typology-card.integrated {
+  grid-area: integrated;
+  color: #2f72b7;
+  background: #edf6ff;
+}
+
+.typology-card.collapsed {
+  grid-area: collapsed;
+  color: #c95249;
+  background: #fff1ee;
+}
+
+.typology-card.disembedded {
+  grid-area: disembedded;
+  color: #d27725;
+  background: #fff6e8;
+}
+
+.typology-center {
+  grid-area: center;
+  display: grid;
+  gap: 0.35rem;
+  align-self: center;
+  justify-self: center;
+  width: 132px;
+  padding: 0.8rem;
+  color: #72519c;
+  text-align: center;
+  border: 1.5px dashed currentColor;
+  border-radius: 999px;
+}
+
+.typology-center strong {
+  font-size: 0.84rem;
+  line-height: 1.05;
+}
+
+.typology-center span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.25;
+}
+
+.axis-high,
+.axis-low,
+.x-axis-title {
+  position: absolute;
+  z-index: 2;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.axis-high {
+  color: #3f8441;
+}
+
+.axis-low {
+  color: #c95249;
+}
+
+.y-high {
+  top: 0.2rem;
+  left: calc(50% - 2.3rem);
+}
+
+.y-low {
+  bottom: 0.35rem;
+  left: calc(50% - 2.1rem);
+}
+
+.x-low {
+  left: 20%;
+  bottom: 0.35rem;
+}
+
+.x-high {
+  right: 1.1rem;
+  bottom: 0.35rem;
+}
+
+.x-axis-title {
+  left: 50%;
+  bottom: 0.05rem;
+  color: var(--ink);
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .people-section {
@@ -3220,6 +3495,23 @@ h3 {
     justify-items: start;
   }
 
+  .typology-panel {
+    justify-self: stretch;
+  }
+
+  .typology-body {
+    grid-template-columns: 1fr;
+  }
+
+  .typology-legend {
+    grid-template-columns: minmax(150px, 0.6fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .typology-legend ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .project-globe-preview {
     width: min(330px, 78vw);
   }
@@ -3291,6 +3583,39 @@ h3 {
 
   .person-card.is-lead {
     grid-template-columns: 1fr;
+  }
+
+  .typology-legend,
+  .typology-legend ul {
+    grid-template-columns: 1fr;
+  }
+
+  .typology-map {
+    padding: 0;
+  }
+
+  .typology-map::before,
+  .typology-map::after,
+  .axis-high,
+  .axis-low,
+  .x-axis-title {
+    display: none;
+  }
+
+  .typology-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "center"
+      "integrated"
+      "relational"
+      "disembedded"
+      "collapsed";
+    gap: 0.8rem;
+  }
+
+  .typology-center {
+    width: auto;
+    border-radius: 8px;
   }
 
   .matrix {

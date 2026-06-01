@@ -126,12 +126,142 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
         物质恢复与空间复原
       </h2>
     </div>
-    <figure class="typology-figure">
-      <img
-        src={withBase('/assets/recovery-typology.svg')}
-        alt="Typology of Post-Disaster Recovery Trajectories"
-        loading="lazy"
-      />
-    </figure>
+    <div class="typology-panel" aria-labelledby="typology-title">
+      <div class="typology-panel-header">
+        <h3
+          id="typology-title"
+          data-lang-en="Typology of Post-Disaster Recovery Trajectories"
+          data-lang-zh="灾后恢复轨迹类型学"
+        >
+          灾后恢复轨迹类型学
+        </h3>
+        <p
+          data-lang-en="Recovery outcomes as a function of material reconstruction and relational reassembly across four dimensions of re-inhabitability."
+          data-lang-zh="恢复结果取决于物质重建程度与可再栖居四个维度中的关系重组。"
+        >
+          恢复结果取决于物质重建程度与可再栖居四个维度中的关系重组。
+        </p>
+      </div>
+
+      <div class="typology-body">
+        <aside class="typology-legend" aria-label="Relational dimensions">
+          <div>
+            <strong data-lang-en="Degree of Relational Reassembly" data-lang-zh="关系重组程度">
+              关系重组程度
+            </strong>
+            <span
+              data-lang-en="across four dimensions of re-inhabitability"
+              data-lang-zh="跨越可再栖居的四个维度"
+            >
+              跨越可再栖居的四个维度
+            </span>
+          </div>
+          <ul>
+            <li class="legend-social">
+              <i></i>
+              <span data-lang-en="Social relations" data-lang-zh="社会关系">社会关系</span>
+            </li>
+            <li class="legend-ecological">
+              <i></i>
+              <span data-lang-en="Ecological processes" data-lang-zh="生态过程">生态过程</span>
+            </li>
+            <li class="legend-multispecies">
+              <i></i>
+              <span data-lang-en="Multispecies co-existence" data-lang-zh="多物种共存">多物种共存</span>
+            </li>
+            <li class="legend-cultural">
+              <i></i>
+              <span data-lang-en="Cultural-symbolic continuity" data-lang-zh="文化-象征连续性">
+                文化-象征连续性
+              </span>
+            </li>
+          </ul>
+        </aside>
+
+        <div class="typology-map">
+          <span class="axis-high y-high" data-lang-en="High" data-lang-zh="高">高</span>
+          <span class="axis-low y-low" data-lang-en="Low" data-lang-zh="低">低</span>
+          <span class="axis-low x-low" data-lang-en="Low" data-lang-zh="低">低</span>
+          <span class="axis-high x-high" data-lang-en="High" data-lang-zh="高">高</span>
+          <span
+            class="x-axis-title"
+            data-lang-en="Degree of Material Reconstruction"
+            data-lang-zh="物质重建程度"
+          >
+            物质重建程度
+          </span>
+
+          <div class="typology-grid">
+            <article class="typology-card relational">
+              <span class="typology-icon" aria-hidden="true">RI</span>
+              <h4 data-lang-en="Relational Persistence" data-lang-zh="关系性延续">关系性延续</h4>
+              <p class="typology-sub" data-lang-en="Low material / High relational" data-lang-zh="低物质 / 高关系">
+                低物质 / 高关系
+              </p>
+              <p
+                data-lang-en="Relational continuity is sustained through social ties, ecological practices, multispecies relations, and cultural meanings."
+                data-lang-zh="关系连续性通过社会联系、生态实践、多物种关系和文化意义得以维持。"
+              >
+                关系连续性通过社会联系、生态实践、多物种关系和文化意义得以维持。
+              </p>
+            </article>
+
+            <article class="typology-card integrated">
+              <span class="typology-icon" aria-hidden="true">IN</span>
+              <h4 data-lang-en="Integrated Re-inhabitation" data-lang-zh="整合型再栖居">整合型再栖居</h4>
+              <p class="typology-sub" data-lang-en="High material / High relational" data-lang-zh="高物质 / 高关系">
+                高物质 / 高关系
+              </p>
+              <p
+                data-lang-en="Material reconstruction progresses with the reassembly of social, ecological, multispecies, and cultural-symbolic relations."
+                data-lang-zh="物质重建与社会、生态、多物种和文化-象征关系的重组同步推进。"
+              >
+                物质重建与社会、生态、多物种和文化-象征关系的重组同步推进。
+              </p>
+            </article>
+
+            <div class="typology-center">
+              <strong data-lang-en="Uneven Relational Reassembly" data-lang-zh="不均衡的关系重组">
+                不均衡的关系重组
+              </strong>
+              <span
+                data-lang-en="Recovery is not linear or uniform."
+                data-lang-zh="恢复并非线性或均质。"
+              >
+                恢复并非线性或均质。
+              </span>
+            </div>
+
+            <article class="typology-card collapsed">
+              <span class="typology-icon" aria-hidden="true">CR</span>
+              <h4 data-lang-en="Collapsed Recovery" data-lang-zh="崩塌型恢复">崩塌型恢复</h4>
+              <p class="typology-sub" data-lang-en="Low material / Low relational" data-lang-zh="低物质 / 低关系">
+                低物质 / 低关系
+              </p>
+              <p
+                data-lang-en="Material reconstruction and relational reassembly both fail to progress, reinforcing uninhabitable conditions."
+                data-lang-zh="物质重建和关系重组都未能推进，并共同强化不可居条件。"
+              >
+                物质重建和关系重组都未能推进，并共同强化不可居条件。
+              </p>
+            </article>
+
+            <article class="typology-card disembedded">
+              <span class="typology-icon" aria-hidden="true">DR</span>
+              <h4 data-lang-en="Disembedded Reconstruction" data-lang-zh="脱嵌式重建">脱嵌式重建</h4>
+              <p class="typology-sub" data-lang-en="High material / Low relational" data-lang-zh="高物质 / 低关系">
+                高物质 / 低关系
+              </p>
+              <p
+                data-lang-en="Physical reconstruction is achieved, but relational systems remain weak, fragmented, or excluded."
+                data-lang-zh="物理重建已经完成，但关系系统仍然薄弱、碎片化或被排除。"
+              >
+                物理重建已经完成，但关系系统仍然薄弱、碎片化或被排除。
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </BaseLayout>
