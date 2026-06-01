@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GlobalDisasterMap from '../../components/GlobalDisasterMap.astro';
 import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects';
+import { withBase } from '../../data/site';
 ---
 
 <BaseLayout
@@ -50,7 +51,7 @@ import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects
       <p>
         <strong data-lang-en="Fullscreen app" data-lang-zh="全屏应用">全屏应用</strong>
         <span>
-          <a href="/map/" data-lang-en="Open /map" data-lang-zh="打开 /map">打开 /map</a>
+          <a href={withBase('/map/')} data-lang-en="Open map" data-lang-zh="打开地图">打开地图</a>
         </span>
       </p>
     </div>
