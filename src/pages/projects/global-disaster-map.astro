@@ -5,24 +5,54 @@ import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects
 ---
 
 <BaseLayout
-  title="Global Disaster & Re-Inhabitability Observatory"
-  description="A layer-based global disaster and exposure observatory using MapLibre, USGS events, WorldPop, and Earth Engine-ready remote-sensing data."
+  title="全球灾害与复原空间观测平台"
+  titleEn="Global Disaster and ReSpace Observatory"
+  titleZh="全球灾害与复原空间观测平台"
+  descriptionEn="A layer-based global disaster and exposure observatory using MapLibre, USGS events, WorldPop, and Earth Engine-ready remote-sensing data."
+  descriptionZh="一个基于 MapLibre、USGS 事件、WorldPop 与 Earth Engine 遥感数据流程的全球灾害与暴露观测平台。"
 >
   <section class="project-hero">
     <div>
-      <p class="eyebrow">Research Project</p>
-      <h1>Global Disaster & Re-Inhabitability Observatory</h1>
-      <p>
-        A data-driven map project for comparing global hazards, population exposure, and
-        post-disaster recovery conditions. The first version streams public web layers; the
-        next version should publish Earth Engine-derived analytical tiles from the research pipeline.
+      <p class="eyebrow" data-lang-en="Research Project" data-lang-zh="研究项目">研究项目</p>
+      <h1
+        data-lang-en="Global Disaster and ReSpace Observatory"
+        data-lang-zh="全球灾害与复原空间观测平台"
+      >
+        全球灾害与复原空间观测平台
+      </h1>
+      <p
+        data-lang-en="A data-driven map project for comparing global hazards, population exposure, and post-disaster recovery conditions. The first version streams public web layers; the next version should publish Earth Engine-derived analytical tiles from the research pipeline."
+        data-lang-zh="一个数据驱动的地图项目，用于比较全球灾害、人口暴露与灾后恢复条件。当前版本加载公开 Web 图层，下一版本将从研究流程中发布 Earth Engine 生成的分析瓦片。"
+      >
+        一个数据驱动的地图项目，用于比较全球灾害、人口暴露与灾后恢复条件。当前版本加载公开 Web 图层，下一版本将从研究流程中发布 Earth Engine 生成的分析瓦片。
       </p>
     </div>
     <div class="project-meta">
-      <p><strong>Map engine</strong><span>MapLibre GL JS</span></p>
-      <p><strong>Data model</strong><span>Raster services, live GeoJSON, GEE exports</span></p>
-      <p><strong>Earth Engine project</strong><span>{geePlan.project}</span></p>
-      <p><strong>Fullscreen app</strong><span><a href="/map/">Open /map</a></span></p>
+      <p>
+        <strong data-lang-en="Map engine" data-lang-zh="地图引擎">地图引擎</strong>
+        <span>MapLibre GL JS</span>
+      </p>
+      <p>
+        <strong data-lang-en="Data model" data-lang-zh="数据模型">数据模型</strong>
+        <span
+          data-lang-en="Raster services, live GeoJSON, GEE exports"
+          data-lang-zh="栅格服务、实时 GeoJSON、GEE 导出"
+        >
+          栅格服务、实时 GeoJSON、GEE 导出
+        </span>
+      </p>
+      <p>
+        <strong data-lang-en="Earth Engine project" data-lang-zh="Earth Engine 项目">
+          Earth Engine 项目
+        </strong>
+        <span>{geePlan.project}</span>
+      </p>
+      <p>
+        <strong data-lang-en="Fullscreen app" data-lang-zh="全屏应用">全屏应用</strong>
+        <span>
+          <a href="/map/" data-lang-en="Open /map" data-lang-zh="打开 /map">打开 /map</a>
+        </span>
+      </p>
     </div>
   </section>
 
@@ -30,25 +60,39 @@ import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects
 
   <section class="split-section">
     <div>
-      <p class="eyebrow">Data Strategy</p>
-      <h2>Use Earth Engine upstream, not as a fragile public-browser dependency</h2>
-      <p>
-        The public website should read stable map layers. Earth Engine should prepare hazard
-        composites, exposure summaries, and before/after indicators, then export browser-ready
-        outputs that MapLibre can load without visitor authentication or quota problems.
+      <p class="eyebrow" data-lang-en="Data Strategy" data-lang-zh="数据策略">数据策略</p>
+      <h2
+        data-lang-en="Use Earth Engine upstream, not as a fragile public-browser dependency"
+        data-lang-zh="将 Earth Engine 放在上游，而不是作为脆弱的浏览器依赖"
+      >
+        将 Earth Engine 放在上游，而不是作为脆弱的浏览器依赖
+      </h2>
+      <p
+        data-lang-en="The public website should read stable map layers. Earth Engine should prepare hazard composites, exposure summaries, and before/after indicators, then export browser-ready outputs that MapLibre can load without visitor authentication or quota problems."
+        data-lang-zh="公共网站应读取稳定的地图图层。Earth Engine 用于准备灾害综合图层、暴露汇总与灾前灾后指标，并导出 MapLibre 可加载的浏览器友好成果，避免访客认证与配额问题。"
+      >
+        公共网站应读取稳定的地图图层。Earth Engine 用于准备灾害综合图层、暴露汇总与灾前灾后指标，并导出 MapLibre 可加载的浏览器友好成果，避免访客认证与配额问题。
       </p>
     </div>
     <ol class="dimension-list">
-      {geePlan.recommendedFlow.map((item) => <li>{item}</li>)}
+      {
+        geePlan.recommendedFlow.map((item) => (
+          <li data-lang-en={item.en} data-lang-zh={item.zh}>{item.zh}</li>
+        ))
+      }
     </ol>
   </section>
 
   <section class="section-heading">
-    <p class="eyebrow">Layer Roadmap</p>
-    <h2>Remote-sensing layers to publish next</h2>
-    <p>
-      The observatory should prioritize continuous global surfaces and time-series layers, then
-      connect them to selected case-study regions for post-disaster reconstruction questions.
+    <p class="eyebrow" data-lang-en="Layer Roadmap" data-lang-zh="图层路线图">图层路线图</p>
+    <h2 data-lang-en="Remote-sensing layers to publish next" data-lang-zh="下一步发布的遥感图层">
+      下一步发布的遥感图层
+    </h2>
+    <p
+      data-lang-en="The observatory should prioritize continuous global surfaces and time-series layers, then connect them to selected case-study regions for post-disaster reconstruction questions."
+      data-lang-zh="观测平台将优先发布连续的全球表面与时间序列图层，再与选定案例区连接，服务灾后重建问题研究。"
+    >
+      观测平台将优先发布连续的全球表面与时间序列图层，再与选定案例区连接，服务灾后重建问题研究。
     </p>
   </section>
 
@@ -56,9 +100,9 @@ import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects
     {
       plannedRemoteSensingLayers.map((layer) => (
         <article>
-          <span>{layer.status}</span>
-          <h3>{layer.name}</h3>
-          <p>{layer.source}</p>
+          <span data-lang-en={layer.status.en} data-lang-zh={layer.status.zh}>{layer.status.zh}</span>
+          <h3 data-lang-en={layer.name.en} data-lang-zh={layer.name.zh}>{layer.name.zh}</h3>
+          <p data-lang-en={layer.source.en} data-lang-zh={layer.source.zh}>{layer.source.zh}</p>
         </article>
       ))
     }

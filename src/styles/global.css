@@ -108,6 +108,33 @@ nav a.is-active {
   background: var(--sky);
 }
 
+.language-switcher {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  padding: 3px;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.language-switcher button {
+  min-width: 44px;
+  padding: 0.5rem 0.65rem;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.language-switcher button:hover,
+.language-switcher button.is-active {
+  color: var(--white);
+  background: var(--forest);
+}
+
 .page-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);

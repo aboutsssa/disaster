@@ -8,14 +8,13 @@ const { fullscreen = false } = Astro.props;
 
 <section class:list={['wenchuan-atlas', fullscreen && 'is-fullscreen']}>
   <div class="wenchuan-lang" id="wenchuan-lang" role="group" aria-label="Language selector">
-    <button class="is-active" type="button" data-language="en">EN</button>
-    <button type="button" data-language="zh">中文</button>
-    <button type="button" data-language="hi">हिन्दी</button>
+    <button class="is-active" type="button" data-language="zh">中文</button>
+    <button type="button" data-language="en">EN</button>
   </div>
   <div class="wenchuan-welcome" id="wenchuan-welcome">
     <div class="wenchuan-welcome-card">
       <div class="atlas-entry-logo" aria-hidden="true"><span /></div>
-      <p class="eyebrow" data-en="Qiushan Li's Lab" data-zh="黎秋杉实验室" data-hi="च्यूशान ली प्रयोगशाला">Qiushan Li's Lab</p>
+      <p class="eyebrow" data-en="ReSpace Lab" data-zh="恢复空间实验室" data-hi="च्यूशान ली प्रयोगशाला">ReSpace Lab</p>
       <h1 data-en="Wenchuan Synthetic Recovery Atlas" data-zh="汶川合成恢复图谱" data-hi="वेनचुआन सिंथेटिक रिकवरी एटलस">
         Wenchuan Synthetic Recovery Atlas
       </h1>
@@ -128,8 +127,11 @@ const { fullscreen = false } = Astro.props;
   const statRmse = document.getElementById('stat-rmse');
   const statGap = document.getElementById('stat-gap');
 
+  const STORAGE_KEY = 'respace-language';
+  const normalizeLanguage = (value) => (value === 'en' ? 'en' : 'zh');
+
   let data = null;
-  let language = 'en';
+  let language = normalizeLanguage(localStorage.getItem(STORAGE_KEY) || 'zh');
   let view = 'counties';
   let outcome = 'real_gdp_pc';
   let selectedCounty = '汶川县';
@@ -462,8 +464,10 @@ const { fullscreen = false } = Astro.props;
   };
 
   const applyLanguage = (next) => {
-    language = next;
-    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language === 'hi' ? 'hi-IN' : 'en';
+    language = normalizeLanguage(next);
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.dataset.language = language;
+    localStorage.setItem(STORAGE_KEY, language);
     document.querySelectorAll('[data-en]').forEach((el) => {
       el.textContent = el.dataset[language] ?? el.dataset.en;
     });
@@ -503,7 +507,15 @@ const { fullscreen = false } = Astro.props;
 
   enter.addEventListener('click', () => welcome.classList.add('is-hidden'));
   languageButtons.forEach((button) => {
-    button.addEventListener('click', () => applyLanguage(button.dataset.language));
+    button.addEventListener('click', () => {
+      applyLanguage(button.dataset.language);
+      window.dispatchEvent(new CustomEvent('respace-language-change', { detail: { language } }));
+    });
+  });
+  window.addEventListener('respace-language-change', (event) => {
+    if (event.detail?.language && event.detail.language !== language) {
+      applyLanguage(event.detail.language);
+    }
   });
   playButton.addEventListener('click', togglePlay);
   slider.addEventListener('input', () => render({ redraw: false }));
@@ -522,5 +534,6 @@ const { fullscreen = false } = Astro.props;
     });
   });
 
-  init();
+  applyLanguage(language);
+  init().then(() => applyLanguage(language));
 </script>

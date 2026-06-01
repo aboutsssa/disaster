@@ -152,38 +152,80 @@ export const observatoryLayers = [
 
 export const plannedRemoteSensingLayers = [
   {
-    name: 'Coastal inundation and sea-level exposure',
-    source: 'NASA sea-level scenarios, coastal DEMs, GEE-derived inundation surfaces',
-    status: 'Pipeline design'
+    name: {
+      en: 'Coastal inundation and sea-level exposure',
+      zh: '海岸淹没与海平面暴露'
+    },
+    source: {
+      en: 'NASA sea-level scenarios, coastal DEMs, GEE-derived inundation surfaces',
+      zh: 'NASA 海平面情景、海岸 DEM 与 GEE 淹没面'
+    },
+    status: { en: 'Pipeline design', zh: '流程设计' }
   },
   {
-    name: 'Surface water change and flood history',
-    source: 'JRC Global Surface Water and JRC Global River Flood Hazard Maps in Earth Engine',
-    status: 'GEE export'
+    name: {
+      en: 'Surface water change and flood history',
+      zh: '地表水变化与洪水历史'
+    },
+    source: {
+      en: 'JRC Global Surface Water and JRC Global River Flood Hazard Maps in Earth Engine',
+      zh: 'Earth Engine 中的 JRC 全球地表水与全球河流洪水风险图'
+    },
+    status: { en: 'GEE export', zh: 'GEE 导出' }
   },
   {
-    name: 'Drought and rainfall anomaly',
-    source: 'CHIRPS, CHIRTS, ERA5, TerraClimate',
-    status: 'GEE export'
+    name: {
+      en: 'Drought and rainfall anomaly',
+      zh: '干旱与降水异常'
+    },
+    source: {
+      en: 'CHIRPS, CHIRTS, ERA5, TerraClimate',
+      zh: 'CHIRPS、CHIRTS、ERA5、TerraClimate'
+    },
+    status: { en: 'GEE export', zh: 'GEE 导出' }
   },
   {
-    name: 'Burned area and vegetation recovery',
-    source: 'MODIS burned area, VIIRS active fire, Sentinel/Landsat indices',
-    status: 'GEE export'
+    name: {
+      en: 'Burned area and vegetation recovery',
+      zh: '火烧迹地与植被恢复'
+    },
+    source: {
+      en: 'MODIS burned area, VIIRS active fire, Sentinel/Landsat indices',
+      zh: 'MODIS 火烧迹地、VIIRS 活跃火点、Sentinel/Landsat 指数'
+    },
+    status: { en: 'GEE export', zh: 'GEE 导出' }
   },
   {
-    name: 'Settlement and re-inhabitability indicators',
-    source: 'WorldPop, GHSL, World Settlement Footprint, nighttime lights, roads and service access',
-    status: 'Analysis layer'
+    name: {
+      en: 'Settlement and ReSpace indicators',
+      zh: '聚落与复原空间指标'
+    },
+    source: {
+      en: 'WorldPop, GHSL, World Settlement Footprint, nighttime lights, roads and service access',
+      zh: 'WorldPop、GHSL、世界聚落足迹、夜间灯光、道路与服务可达性'
+    },
+    status: { en: 'Analysis layer', zh: '分析图层' }
   }
 ] as const;
 
 export const geePlan = {
   project: 'ee-jakobzhao',
   recommendedFlow: [
-    'Use Earth Engine to build analysis-ready hazard and exposure composites.',
-    'Export browser-ready outputs as XYZ tiles, Cloud Optimized GeoTIFFs, PMTiles, or vector tiles.',
-    'Load public web layers in MapLibre; keep Earth Engine authentication and quota-sensitive processing outside the browser.',
-    'Attach each visible layer to source metadata, resolution, temporal coverage, and known uncertainty.'
+    {
+      en: 'Use Earth Engine to build analysis-ready hazard and exposure composites.',
+      zh: '使用 Earth Engine 构建可分析的灾害与暴露综合图层。'
+    },
+    {
+      en: 'Export browser-ready outputs as XYZ tiles, Cloud Optimized GeoTIFFs, PMTiles, or vector tiles.',
+      zh: '将成果导出为浏览器可直接加载的 XYZ 瓦片、COG、PMTiles 或矢量瓦片。'
+    },
+    {
+      en: 'Load public web layers in MapLibre; keep Earth Engine authentication and quota-sensitive processing outside the browser.',
+      zh: '在 MapLibre 中加载公开 Web 图层，把 Earth Engine 认证和配额敏感处理留在浏览器之外。'
+    },
+    {
+      en: 'Attach each visible layer to source metadata, resolution, temporal coverage, and known uncertainty.',
+      zh: '为每个可见图层附加数据来源、分辨率、时间覆盖范围与不确定性说明。'
+    }
   ]
 };

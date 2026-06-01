@@ -58,22 +58,22 @@ const layerCopy = {
 
 <section
   class:list={['observatory-shell', fullscreen && 'is-fullscreen']}
-  aria-label="Global disaster and re-inhabitability observatory"
+  aria-label="Global disaster and ReSpace observatory"
 >
   <aside class="observatory-sidebar">
     <div class="observatory-intro">
-      <p class="eyebrow" data-i18n-en="Living Atlas" data-i18n-zh="全球图谱">Living Atlas</p>
+      <p class="eyebrow" data-i18n-en="Living Atlas" data-i18n-zh="全球图谱">全球图谱</p>
       <h2
-        data-i18n-en="Re-Inhabitability Atlas"
-        data-i18n-zh="灾后再栖居图谱"
+        data-i18n-en="ReSpace Atlas"
+        data-i18n-zh="复原空间图谱"
       >
-        Re-Inhabitability Atlas
+        复原空间图谱
       </h2>
       <p
         data-i18n-en="A slowly turning globe of people, hazards, and places under pressure."
         data-i18n-zh="一个缓慢转动的地球，呈现人口、灾害与承压之地。"
       >
-        A slowly turning globe of people, hazards, and places under pressure.
+        一个缓慢转动的地球，呈现人口、灾害与承压之地。
       </p>
     </div>
 
@@ -86,7 +86,7 @@ const layerCopy = {
         data-i18n-en="中文"
         data-i18n-zh="English"
       >
-        中文
+        English
       </button>
       <button
         class="atlas-button"
@@ -96,7 +96,7 @@ const layerCopy = {
         data-i18n-en="Pause"
         data-i18n-zh="暂停旋转"
       >
-        Pause
+        暂停旋转
       </button>
       <button
         class="atlas-button"
@@ -105,7 +105,7 @@ const layerCopy = {
         data-i18n-en="Next story"
         data-i18n-zh="下一个案例"
       >
-        Next story
+        下一个案例
       </button>
       <button
         class="atlas-button"
@@ -115,7 +115,7 @@ const layerCopy = {
         data-i18n-en="Auto story"
         data-i18n-zh="自动案例"
       >
-        Auto story
+        自动案例
       </button>
       <button
         class="atlas-button"
@@ -125,18 +125,18 @@ const layerCopy = {
         data-i18n-en="Sound"
         data-i18n-zh="声音"
       >
-        Sound
+        声音
       </button>
     </div>
 
     <div class="layer-panel atlas-legend" aria-label="Map layers">
       <div class="panel-heading">
-        <h3 data-i18n-en="Legend" data-i18n-zh="图例">Legend</h3>
+        <h3 data-i18n-en="Legend" data-i18n-zh="图例">图例</h3>
         <span
           id="earthquake-count"
           data-i18n-prefix-en="Live"
           data-i18n-prefix-zh="实时"
-        >Loading</span>
+        >加载中</span>
       </div>
       {
         observatoryLayers.map((layer) => (
@@ -151,13 +151,13 @@ const layerCopy = {
               data-i18n-en={layerCopy[layer.id].en}
               data-i18n-zh={layerCopy[layer.id].zh}
             >
-              {layerCopy[layer.id].en}
+              {layerCopy[layer.id].zh}
             </strong>
             <small
               data-i18n-en={layerCopy[layer.id].noteEn}
               data-i18n-zh={layerCopy[layer.id].noteZh}
             >
-              {layerCopy[layer.id].noteEn}
+              {layerCopy[layer.id].noteZh}
             </small>
           </label>
         ))
@@ -167,34 +167,38 @@ const layerCopy = {
     <div class="map-stat-grid">
       <div>
         <strong>{observatoryLayers.length}</strong>
-        <span>active layer configs</span>
+        <span data-i18n-en="active layer configs" data-i18n-zh="个图层配置">个图层配置</span>
       </div>
       <div>
         <strong>6</strong>
-        <span>public web services</span>
+        <span data-i18n-en="public web services" data-i18n-zh="个公开 Web 服务">个公开 Web 服务</span>
       </div>
       <div>
         <strong>{geePlan.project}</strong>
-        <span>GEE pipeline</span>
+        <span data-i18n-en="GEE pipeline" data-i18n-zh="GEE 数据流程">GEE 数据流程</span>
       </div>
     </div>
 
     <div class="map-detail" id="map-detail">
-      <p class="eyebrow">Selected Location</p>
-      <h3>Click an earthquake or switch layers</h3>
-      <p>
-        The first version streams USGS events and overlays global raster services. GEE-derived
-        flood, heat, drought, and recovery products should be published as web tiles next.
+      <p class="eyebrow" data-i18n-en="Selected Location" data-i18n-zh="选中地点">选中地点</p>
+      <h3 data-i18n-en="Click an earthquake or switch layers" data-i18n-zh="点击地震事件或切换图层">
+        点击地震事件或切换图层
+      </h3>
+      <p
+        data-i18n-en="The first version streams USGS events and overlays global raster services. GEE-derived flood, heat, drought, and recovery products should be published as web tiles next."
+        data-i18n-zh="当前版本加载 USGS 事件并叠加全球栅格服务。下一步应将 GEE 生成的洪水、高温、干旱与恢复产品发布为 Web 瓦片。"
+      >
+        当前版本加载 USGS 事件并叠加全球栅格服务。下一步应将 GEE 生成的洪水、高温、干旱与恢复产品发布为 Web 瓦片。
       </p>
     </div>
 
     <details class="data-notes">
-      <summary data-i18n-en="Data notes" data-i18n-zh="数据说明">Data notes</summary>
+      <summary data-i18n-en="Data notes" data-i18n-zh="数据说明">数据说明</summary>
       <p
         data-i18n-en="Public layers from OpenStreetMap, WorldPop, NASA, NOAA, USGS, and UNEP-linked services. Milky Way background texture by Solar System Scope, CC BY 4.0, based on NASA imagery."
         data-i18n-zh="图层来自 OpenStreetMap、WorldPop、NASA、NOAA、USGS 以及 UNEP 相关公开服务。银河背景纹理来自 Solar System Scope，CC BY 4.0，基于 NASA 影像。"
       >
-        Public layers from OpenStreetMap, WorldPop, NASA, NOAA, USGS, and UNEP-linked services. Milky Way background texture by Solar System Scope, CC BY 4.0, based on NASA imagery.
+        图层来自 OpenStreetMap、WorldPop、NASA、NOAA、USGS 以及 UNEP 相关公开服务。银河背景纹理来自 Solar System Scope，CC BY 4.0，基于 NASA 影像。
       </p>
     </details>
   </aside>
@@ -209,34 +213,34 @@ const layerCopy = {
           data-i18n-en="中文"
           data-i18n-zh="English"
         >
-          中文
+          English
         </button>
         <div class="atlas-entry-copy">
           <div class="atlas-entry-logo" aria-hidden="true">
             <span />
           </div>
-          <p class="eyebrow" data-i18n-en="Qiushan Li's Lab" data-i18n-zh="黎秋杉实验室">
-            Qiushan Li's Lab
+          <p class="eyebrow" data-i18n-en="ReSpace Lab" data-i18n-zh="恢复空间实验室">
+            恢复空间实验室
           </p>
           <h1
-            data-i18n-en="Re-Inhabitability Atlas"
-            data-i18n-zh="灾后再栖居图谱"
+            data-i18n-en="ReSpace Atlas"
+            data-i18n-zh="复原空间图谱"
           >
-            Re-Inhabitability Atlas
+            复原空间图谱
           </h1>
           <p
             class="atlas-entry-subtitle"
             data-i18n-en="A living globe of mountain villages, coastal memories, fragile homes, and the long work of returning to life after disaster."
             data-i18n-zh="一个关于山地村落、海岸记忆、脆弱住房，以及灾后重新回到生活的动态地球。"
           >
-            A living globe of mountain villages, coastal memories, fragile homes, and the long work of returning to life after disaster.
+            一个关于山地村落、海岸记忆、脆弱住房，以及灾后重新回到生活的动态地球。
           </p>
           <p
             class="atlas-entry-statement"
             data-i18n-en="Can a place become home again? Not as a dot on a map, but as a landscape people repair, remember, and return to."
             data-i18n-zh="一个地方能重新成为家吗？不是地图上的一个点，而是人们修复、记忆并重新返回的生活景观。"
           >
-            Can a place become home again? Not as a dot on a map, but as a landscape people repair, remember, and return to.
+            一个地方能重新成为家吗？不是地图上的一个点，而是人们修复、记忆并重新返回的生活景观。
           </p>
           <button
             class="atlas-enter-button"
@@ -245,16 +249,16 @@ const layerCopy = {
             data-i18n-en="Enter ↗"
             data-i18n-zh="进入 ↗"
           >
-            Enter ↗
+            进入 ↗
           </button>
           <span
             data-i18n-en="Sound and motion begin after entry"
             data-i18n-zh="进入后开启声音与案例播放"
           >
-            Sound and motion begin after entry
+            进入后开启声音与案例播放
           </span>
           <em data-i18n-en="Initializing atmosphere..." data-i18n-zh="正在初始化氛围...">
-            Initializing atmosphere...
+            正在初始化氛围...
           </em>
         </div>
       </div>
@@ -292,7 +296,9 @@ const layerCopy = {
   const toggles = Array.from(document.querySelectorAll('[data-layer]'));
 
   const today = new Date().toISOString().slice(0, 10);
-  let language = 'en';
+  const STORAGE_KEY = 'respace-language';
+  const normalizeLanguage = (value) => (value === 'en' ? 'en' : 'zh');
+  let language = normalizeLanguage(localStorage.getItem(STORAGE_KEY) || 'zh');
   let map = null;
   let isRotating = true;
   let isUserInteracting = false;
@@ -322,7 +328,7 @@ const layerCopy = {
           placeZh: '中国四川',
           year: 2008,
           noteEn: 'A reconstruction case about housing, memory, landscape repair, and long-term re-inhabitation.',
-          noteZh: '关于住房重建、记忆、山地景观修复与长期再栖居的关键案例。',
+          noteZh: '关于住房重建、记忆、山地景观修复与长期复原空间的关键案例。',
           whyEn: 'The earthquake transformed mountain settlements, schools, roads, ecological slopes, and everyday ideas of safety. It is a representative case for asking when rebuilt housing becomes livable home again.',
           whyZh: '这场地震改变了山地聚落、学校、道路、生态边坡和人们对安全的日常理解。它很适合用来讨论：房子重建之后，什么时候才真正重新成为可以生活的家？',
           questionsEn: 'Housing delivery · memory and mourning · relocation · landscape repair',
@@ -359,7 +365,7 @@ const layerCopy = {
           year: 2005,
           noteEn: 'A cross-border mountain disaster where damaged roads, winter exposure, and dispersed settlements shaped recovery.',
           noteZh: '一次跨边界山地灾害，道路损毁、冬季暴露与分散聚落共同塑造了恢复过程。',
-          whyEn: 'Kashmir shows how mountain earthquakes quickly become infrastructure disasters: blocked valleys, isolated villages, cold weather shelter, and uneven aid access define re-inhabitability.',
+          whyEn: 'Kashmir shows how mountain earthquakes quickly become infrastructure disasters: blocked valleys, isolated villages, cold weather shelter, and uneven aid access shape spatial recovery.',
           whyZh: '克什米尔说明山地地震很快会变成基础设施灾害：山谷受阻、村庄孤立、寒冷季节安置和援助可达性不均，都会决定能否重新居住。',
           questionsEn: 'Road rupture · winter shelter · dispersed villages · aid access',
           questionsZh: '道路中断 · 冬季安置 · 分散村落 · 援助可达性'
@@ -514,8 +520,10 @@ const layerCopy = {
   const layerMeta = Object.fromEntries(observatoryLayers.map((layer) => [layer.id, layer]));
 
   const applyLanguage = (nextLanguage) => {
-    language = nextLanguage;
+    language = normalizeLanguage(nextLanguage);
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.dataset.language = language;
+    localStorage.setItem(STORAGE_KEY, language);
     document.querySelectorAll('[data-i18n-en]').forEach((element) => {
       element.textContent = element.dataset[`i18n${language === 'zh' ? 'Zh' : 'En'}`];
     });
@@ -1163,10 +1171,18 @@ const layerCopy = {
 
     languageToggle.addEventListener('click', () => {
       applyLanguage(language === 'zh' ? 'en' : 'zh');
+      window.dispatchEvent(new CustomEvent('respace-language-change', { detail: { language } }));
     });
 
     welcomeLanguageToggle?.addEventListener('click', () => {
       applyLanguage(language === 'zh' ? 'en' : 'zh');
+      window.dispatchEvent(new CustomEvent('respace-language-change', { detail: { language } }));
+    });
+
+    window.addEventListener('respace-language-change', (event) => {
+      if (event.detail?.language && event.detail.language !== language) {
+        applyLanguage(event.detail.language);
+      }
     });
 
     rotationToggle.addEventListener('click', () => {
@@ -1191,7 +1207,7 @@ const layerCopy = {
     atlasEnter?.addEventListener('click', enterAtlas);
 
     window.requestAnimationFrame(rotateGlobe);
-    applyLanguage('en');
+    applyLanguage(language);
   } catch {
     makeFallback();
   }

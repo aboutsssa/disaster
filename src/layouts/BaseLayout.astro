@@ -4,10 +4,21 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  titleEn?: string;
+  titleZh?: string;
   description?: string;
+  descriptionEn?: string;
+  descriptionZh?: string;
 }
 
-const { title, description = site.affiliation } = Astro.props;
+const {
+  title,
+  titleEn = title,
+  titleZh = title,
+  description,
+  descriptionEn = description ?? site.affiliation.en,
+  descriptionZh = description ?? site.affiliation.zh
+} = Astro.props;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
 const isActivePath = (href: string) =>
@@ -15,20 +26,25 @@ const isActivePath = (href: string) =>
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-title-en={`${titleEn} | ${site.name.en}`} data-title-zh={`${titleZh} | ${site.name.zh}`}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
+    <meta
+      name="description"
+      content={descriptionZh}
+      data-lang-en={descriptionEn}
+      data-lang-zh={descriptionZh}
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | {site.name}</title>
+    <title>{titleZh} | {site.name.zh}</title>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href={withBase('/')} aria-label={`${site.name} home`}>
+      <a class="brand" href={withBase('/')} aria-label={`${site.name.en} home`}>
         <span class="brand-mark">RS</span>
         <span>
-          <strong>{site.name}</strong>
-          <small>{site.owner}</small>
+          <strong data-lang-en={site.name.en} data-lang-zh={site.name.zh}>{site.name.zh}</strong>
+          <small data-lang-en={site.owner.en} data-lang-zh={site.owner.zh}>{site.owner.zh}</small>
         </span>
       </a>
       <nav aria-label="Primary navigation">
@@ -37,12 +53,18 @@ const isActivePath = (href: string) =>
             <a
               href={withBase(item.href)}
               class:list={[isActivePath(item.href) && 'is-active']}
+              data-lang-en={item.label.en}
+              data-lang-zh={item.label.zh}
             >
-              {item.label}
+              {item.label.zh}
             </a>
           ))
         }
       </nav>
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" data-site-language="zh" class="is-active">中文</button>
+        <button type="button" data-site-language="en">EN</button>
+      </div>
     </header>
 
     <main>
@@ -51,13 +73,62 @@ const isActivePath = (href: string) =>
 
     <footer class="site-footer">
       <div>
-        <strong>{site.name}</strong>
-        <p>{site.affiliation}</p>
+        <strong data-lang-en={site.name.en} data-lang-zh={site.name.zh}>{site.name.zh}</strong>
+        <p data-lang-en={site.affiliation.en} data-lang-zh={site.affiliation.zh}>
+          {site.affiliation.zh}
+        </p>
       </div>
       <div>
-        <p>{site.location}</p>
+        <p data-lang-en={site.location.en} data-lang-zh={site.location.zh}>{site.location.zh}</p>
         <a href={`mailto:${site.email}`}>{site.email}</a>
       </div>
     </footer>
+    <script>
+      const STORAGE_KEY = 'respace-language';
+      const normalizeLanguage = (value) => (value === 'en' ? 'en' : 'zh');
+
+      const setElementText = (element, language) => {
+        const value = language === 'en' ? element.dataset.langEn : element.dataset.langZh;
+        if (typeof value !== 'undefined') {
+          if (element.tagName === 'META') {
+            element.setAttribute('content', value);
+          } else {
+            element.textContent = value;
+          }
+        }
+      };
+
+      window.setReSpaceLanguage = (nextLanguage, options = {}) => {
+        const language = normalizeLanguage(nextLanguage);
+        document.documentElement.lang = language === 'en' ? 'en' : 'zh-CN';
+        document.documentElement.dataset.language = language;
+        document.querySelectorAll('[data-lang-en][data-lang-zh]').forEach((element) => {
+          setElementText(element, language);
+        });
+        document.querySelectorAll('[data-site-language]').forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.siteLanguage === language);
+        });
+        const title = document.documentElement.dataset[language === 'en' ? 'titleEn' : 'titleZh'];
+        if (title) document.title = title;
+        localStorage.setItem(STORAGE_KEY, language);
+        if (!options.silent) {
+          window.dispatchEvent(new CustomEvent('respace-language-change', { detail: { language } }));
+        }
+      };
+
+      const initialLanguage = normalizeLanguage(localStorage.getItem(STORAGE_KEY) || 'zh');
+      window.setReSpaceLanguage(initialLanguage, { silent: true });
+
+      document.querySelectorAll('[data-site-language]').forEach((button) => {
+        button.addEventListener('click', () => window.setReSpaceLanguage(button.dataset.siteLanguage));
+      });
+
+      window.addEventListener('respace-language-change', (event) => {
+        const language = event.detail?.language;
+        if (language && language !== document.documentElement.dataset.language) {
+          window.setReSpaceLanguage(language, { silent: true });
+        }
+      });
+    </script>
   </body>
 </html>

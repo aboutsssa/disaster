@@ -5,22 +5,37 @@ import { recoveryDimensions, researchThemes, site, withBase } from '../data/site
 ---
 
 <BaseLayout
-  title="Home"
-  description="ReSpace Lab explores post-disaster recovery, resilience building, and spatial governance."
+  title="首页"
+  titleEn="Home"
+  titleZh="首页"
+  descriptionEn="ReSpace Lab explores post-disaster recovery, resilience building, and spatial governance."
+  descriptionZh="ReSpace Lab 聚焦灾后恢复、韧性建设与空间治理。"
 >
   <PageHero
-    eyebrow={site.owner}
+    eyebrowEn={site.owner.en}
+    eyebrowZh={site.owner.zh}
     title="ReSpace Lab"
-    text="恢复空间实验室致力于探索灾后恢复、韧性建设与空间治理的交叉议题，立足地理学视角，融合参与式GIS、遥感技术、系统建模与因果推断等方法，研究灾后空间重构、人地系统复原机制与城乡规划响应路径。"
+    titleEn="ReSpace Lab"
+    titleZh="ReSpace Lab"
+    textEn="ReSpace Lab explores the intersection of post-disaster recovery, resilience building, and spatial governance. Grounded in geography, the lab integrates PPGIS, remote sensing, systems modeling, and causal inference to study spatial reconstruction, human-environment recovery mechanisms, and planning responses after disaster."
+    textZh="恢复空间实验室致力于探索灾后恢复、韧性建设与空间治理的交叉议题，立足地理学视角，融合参与式GIS、遥感技术、系统建模与因果推断等方法，研究灾后空间重构、人地系统复原机制与城乡规划响应路径。"
     image="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=80"
   />
 
   <section class="intro-band">
     <div>
-      <p class="eyebrow">Lab Mission</p>
-      <h2>从灾后重建到复原空间 Re-Space</h2>
+      <p class="eyebrow" data-lang-en="Lab Mission" data-lang-zh="实验室使命">实验室使命</p>
+      <h2
+        data-lang-en="From post-disaster reconstruction to Re-Space"
+        data-lang-zh="从灾后重建到复原空间 Re-Space"
+      >
+        从灾后重建到复原空间 Re-Space
+      </h2>
     </div>
-    <p>
+    <p
+      data-lang-en="We focus not only on rebuilding space, but on reshaping Re-Space: recovery spaces with social adaptability, ecological carrying capacity, and cultural continuity. Around post-disaster reconstruction and resilient urban-rural spatial governance, the lab brings together young researchers across geography, urban and rural planning, disaster risk management, and data science. It builds an integrated platform for research, teaching, and social service by strengthening field investigation, spatial analysis, and policy experimentation."
+      data-lang-zh="我们关注的不只是重建“空间”，而是重塑具有社会适应力、生态承载力与文化连续性的复原空间。实验室强调数据驱动与公众参与并重，致力于推动更公平、可持续、在地化的灾后治理与人居环境重建。围绕灾后重建与韧性城乡空间治理，ReSpace Lab 组建融合地理学、城乡规划、灾害风险管理与数据科学的青年研究团队，强化实地调查、空间分析与政策实验三位一体的实践能力，建设“科研-教学-社会服务”融合型平台。"
+    >
       我们关注的不只是重建“空间”，而是重塑具有社会适应力、生态承载力与文化连续性的复原空间。
       实验室强调数据驱动与公众参与并重，致力于推动更公平、可持续、在地化的灾后治理与人居环境重建。
       围绕灾后重建与韧性城乡空间治理，ReSpace Lab 组建融合地理学、城乡规划、
@@ -33,9 +48,13 @@ import { recoveryDimensions, researchThemes, site, withBase } from '../data/site
     {
       researchThemes.map((theme) => (
         <article class="theme-card">
-          <p class="eyebrow">{theme.eyebrow}</p>
-          <h3>{theme.title}</h3>
-          <p>{theme.description}</p>
+          <p class="eyebrow" data-lang-en={theme.eyebrow.en} data-lang-zh={theme.eyebrow.zh}>
+            {theme.eyebrow.zh}
+          </p>
+          <h3 data-lang-en={theme.title.en} data-lang-zh={theme.title.zh}>{theme.title.zh}</h3>
+          <p data-lang-en={theme.description.en} data-lang-zh={theme.description.zh}>
+            {theme.description.zh}
+          </p>
         </article>
       ))
     }
@@ -43,40 +62,65 @@ import { recoveryDimensions, researchThemes, site, withBase } from '../data/site
 
   <section class="split-section">
     <div>
-      <p class="eyebrow">Framework</p>
-      <h2>复原空间的四个维度</h2>
-      <p>
+      <p class="eyebrow" data-lang-en="Framework" data-lang-zh="理论框架">理论框架</p>
+      <h2 data-lang-en="Four dimensions of Re-Space" data-lang-zh="复原空间的四个维度">
+        复原空间的四个维度
+      </h2>
+      <p
+        data-lang-en="Based on long-term post-disaster recovery practice, the lab uses spatial science to support recovery economics and disaster research, focusing on the coupled relationships among recovery equity, cultural landscapes, living environments, and regional resilience."
+        data-lang-zh="在长期灾后恢复实践基础上，实验室把空间科学方法引入恢复经济学与灾害研究，关注恢复公平性、文化景观、人居环境与区域韧性之间的耦合关系。"
+      >
         在长期灾后恢复实践基础上，实验室把空间科学方法引入恢复经济学与灾害研究，
         关注恢复公平性、文化景观、人居环境与区域韧性之间的耦合关系。
       </p>
     </div>
     <ol class="dimension-list">
-      {recoveryDimensions.map((dimension) => <li>{dimension}</li>)}
+      {
+        recoveryDimensions.map((dimension) => (
+          <li data-lang-en={dimension.en} data-lang-zh={dimension.zh}>{dimension.zh}</li>
+        ))
+      }
     </ol>
   </section>
 
   <section class="project-callout">
     <div>
-      <p class="eyebrow">Featured Project</p>
-      <h2>Global Disaster & ReSpace Observatory</h2>
-      <p>
-        Explore a MapLibre-based research observatory for comparing live earthquake events,
-        population exposure, flood risk, fire activity, and future Earth Engine-derived
-        recovery and spatial governance layers.
+      <p class="eyebrow" data-lang-en="Featured Project" data-lang-zh="重点项目">重点项目</p>
+      <h2
+        data-lang-en="Global Disaster and ReSpace Observatory"
+        data-lang-zh="全球灾害与复原空间观测平台"
+      >
+        全球灾害与复原空间观测平台
+      </h2>
+      <p
+        data-lang-en="Explore a MapLibre-based research observatory for comparing live earthquake events, population exposure, flood risk, fire activity, and future recovery and spatial governance layers."
+        data-lang-zh="探索一个基于 MapLibre 的研究观测平台，用于比较实时地震、人口暴露、洪水风险、火点活动，以及未来的恢复与空间治理图层。"
+      >
+        探索一个基于 MapLibre 的研究观测平台，用于比较实时地震、人口暴露、洪水风险、
+        火点活动，以及未来的恢复与空间治理图层。
       </p>
     </div>
-    <a href={withBase('/projects/global-disaster-map/')}>Open project</a>
+    <a href={withBase('/projects/global-disaster-map/')} data-lang-en="Open project" data-lang-zh="打开项目">
+      打开项目
+    </a>
   </section>
 
   <section class="project-callout">
     <div>
-      <p class="eyebrow">Data Application</p>
-      <h2>Wenchuan Recovery Atlas</h2>
-      <p>
-        Read a 2000-2020 Sichuan county panel as a disaster story of earthquake impact,
-        reconstruction, ecological recovery, air pressure, and uneven spatial recovery.
+      <p class="eyebrow" data-lang-en="Data Application" data-lang-zh="数据应用">数据应用</p>
+      <h2 data-lang-en="Wenchuan Recovery Atlas" data-lang-zh="汶川恢复图谱">
+        汶川恢复图谱
+      </h2>
+      <p
+        data-lang-en="Read a 2000-2020 Sichuan county panel as a disaster story of earthquake impact, reconstruction, ecological recovery, air pressure, and uneven spatial recovery."
+        data-lang-zh="通过 2000-2020 年四川县域面板数据，理解地震冲击、灾后重建、生态恢复、空气压力与不均衡空间恢复之间的关系。"
+      >
+        通过 2000-2020 年四川县域面板数据，理解地震冲击、灾后重建、生态恢复、
+        空气压力与不均衡空间恢复之间的关系。
       </p>
     </div>
-    <a href={withBase('/wenchuan/')}>Open atlas</a>
+    <a href={withBase('/wenchuan/')} data-lang-en="Open atlas" data-lang-zh="打开图谱">
+      打开图谱
+    </a>
   </section>
 </BaseLayout>

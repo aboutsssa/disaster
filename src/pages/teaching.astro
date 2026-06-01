@@ -3,36 +3,56 @@ import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Teaching">
+<BaseLayout title="教学" titleEn="Teaching" titleZh="教学">
   <PageHero
-    eyebrow="Teaching"
-    title="Courses and mentorship on disaster, place, and socio-ecological change."
-    text="Teaching materials can connect conceptual frameworks with case-based learning, field methods, mapping, and design critique."
+    eyebrowEn="Teaching"
+    eyebrowZh="教学"
+    title="面向灾害、地方与社会生态变化的课程和指导"
+    titleEn="Courses and mentorship on disaster, place, and socio-ecological change."
+    titleZh="面向灾害、地方与社会生态变化的课程和指导"
+    textEn="Teaching connects conceptual frameworks with case-based learning, field methods, mapping, policy experiments, and design critique."
+    textZh="教学将理论框架与案例学习、实地方法、空间制图、政策实验和设计评议相连接。"
     image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
   />
 
   <section class="course-list">
     <article>
-      <p class="eyebrow">Course Area</p>
-      <h2>Post-Disaster Reconstruction</h2>
-      <p>
-        Housing, infrastructure, governance, community recovery, heritage, and ecological repair
-        after major disasters.
+      <p class="eyebrow" data-lang-en="Course Area" data-lang-zh="课程方向">课程方向</p>
+      <h2 data-lang-en="Post-Disaster Reconstruction" data-lang-zh="灾后重建">
+        灾后重建
+      </h2>
+      <p
+        data-lang-en="Housing, infrastructure, governance, community recovery, heritage, and ecological repair after major disasters."
+        data-lang-zh="关注重大灾害后的住房、基础设施、治理、社区恢复、遗产保护与生态修复。"
+      >
+        关注重大灾害后的住房、基础设施、治理、社区恢复、遗产保护与生态修复。
       </p>
     </article>
     <article>
-      <p class="eyebrow">Seminar Area</p>
-      <h2>Human Geography and More-than-Human Theory</h2>
-      <p>
-        Place, dwelling, relational ontology, multispecies worlds, and the politics of recovery.
+      <p class="eyebrow" data-lang-en="Seminar Area" data-lang-zh="研讨方向">研讨方向</p>
+      <h2
+        data-lang-en="Human Geography and Resilient Spatial Governance"
+        data-lang-zh="人文地理与韧性空间治理"
+      >
+        人文地理与韧性空间治理
+      </h2>
+      <p
+        data-lang-en="Place, dwelling, spatial justice, public participation, and the politics of recovery."
+        data-lang-zh="讨论地方、居住、空间正义、公众参与与恢复政治。"
+      >
+        讨论地方、居住、空间正义、公众参与与恢复政治。
       </p>
     </article>
     <article>
-      <p class="eyebrow">Methods Area</p>
-      <h2>Comparative Case Analysis</h2>
-      <p>
-        Reading recovery trajectories through policy documents, interviews, field observation,
-        spatial evidence, and visual material.
+      <p class="eyebrow" data-lang-en="Methods Area" data-lang-zh="方法方向">方法方向</p>
+      <h2 data-lang-en="Spatial Analysis and Comparative Cases" data-lang-zh="空间分析与比较案例">
+        空间分析与比较案例
+      </h2>
+      <p
+        data-lang-en="Reading recovery trajectories through policy documents, interviews, field observation, remote sensing, and spatial evidence."
+        data-lang-zh="通过政策文本、访谈、实地观察、遥感资料与空间证据阅读恢复轨迹。"
+      >
+        通过政策文本、访谈、实地观察、遥感资料与空间证据阅读恢复轨迹。
       </p>
     </article>
   </section>

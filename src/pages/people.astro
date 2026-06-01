@@ -3,11 +3,15 @@ import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="People">
+<BaseLayout title="团队" titleEn="People" titleZh="团队">
   <PageHero
-    eyebrow="People"
-    title="A collaborative group for disaster, geography, and planning research."
-    text="This page is ready for faculty, graduate students, research assistants, visiting scholars, collaborators, and alumni."
+    eyebrowEn="People"
+    eyebrowZh="团队"
+    title="面向灾害、地理与规划研究的协作团队"
+    titleEn="A collaborative group for disaster, geography, and planning research."
+    titleZh="面向灾害、地理与规划研究的协作团队"
+    textEn="The lab brings together faculty, graduate students, research assistants, visiting scholars, collaborators, and alumni working on post-disaster recovery and resilient spatial governance."
+    textZh="实验室汇聚教师、研究生、科研助理、访问学者、合作伙伴与校友，共同开展灾后恢复与韧性空间治理研究。"
     image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
   />
 
@@ -15,11 +19,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <article class="person-card is-lead">
       <div class="avatar">QL</div>
       <div>
-        <p class="eyebrow">Principal Investigator</p>
-        <h2>Dr. Qiushan Li</h2>
-        <p>
-          Research lead in post-disaster reconstruction, relational recovery, and the geography
-          of inhabitable environments.
+        <p class="eyebrow" data-lang-en="Principal Investigator" data-lang-zh="负责人">
+          负责人
+        </p>
+        <h2 data-lang-en="Dr. Qiushan Li" data-lang-zh="黎秋杉博士">黎秋杉博士</h2>
+        <p
+          data-lang-en="Research lead in post-disaster reconstruction, spatial recovery, and the geography of resilient living environments."
+          data-lang-zh="负责灾后重建、空间复原与韧性人居环境地理学方向研究。"
+        >
+          负责灾后重建、空间复原与韧性人居环境地理学方向研究。
         </p>
       </div>
     </article>
@@ -27,18 +35,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="people-grid">
       <article class="person-card">
         <div class="avatar">GS</div>
-        <h3>Graduate Students</h3>
-        <p>Profiles, research topics, and thesis projects can be added here.</p>
+        <h3 data-lang-en="Graduate Students" data-lang-zh="研究生">研究生</h3>
+        <p
+          data-lang-en="Profiles, research topics, and thesis projects can be added here."
+          data-lang-zh="这里可添加研究生介绍、研究方向与论文项目。"
+        >
+          这里可添加研究生介绍、研究方向与论文项目。
+        </p>
       </article>
       <article class="person-card">
         <div class="avatar">RA</div>
-        <h3>Research Assistants</h3>
-        <p>Space for assistants working on fieldwork, mapping, archives, and literature review.</p>
+        <h3 data-lang-en="Research Assistants" data-lang-zh="科研助理">科研助理</h3>
+        <p
+          data-lang-en="Space for assistants working on fieldwork, mapping, archives, and literature review."
+          data-lang-zh="这里可展示参与实地调查、制图、档案整理与文献综述的科研助理。"
+        >
+          这里可展示参与实地调查、制图、档案整理与文献综述的科研助理。
+        </p>
       </article>
       <article class="person-card">
         <div class="avatar">CO</div>
-        <h3>Collaborators</h3>
-        <p>Partner institutions, community organizations, and affiliated researchers.</p>
+        <h3 data-lang-en="Collaborators" data-lang-zh="合作伙伴">合作伙伴</h3>
+        <p
+          data-lang-en="Partner institutions, community organizations, and affiliated researchers."
+          data-lang-zh="包括合作机构、社区组织与关联研究者。"
+        >
+          包括合作机构、社区组织与关联研究者。
+        </p>
       </article>
     </div>
   </section>

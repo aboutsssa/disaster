@@ -4,26 +4,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title="Contact">
+<BaseLayout title="联系" titleEn="Contact" titleZh="联系">
   <PageHero
-    eyebrow="Contact"
-    title="Get in touch about research, collaboration, and student projects."
-    text="Use this page for the group's contact information, office location, lab meeting schedule, and collaboration notes."
+    eyebrowEn="Contact"
+    eyebrowZh="联系"
+    title="欢迎围绕研究、合作与学生项目联系实验室"
+    titleEn="Get in touch about research, collaboration, and student projects."
+    titleZh="欢迎围绕研究、合作与学生项目联系实验室"
+    textEn="Use this page for the lab's contact information, office location, lab meeting schedule, and collaboration notes."
+    textZh="这里用于展示实验室联系方式、办公地点、组会安排与合作说明。"
     image="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?auto=format&fit=crop&w=1400&q=80"
   />
 
   <section class="contact-panel">
     <div>
-      <p class="eyebrow">Email</p>
+      <p class="eyebrow" data-lang-en="Email" data-lang-zh="邮箱">邮箱</p>
       <h2><a href={`mailto:${site.email}`}>{site.email}</a></h2>
     </div>
     <div>
-      <p class="eyebrow">Location</p>
-      <h2>{site.location}</h2>
+      <p class="eyebrow" data-lang-en="Location" data-lang-zh="地点">地点</p>
+      <h2 data-lang-en={site.location.en} data-lang-zh={site.location.zh}>{site.location.zh}</h2>
     </div>
-    <p>
-      Replace this placeholder with the official department address, office hours, and preferred
-      contact pathway once those details are available.
+    <p
+      data-lang-en="Replace this placeholder with the official department address, office hours, and preferred contact pathway once those details are available."
+      data-lang-zh="后续可在这里补充正式院系地址、办公时间与推荐联系渠道。"
+    >
+      后续可在这里补充正式院系地址、办公时间与推荐联系渠道。
     </p>
   </section>
 </BaseLayout>

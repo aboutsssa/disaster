@@ -1,19 +1,42 @@
 ---
 interface Props {
   eyebrow?: string;
+  eyebrowEn?: string;
+  eyebrowZh?: string;
   title: string;
+  titleEn?: string;
+  titleZh?: string;
   text: string;
+  textEn?: string;
+  textZh?: string;
   image: string;
 }
 
-const { eyebrow, title, text, image } = Astro.props;
+const {
+  eyebrow,
+  eyebrowEn = eyebrow,
+  eyebrowZh = eyebrow,
+  title,
+  titleEn = title,
+  titleZh = title,
+  text,
+  textEn = text,
+  textZh = text,
+  image
+} = Astro.props;
 ---
 
 <section class="page-hero">
   <div class="page-hero-copy">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
-    <p>{text}</p>
+    {
+      eyebrowZh && (
+        <p class="eyebrow" data-lang-en={eyebrowEn} data-lang-zh={eyebrowZh}>
+          {eyebrowZh}
+        </p>
+      )
+    }
+    <h1 data-lang-en={titleEn} data-lang-zh={titleZh}>{titleZh}</h1>
+    <p data-lang-en={textEn} data-lang-zh={textZh}>{textZh}</p>
   </div>
   <img src={image} alt="" loading="eager" />
 </section>

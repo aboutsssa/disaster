@@ -4,43 +4,74 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { researchProjects, researchThemes, withBase } from '../data/site';
 ---
 
-<BaseLayout title="Research">
+<BaseLayout title="研究" titleEn="Research" titleZh="研究">
   <PageHero
-    eyebrow="Research"
-    title="Reconstruction, relation, and inhabitable futures."
-    text="The research agenda centers post-disaster reconstruction as a long-term, uneven process of relational reassembly."
+    eyebrowEn="Research"
+    eyebrowZh="研究"
+    title="灾后恢复、空间治理与韧性未来"
+    titleEn="Post-disaster recovery, spatial governance, and resilient futures."
+    titleZh="灾后恢复、空间治理与韧性未来"
+    textEn="The research agenda treats post-disaster reconstruction as a long-term, uneven process shaped by policy intervention, spatial inequality, ecological adaptation, and community participation."
+    textZh="研究议程将灾后重建理解为一个长期且不均衡的过程，关注政策干预、空间不平等、生态适应与公众参与如何共同塑造复原空间。"
     image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80"
   />
 
   <section class="section-heading">
-    <p class="eyebrow">Current Agenda</p>
-    <h2>Post-disaster work</h2>
-    <p>
-      This area draws from the paper "From Recovery to Re-inhabitability" and develops a
-      comparative vocabulary for cases where material rebuilding and meaningful dwelling diverge.
+    <p class="eyebrow" data-lang-en="Current Agenda" data-lang-zh="当前议程">当前议程</p>
+    <h2 data-lang-en="Post-disaster spatial recovery" data-lang-zh="灾后空间恢复">
+      灾后空间恢复
+    </h2>
+    <p
+      data-lang-en="ReSpace Lab develops a comparative vocabulary for cases where infrastructure rebuilding, livelihood recovery, cultural continuity, and meaningful dwelling do not progress at the same pace."
+      data-lang-zh="ReSpace Lab 建立比较性的研究语言，用于分析基础设施重建、生计恢复、文化连续性与有意义的日常居住并不同步的灾后案例。"
+    >
+      ReSpace Lab 建立比较性的研究语言，用于分析基础设施重建、生计恢复、文化连续性与有意义的日常居住并不同步的灾后案例。
     </p>
   </section>
 
   <section class="featured-research-project" aria-labelledby="featured-project-title">
     <div class="research-project-copy">
-      <p class="eyebrow">Featured Research Project</p>
-      <h2 id="featured-project-title">Post-disaster monitoring across Wenchuan and the Trans-Himalaya</h2>
-      <p>
-        This project connects the Wenchuan earthquake synthetic-control case with a global
-        disaster globe. It treats recovery as a measurable socioeconomic gap and as a wider
-        mountain-system question shaped by earthquakes, landslides, population exposure,
-        reconstruction investment, and environmental change.
+      <p class="eyebrow" data-lang-en="Featured Research Project" data-lang-zh="重点研究项目">
+        重点研究项目
+      </p>
+      <h2
+        id="featured-project-title"
+        data-lang-en="Post-disaster monitoring across Wenchuan and the Trans-Himalaya"
+        data-lang-zh="汶川与跨喜马拉雅灾后监测"
+      >
+        汶川与跨喜马拉雅灾后监测
+      </h2>
+      <p
+        data-lang-en="This project connects the Wenchuan earthquake synthetic-control case with a global disaster globe. It treats recovery as a measurable socioeconomic gap and as a wider mountain-system question shaped by earthquakes, landslides, population exposure, reconstruction investment, and environmental change."
+        data-lang-zh="该项目将汶川地震合成控制案例与全球灾害地球相连接，把恢复理解为可测量的社会经济差距，也理解为受地震、滑坡、人口暴露、重建投资与环境变化共同影响的山地系统问题。"
+      >
+        该项目将汶川地震合成控制案例与全球灾害地球相连接，把恢复理解为可测量的社会经济差距，也理解为受地震、滑坡、人口暴露、重建投资与环境变化共同影响的山地系统问题。
       </p>
       <div class="project-thread">
-        <span><strong>Case evidence</strong> Ten extremely affected Wenchuan counties are modeled with SCM.</span>
-        <span><strong>Regional extension</strong> Nepal, Kashmir, Uttarakhand, and the Himalayan belt frame comparison.</span>
-        <span><strong>Public interface</strong> The globe and slide deck turn analytical results into a research story.</span>
+        <span
+          data-lang-en="Case evidence: ten extremely affected Wenchuan counties are modeled with SCM."
+          data-lang-zh="案例证据：用合成控制方法刻画十个汶川极重灾区县。"
+        >
+          案例证据：用合成控制方法刻画十个汶川极重灾区县。
+        </span>
+        <span
+          data-lang-en="Regional extension: Nepal, Kashmir, Uttarakhand, and the Himalayan belt frame comparison."
+          data-lang-zh="区域拓展：尼泊尔、克什米尔、北阿坎德与喜马拉雅带构成比较框架。"
+        >
+          区域拓展：尼泊尔、克什米尔、北阿坎德与喜马拉雅带构成比较框架。
+        </span>
+        <span
+          data-lang-en="Public interface: the globe and slide deck turn analytical results into a research story."
+          data-lang-zh="公共界面：地球与演示文稿将分析结果转化为可浏览的研究叙事。"
+        >
+          公共界面：地球与演示文稿将分析结果转化为可浏览的研究叙事。
+        </span>
       </div>
       <div class="project-actions" aria-label="Project links">
-        <a href={withBase('/slides/')}>Presentation</a>
-        <a href={withBase('/wenchuan/')}>Wenchuan SCM Atlas</a>
-        <a href={withBase('/map/')}>Global Globe</a>
-        <a href={withBase('/projects/global-disaster-map/')}>Project Notes</a>
+        <a href={withBase('/slides/')} data-lang-en="Presentation" data-lang-zh="演示文稿">演示文稿</a>
+        <a href={withBase('/wenchuan/')} data-lang-en="Wenchuan SCM Atlas" data-lang-zh="汶川合成控制图谱">汶川合成控制图谱</a>
+        <a href={withBase('/map/')} data-lang-en="Global Globe" data-lang-zh="全球地球">全球地球</a>
+        <a href={withBase('/projects/global-disaster-map/')} data-lang-en="Project Notes" data-lang-zh="项目说明">项目说明</a>
       </div>
     </div>
     <div class="research-project-visual" aria-hidden="true">
@@ -52,18 +83,27 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
         <span class="case-ring"></span>
       </div>
       <div class="project-visual-caption">
-        <strong>SCM + Globe</strong>
-        <span>Wenchuan recovery evidence meets global disaster exposure mapping.</span>
+        <strong data-lang-en="SCM + Globe" data-lang-zh="合成控制 + 地球">合成控制 + 地球</strong>
+        <span
+          data-lang-en="Wenchuan recovery evidence meets global disaster exposure mapping."
+          data-lang-zh="汶川恢复证据与全球灾害暴露制图相结合。"
+        >
+          汶川恢复证据与全球灾害暴露制图相结合。
+        </span>
       </div>
     </div>
   </section>
 
   <section class="section-heading">
-    <p class="eyebrow">Research Projects</p>
-    <h2>Current project interfaces</h2>
-    <p>
-      These pages translate the research agenda into presentation, mapping, modeling, and
-      data-pipeline outputs.
+    <p class="eyebrow" data-lang-en="Research Projects" data-lang-zh="研究项目">研究项目</p>
+    <h2 data-lang-en="Current project interfaces" data-lang-zh="当前项目界面">
+      当前项目界面
+    </h2>
+    <p
+      data-lang-en="These pages translate the research agenda into presentation, mapping, modeling, and data-pipeline outputs."
+      data-lang-zh="这些页面把研究议程转化为演示、制图、建模与数据流程成果。"
+    >
+      这些页面把研究议程转化为演示、制图、建模与数据流程成果。
     </p>
   </section>
 
@@ -71,10 +111,16 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
     {
       researchProjects.map((project) => (
         <article>
-          <span>{project.eyebrow}</span>
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-          <a href={withBase(project.href)}>Open project</a>
+          <span data-lang-en={project.eyebrow.en} data-lang-zh={project.eyebrow.zh}>
+            {project.eyebrow.zh}
+          </span>
+          <h3 data-lang-en={project.title.en} data-lang-zh={project.title.zh}>{project.title.zh}</h3>
+          <p data-lang-en={project.description.en} data-lang-zh={project.description.zh}>
+            {project.description.zh}
+          </p>
+          <a href={withBase(project.href)} data-lang-en="Open project" data-lang-zh="打开项目">
+            打开项目
+          </a>
         </article>
       ))
     }
@@ -84,9 +130,13 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
     {
       researchThemes.map((theme) => (
         <article>
-          <span>{theme.eyebrow}</span>
-          <h3>{theme.title}</h3>
-          <p>{theme.description}</p>
+          <span data-lang-en={theme.eyebrow.en} data-lang-zh={theme.eyebrow.zh}>
+            {theme.eyebrow.zh}
+          </span>
+          <h3 data-lang-en={theme.title.en} data-lang-zh={theme.title.zh}>{theme.title.zh}</h3>
+          <p data-lang-en={theme.description.en} data-lang-zh={theme.description.zh}>
+            {theme.description.zh}
+          </p>
         </article>
       ))
     }
@@ -94,25 +144,38 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
 
   <section class="split-section">
     <div>
-      <p class="eyebrow">Typology</p>
-      <h2>Material recovery and relational re-inhabitation</h2>
+      <p class="eyebrow" data-lang-en="Typology" data-lang-zh="类型学">类型学</p>
+      <h2
+        data-lang-en="Material recovery and spatial re-formation"
+        data-lang-zh="物质恢复与空间复原"
+      >
+        物质恢复与空间复原
+      </h2>
     </div>
     <div class="matrix">
       <div>
-        <strong>Integrated re-inhabitation</strong>
-        <p>High material recovery and strong relational alignment.</p>
+        <strong data-lang-en="Integrated recovery" data-lang-zh="整合型复原">整合型复原</strong>
+        <p data-lang-en="Material recovery and social-ecological alignment advance together." data-lang-zh="物质恢复与社会-生态协同同步推进。">
+          物质恢复与社会-生态协同同步推进。
+        </p>
       </div>
       <div>
-        <strong>Technocratic restoration</strong>
-        <p>Visible reconstruction without sufficient social, ecological, or symbolic fit.</p>
+        <strong data-lang-en="Technocratic restoration" data-lang-zh="技术型修复">技术型修复</strong>
+        <p data-lang-en="Visible reconstruction progresses without sufficient social, ecological, or cultural fit." data-lang-zh="可见的重建持续推进，但社会、生态或文化适配不足。">
+          可见的重建持续推进，但社会、生态或文化适配不足。
+        </p>
       </div>
       <div>
-        <strong>Relational persistence</strong>
-        <p>Communities sustain dwelling relations despite limited material reconstruction.</p>
+        <strong data-lang-en="Relational persistence" data-lang-zh="关系性延续">关系性延续</strong>
+        <p data-lang-en="Communities sustain everyday recovery relations despite limited material reconstruction." data-lang-zh="即使物质重建有限，社区仍维持日常复原关系。">
+          即使物质重建有限，社区仍维持日常复原关系。
+        </p>
       </div>
       <div>
-        <strong>Collapsed recovery</strong>
-        <p>Material deficits and relational fragmentation reinforce one another.</p>
+        <strong data-lang-en="Fragmented recovery" data-lang-zh="碎片化恢复">碎片化恢复</strong>
+        <p data-lang-en="Material deficits and spatial fragmentation reinforce one another." data-lang-zh="物质短缺与空间碎片化相互强化。">
+          物质短缺与空间碎片化相互强化。
+        </p>
       </div>
     </div>
   </section>
