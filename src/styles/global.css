@@ -968,6 +968,60 @@ h3 {
   padding: 1.5rem;
 }
 
+.contact-page-hero {
+  grid-template-columns: minmax(320px, 0.72fr) minmax(360px, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.contact-page-hero h1 {
+  max-width: 13ch;
+}
+
+.contact-page-hero img {
+  min-height: 420px;
+  object-fit: cover;
+  object-position: center right;
+  border: 1px solid rgba(217, 223, 220, 0.9);
+  box-shadow:
+    0 22px 65px rgba(29, 37, 40, 0.1),
+    -24px 24px 0 rgba(217, 232, 234, 0.34);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 4rem);
+  padding: 1px;
+  background: var(--line);
+}
+
+.contact-card {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  min-height: 230px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background:
+    linear-gradient(135deg, rgba(217, 232, 234, 0.34), transparent 42%),
+    var(--white);
+}
+
+.contact-card h2 {
+  max-width: 22ch;
+  font-size: clamp(1.35rem, 2vw, 1.95rem);
+}
+
+.contact-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.contact-card .eyebrow {
+  color: var(--brick);
+}
+
 .contact-panel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3487,6 +3541,7 @@ h3 {
   .research-list,
   .project-list,
   .project-thread,
+  .contact-grid,
   .people-grid,
   .course-list {
     grid-template-columns: 1fr;

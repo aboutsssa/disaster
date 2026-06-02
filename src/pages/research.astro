@@ -1,7 +1,7 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { researchProjects, researchThemes, withBase } from '../data/site';
+import { researchProjects, withBase } from '../data/site';
 ---
 
 <BaseLayout title="研究" titleEn="Research" titleZh="研究">
@@ -95,22 +95,6 @@ import { researchProjects, researchThemes, withBase } from '../data/site';
           <a href={withBase(project.href)} data-lang-en="Open project" data-lang-zh="打开项目">
             打开项目
           </a>
-        </article>
-      ))
-    }
-  </section>
-
-  <section class="research-list">
-    {
-      researchThemes.map((theme) => (
-        <article>
-          <span data-lang-en={theme.eyebrow.en} data-lang-zh={theme.eyebrow.zh}>
-            {theme.eyebrow.zh}
-          </span>
-          <h3 data-lang-en={theme.title.en} data-lang-zh={theme.title.zh}>{theme.title.zh}</h3>
-          <p data-lang-en={theme.description.en} data-lang-zh={theme.description.zh}>
-            {theme.description.zh}
-          </p>
         </article>
       ))
     }

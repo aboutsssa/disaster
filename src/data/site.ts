@@ -23,10 +23,10 @@ export const site = {
     en: 'Post-Disaster Recovery, Resilient Spatial Governance, and Re-Space',
     zh: '灾后恢复、韧性空间治理与复原空间研究'
   },
-  email: 'contact@example.edu',
+  email: 'liqiushan@scu.edu.cn',
   location: {
-    en: 'Seattle, WA',
-    zh: '美国华盛顿州西雅图'
+    en: 'Chengdu, CN',
+    zh: '中国成都'
   }
 };
 
@@ -111,7 +111,7 @@ export const researchProjects = [
   },
   {
     title: {
-      en: 'Global Disaster and ReSpace Map',
+      en: 'Global Disaster and Recovery Map',
       zh: '全球灾害与复原空间地图'
     },
     eyebrow: { en: 'Map', zh: '地图' },

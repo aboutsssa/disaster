@@ -1,35 +1,67 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, withBase } from '../data/site';
 ---
 
 <BaseLayout title="联系" titleEn="Contact" titleZh="联系">
   <PageHero
+    className="contact-page-hero"
     eyebrowEn="Contact"
     eyebrowZh="联系"
-    title="欢迎围绕研究、合作与学生项目联系实验室"
-    titleEn="Get in touch about research, collaboration, and student projects."
-    titleZh="欢迎围绕研究、合作与学生项目联系实验室"
-    textEn="Use this page for the lab's contact information, office location, lab meeting schedule, and collaboration notes."
-    textZh="这里用于展示实验室联系方式、办公地点、组会安排与合作说明。"
-    image="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?auto=format&fit=crop&w=1400&q=80"
+    title="Connect with ReSpace Lab."
+    titleEn="Connect with ReSpace Lab."
+    titleZh="与 ReSpace Lab 建立联系。"
+    textEn="Reach out about research collaboration, student projects, spatial data and methods, invited talks, or partnerships related to post-disaster recovery and resilient planning."
+    textZh="欢迎就研究合作、学生项目、空间数据与方法、受邀报告，以及灾后恢复与韧性规划相关伙伴关系与我们联系。"
+    image={withBase('/assets/contact-hero.png')}
   />
 
-  <section class="contact-panel">
-    <div>
+  <section class="contact-grid" aria-label="Contact information">
+    <article class="contact-card">
       <p class="eyebrow" data-lang-en="Email" data-lang-zh="邮箱">邮箱</p>
       <h2><a href={`mailto:${site.email}`}>{site.email}</a></h2>
-    </div>
-    <div>
+      <p
+        data-lang-en="For research collaboration, student inquiries, and general contact."
+        data-lang-zh="用于研究合作、学生咨询与一般联系。"
+      >
+        用于研究合作、学生咨询与一般联系。
+      </p>
+    </article>
+
+    <article class="contact-card">
       <p class="eyebrow" data-lang-en="Location" data-lang-zh="地点">地点</p>
-      <h2 data-lang-en={site.location.en} data-lang-zh={site.location.zh}>{site.location.zh}</h2>
-    </div>
-    <p
-      data-lang-en="Replace this placeholder with the official department address, office hours, and preferred contact pathway once those details are available."
-      data-lang-zh="后续可在这里补充正式院系地址、办公时间与推荐联系渠道。"
-    >
-      后续可在这里补充正式院系地址、办公时间与推荐联系渠道。
-    </p>
+      <h2 data-lang-en="Chengdu, CN" data-lang-zh="中国成都">中国成都</h2>
+      <p
+        data-lang-en="Department of Urban Safety, Health and Management, Sichuan University–The Hong Kong Polytechnic University Institute for Disaster Management and Reconstruction (IDMR), Sichuan University"
+        data-lang-zh="四川大学-香港理工大学灾后重建与管理学院（IDMR），四川大学，城市安全、健康与管理系"
+      >
+        四川大学-香港理工大学灾后重建与管理学院（IDMR），四川大学，城市安全、健康与管理系
+      </p>
+    </article>
+
+    <article class="contact-card">
+      <p class="eyebrow" data-lang-en="Student Projects" data-lang-zh="学生项目">学生项目</p>
+      <h2 data-lang-en="Prospective students" data-lang-zh="欢迎潜在学生联系">欢迎潜在学生联系</h2>
+      <p
+        data-lang-en="Prospective students are welcome to share a brief note about research interests, methods background, and potential project alignment."
+        data-lang-zh="欢迎潜在学生简要介绍研究兴趣、方法背景，以及可能契合的项目方向。"
+      >
+        欢迎潜在学生简要介绍研究兴趣、方法背景，以及可能契合的项目方向。
+      </p>
+    </article>
+
+    <article class="contact-card">
+      <p class="eyebrow" data-lang-en="Collaboration" data-lang-zh="合作">合作</p>
+      <h2 data-lang-en="Interdisciplinary partnerships" data-lang-zh="跨学科伙伴关系">
+        跨学科伙伴关系
+      </h2>
+      <p
+        data-lang-en="We welcome interdisciplinary partnerships on post-disaster recovery, spatial governance, GIS, remote sensing, community resilience, and planning."
+        data-lang-zh="我们欢迎围绕灾后恢复、空间治理、GIS、遥感、社区韧性与规划开展跨学科合作。"
+      >
+        我们欢迎围绕灾后恢复、空间治理、GIS、遥感、社区韧性与规划开展跨学科合作。
+      </p>
+    </article>
   </section>
 </BaseLayout>
