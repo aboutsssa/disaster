@@ -616,7 +616,7 @@ h3 {
 }
 
 .typology-section {
-  grid-template-columns: minmax(240px, 0.46fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1.62fr);
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
@@ -627,8 +627,8 @@ h3 {
 
 .typology-panel {
   justify-self: end;
-  width: min(100%, 960px);
-  padding: clamp(1rem, 2vw, 1.4rem);
+  width: min(100%, 1040px);
+  padding: clamp(0.9rem, 1.6vw, 1.15rem);
   background: var(--white);
   border: 1px solid var(--line);
   box-shadow: 0 22px 55px rgba(29, 37, 40, 0.08);
@@ -636,14 +636,14 @@ h3 {
 
 .typology-panel-header {
   display: grid;
-  gap: 0.35rem;
-  margin-bottom: 1rem;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
   text-align: center;
 }
 
 .typology-panel-header h3 {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 800;
 }
 
@@ -651,20 +651,23 @@ h3 {
   max-width: 72ch;
   margin: 0 auto;
   color: var(--muted);
+  font-size: 0.86rem;
   font-style: italic;
 }
 
 .typology-body {
   display: grid;
-  grid-template-columns: minmax(120px, 0.26fr) minmax(0, 1fr);
-  gap: 1rem;
-  align-items: center;
+  gap: 0.75rem;
 }
 
 .typology-legend {
   display: grid;
-  gap: 1.1rem;
-  align-content: center;
+  grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.65rem 0.75rem;
+  background: var(--paper);
+  border: 1px solid rgba(217, 223, 220, 0.78);
 }
 
 .typology-legend strong,
@@ -674,20 +677,21 @@ h3 {
 
 .typology-legend strong {
   color: var(--ink);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   line-height: 1.15;
 }
 
 .typology-legend > div > span {
-  margin-top: 0.6rem;
+  margin-top: 0.28rem;
   color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: 0.68rem;
+  line-height: 1.25;
 }
 
 .typology-legend ul {
   display: grid;
-  gap: 0.7rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -695,27 +699,28 @@ h3 {
 
 .typology-legend li {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  gap: 0.55rem;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 0.42rem;
   align-items: center;
-  font-size: 0.78rem;
+  min-width: 0;
+  font-size: 0.68rem;
   font-weight: 800;
-  line-height: 1.22;
+  line-height: 1.18;
 }
 
 .typology-legend i {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border: 2px solid currentColor;
   border-radius: 999px;
 }
 
 .typology-legend i::before {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 9px;
+  height: 9px;
   background: currentColor;
   border-radius: 999px;
 }
@@ -738,7 +743,7 @@ h3 {
 
 .typology-map {
   position: relative;
-  padding: 1.65rem 1.25rem 2rem;
+  padding: 1rem 0.75rem 1.55rem;
 }
 
 .typology-map::before,
@@ -750,14 +755,14 @@ h3 {
 }
 
 .typology-map::before {
-  top: 0.65rem;
-  bottom: 1.5rem;
+  top: 0.45rem;
+  bottom: 1.35rem;
   left: 50%;
   width: 2px;
 }
 
 .typology-map::after {
-  top: calc(50% - 0.8rem);
+  top: calc(50% - 0.25rem);
   left: 0.4rem;
   right: 0.4rem;
   height: 2px;
@@ -767,12 +772,12 @@ h3 {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(112px, 0.38fr) minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:
-    "relational . integrated"
-    ". center ."
-    "collapsed . disembedded";
-  gap: 0.9rem 1rem;
+    "relational integrated"
+    "center center"
+    "collapsed disembedded";
+  gap: 0.55rem 1.35rem;
 }
 
 .typology-card,
@@ -782,8 +787,8 @@ h3 {
 }
 
 .typology-card {
-  min-height: 168px;
-  padding: 1rem;
+  min-height: 126px;
+  padding: 0.82rem 0.9rem;
   border: 1.5px solid currentColor;
   border-radius: 8px;
   box-shadow: 0 14px 35px rgba(29, 37, 40, 0.06);
@@ -792,15 +797,15 @@ h3 {
 .typology-card h4 {
   margin: 0;
   color: currentColor;
-  font-size: clamp(0.98rem, 1.4vw, 1.22rem);
+  font-size: clamp(0.9rem, 1.05vw, 1.08rem);
   line-height: 1.12;
 }
 
 .typology-card p {
-  margin: 0.55rem 0 0;
+  margin: 0.38rem 0 0;
   color: var(--ink);
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.71rem;
+  line-height: 1.35;
 }
 
 .typology-card .typology-sub {
@@ -813,13 +818,13 @@ h3 {
   float: right;
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  margin-left: 0.75rem;
+  width: 34px;
+  height: 34px;
+  margin-left: 0.62rem;
   border-radius: 999px;
   background: color-mix(in srgb, currentColor 14%, white);
   color: currentColor;
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 900;
 }
 
@@ -849,27 +854,31 @@ h3 {
 
 .typology-center {
   grid-area: center;
-  display: grid;
-  gap: 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
   align-self: center;
   justify-self: center;
-  width: 132px;
-  padding: 0.8rem;
+  width: min(100%, 560px);
+  padding: 0.42rem 0.75rem;
   color: #72519c;
   text-align: center;
   border: 1.5px dashed currentColor;
   border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(114, 81, 156, 0.08);
 }
 
 .typology-center strong {
-  font-size: 0.84rem;
+  flex: 0 0 auto;
+  font-size: 0.78rem;
   line-height: 1.05;
 }
 
 .typology-center span {
   color: var(--muted);
   font-size: 0.68rem;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .axis-high,
