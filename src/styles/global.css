@@ -622,7 +622,21 @@ h3 {
 }
 
 .typology-section h2 {
-  max-width: 14ch;
+  max-width: 15ch;
+}
+
+.typology-copy {
+  display: grid;
+  gap: 0.85rem;
+  align-content: center;
+}
+
+.typology-description {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+  line-height: 1.55;
 }
 
 .typology-panel {
@@ -632,27 +646,6 @@ h3 {
   background: var(--white);
   border: 1px solid var(--line);
   box-shadow: 0 22px 55px rgba(29, 37, 40, 0.08);
-}
-
-.typology-panel-header {
-  display: grid;
-  gap: 0.25rem;
-  margin-bottom: 0.75rem;
-  text-align: center;
-}
-
-.typology-panel-header h3 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
-  font-weight: 800;
-}
-
-.typology-panel-header p {
-  max-width: 72ch;
-  margin: 0 auto;
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-style: italic;
 }
 
 .typology-body {
