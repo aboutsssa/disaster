@@ -110,48 +110,50 @@ const sections = [
 
   <section class="people-section people-lead-section" aria-label="Lab director">
     <div class="people-section-heading">
-      <p class="eyebrow" data-lang-en="Lab Director" data-lang-zh="实验室负责人">实验室负责人</p>
-      <h2 data-lang-en="Leadership" data-lang-zh="负责人">负责人</h2>
+      <p class="eyebrow" data-lang-en="Director" data-lang-zh="负责人">负责人</p>
+      <h2 data-lang-en="Director" data-lang-zh="负责人">负责人</h2>
     </div>
 
-    <a
-      class="member-card is-director"
-      href={lead.url}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Qiushan Li profile"
-    >
-      <div class="member-photo">
-        {
-          lead.image ? (
-            <>
-              <img
-                src={withBase(lead.image)}
-                alt=""
-                loading="lazy"
-                onerror="this.remove()"
-              />
+    <div class="member-grid is-single">
+      <a
+        class="member-card is-director"
+        href={lead.url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Qiushan Li profile"
+      >
+        <div class="member-photo">
+          {
+            lead.image ? (
+              <>
+                <img
+                  src={withBase(lead.image)}
+                  alt=""
+                  loading="lazy"
+                  onerror="this.remove()"
+                />
+                <span>{lead.initials}</span>
+              </>
+            ) : (
               <span>{lead.initials}</span>
-            </>
-          ) : (
-            <span>{lead.initials}</span>
-          )
-        }
-      </div>
-      <div class="member-copy">
-        <h3 data-lang-en={lead.nameEn} data-lang-zh={lead.nameZh}>{lead.nameZh}</h3>
-        <p class="member-title" data-lang-en={lead.titleEn} data-lang-zh={lead.titleZh}>
-          {lead.titleZh}
-        </p>
-        <p
-          class="member-interest"
-          data-lang-en={`Research interests: ${lead.interestsEn}`}
-          data-lang-zh={`研究兴趣：${lead.interestsZh}`}
-        >
-          研究兴趣：{lead.interestsZh}
-        </p>
-      </div>
-    </a>
+            )
+          }
+        </div>
+        <div class="member-copy">
+          <h3 data-lang-en={lead.nameEn} data-lang-zh={lead.nameZh}>{lead.nameZh}</h3>
+          <p class="member-title" data-lang-en={lead.titleEn} data-lang-zh={lead.titleZh}>
+            {lead.titleZh}
+          </p>
+          <p
+            class="member-interest"
+            data-lang-en={lead.interestsEn}
+            data-lang-zh={lead.interestsZh}
+          >
+            {lead.interestsZh}
+          </p>
+        </div>
+      </a>
+    </div>
   </section>
 
   {
@@ -194,10 +196,10 @@ const sections = [
                   </p>
                   <p
                     class="member-interest"
-                    data-lang-en={`Research interests: ${person.interestsEn}`}
-                    data-lang-zh={`研究兴趣：${person.interestsZh}`}
+                    data-lang-en={person.interestsEn}
+                    data-lang-zh={person.interestsZh}
                   >
-                    研究兴趣：{person.interestsZh}
+                    {person.interestsZh}
                   </p>
                 </div>
               </a>
@@ -227,10 +229,10 @@ const sections = [
                   </p>
                   <p
                     class="member-interest"
-                    data-lang-en={`Research interests: ${person.interestsEn}`}
-                    data-lang-zh={`研究兴趣：${person.interestsZh}`}
+                    data-lang-en={person.interestsEn}
+                    data-lang-zh={person.interestsZh}
                   >
-                    研究兴趣：{person.interestsZh}
+                    {person.interestsZh}
                   </p>
                 </div>
               </article>
