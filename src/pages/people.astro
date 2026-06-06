@@ -27,21 +27,34 @@ const lead: Person = {
 };
 
 const masterStudents: Person[] = [
-  ['Li Rongjia', '李荣佳', 'LR'],
+  {
+    nameEn: 'Li Rongjia',
+    nameZh: '李荣佳',
+    initials: 'LR',
+    titleEn: 'Master Student',
+    titleZh: '硕士研究生',
+    interestsEn: 'Urban and Rural Planning, Ecological Settlement Design',
+    interestsZh: '城乡规划、生态聚落设计',
+    image: '/assets/rongjia-li-portalit.jpg'
+  },
   ['Chen Yun', '陈芸', 'CY'],
   ['Li Zhuo', '李卓', 'LZ'],
   ['Han Xue', '韩雪', 'HX'],
   ['Liu Quanwei', '刘泉蔚', 'LQ'],
   ['Yu Jiuwei', '余玖蔚', 'YJ']
-].map(([nameEn, nameZh, initials]) => ({
-  nameEn,
-  nameZh,
-  initials,
-  titleEn: 'Master Student',
-  titleZh: '硕士研究生',
-  interestsEn: 'Research interests to be updated.',
-  interestsZh: '研究兴趣待更新。'
-}));
+].map((person) =>
+  Array.isArray(person)
+    ? {
+        nameEn: person[0],
+        nameZh: person[1],
+        initials: person[2],
+        titleEn: 'Master Student',
+        titleZh: '硕士研究生',
+        interestsEn: 'Research interests to be updated.',
+        interestsZh: '研究兴趣待更新。'
+      }
+    : person
+);
 
 const undergraduateStudents: Person[] = [
   ['Wang Xiaozihan', '王肖子涵', 'WX'],
