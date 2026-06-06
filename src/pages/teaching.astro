@@ -1,10 +1,12 @@
 ---
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../data/site';
 ---
 
 <BaseLayout title="教学" titleEn="Teaching" titleZh="教学">
   <PageHero
+    className="teaching-page-hero"
     eyebrowEn="Teaching"
     eyebrowZh="教学"
     title="面向灾害、地方与社会生态变化的课程和指导"
@@ -12,7 +14,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     titleZh="面向灾害、地方与社会生态变化的课程和指导"
     textEn="Teaching connects conceptual frameworks with case-based learning, field methods, mapping, policy experiments, and design critique."
     textZh="教学将理论框架与案例学习、实地方法、空间制图、政策实验和设计评议相连接。"
-    image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
+    image={withBase('/assets/contact-hero.png')}
   />
 
   <section class="course-list">

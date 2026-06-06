@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = [
+  {
+    number: '001',
+    dateEn: 'June 2026',
+    dateZh: '2026年6月',
+    statusEn: 'Draft',
+    statusZh: '草稿',
+    tagsEn: ['Multispecies', 'Disaster care', 'Home'],
+    tagsZh: ['多物种', '灾害关怀', '家'],
+    titleEn: 'An Invisible Secondary Disaster: Pet Loss',
+    titleZh: '看不见的次生灾害：宠物丧失',
+    excerptEn: 'When home loses an animal, recovery no longer means return.',
+    excerptZh: '突发灾难中，多物种关系如何改变我们对脆弱性、撤离与照护的理解。',
+    academicKeywordEn: 'companion animal loss',
+    academicKeywordZh: '伴侣动物丧失',
+    keywordsEn:
+      'multispecies geography · disaster care · home · public health · disenfranchised grief',
+    keywordsZh: '多物种地理 · 灾害关怀 · 家 · 公共卫生 · 被剥夺的悲伤'
+  }
+];
+---
+
+<BaseLayout
+  title="共时之地"
+  titleEn="Copresent Places"
+  titleZh="共时之地"
+  descriptionEn="A ReSpace Lab column on copresent spatial experience, humanistic GIS, memory, fieldwork, maps, remote sensing, and models."
+  descriptionZh="ReSpace Lab 关于共时地方经验、人文地理 GIS、记忆、田野、地图、遥感与模型的专栏。"
+>
+  <section class="copresent-hero" aria-labelledby="copresent-title">
+    <p class="copresent-kicker" data-lang-en="ReSpace Lab Column" data-lang-zh="ReSpace Lab 专栏">
+      ReSpace Lab 专栏
+    </p>
+    <div class="copresent-title-row">
+      <h1
+        id="copresent-title"
+        data-lang-en="Copresent Places"
+        data-lang-zh="共时之地"
+      >
+        共时之地
+      </h1>
+      <p data-lang-en="after the Aleph" data-lang-zh="取意于 Aleph 中“同时看见”的意象">
+        取意于 Aleph 中“同时看见”的意象
+      </p>
+    </div>
+    <div class="copresent-intro">
+      <p
+        data-lang-en="Life sees the infinite from within the finite. What the eye encounters may be simultaneous; what language can narrate is always successive."
+        data-lang-zh="我们的生活在有限中看见无限。眼睛所见可以是 simultaneous，而语言只能 successive。"
+      >
+        我们的生活在有限中看见无限。眼睛所见可以是 simultaneous，而语言只能 successive。
+      </p>
+      <p
+        data-lang-en="Humanistic GIS can place maps, remote sensing, models, fieldwork, and memory on one analytic plane, allowing place experiences across scales, subjects, and times to become copresent."
+        data-lang-zh="人文地理 GIS 将地图、遥感、模型、田野和记忆放在同一个分析平面上，使不同尺度、不同主体、不同时间的地方经验得以共时呈现。"
+      >
+        人文地理 GIS 将地图、遥感、模型、田野和记忆放在同一个分析平面上，使不同尺度、不同主体、不同时间的地方经验得以共时呈现。
+      </p>
+    </div>
+  </section>
+
+  <section class="article-index" aria-labelledby="article-index-title">
+    <div class="article-index-heading">
+      <p class="eyebrow" data-lang-en="Article Index" data-lang-zh="文章索引">文章索引</p>
+      <h2 id="article-index-title" data-lang-en="Notes, essays, and working fragments" data-lang-zh="札记、文章与工作片段">
+        札记、文章与工作片段
+      </h2>
+    </div>
+
+    <ol class="article-list">
+      {
+        articles.map((article) => (
+          <li class="article-item">
+            <div class="article-number">{article.number}</div>
+            <div class="article-main">
+              <div class="article-meta">
+                <time data-lang-en={article.dateEn} data-lang-zh={article.dateZh}>{article.dateZh}</time>
+                {article.statusEn && (
+                  <span
+                    class="article-status"
+                    data-lang-en={article.statusEn}
+                    data-lang-zh={article.statusZh}
+                  >
+                    {article.statusZh}
+                  </span>
+                )}
+              </div>
+
+              <div class="article-tags">
+                {article.tagsZh.map((tag, index) => (
+                  <span data-lang-en={article.tagsEn[index]} data-lang-zh={tag}>{tag}</span>
+                ))}
+              </div>
+
+              <h3 data-lang-en={article.titleEn} data-lang-zh={article.titleZh}>
+                {article.titleZh}
+              </h3>
+              <p
+                class="article-title-secondary"
+                data-lang-en={article.titleZh}
+                data-lang-zh={article.titleEn}
+              >
+                {article.titleEn}
+              </p>
+              <p class="article-excerpt" data-lang-en={article.excerptEn} data-lang-zh={article.excerptZh}>
+                {article.excerptZh}
+              </p>
+              <p
+                class="article-excerpt-secondary"
+                data-lang-en={article.excerptZh}
+                data-lang-zh={article.excerptEn}
+              >
+                {article.excerptEn}
+              </p>
+
+              <dl class="article-keywords">
+                <div>
+                  <dt data-lang-en="Academic keyword" data-lang-zh="学术关键词">学术关键词</dt>
+                  <dd>
+                    <span
+                      data-lang-en={article.academicKeywordEn}
+                      data-lang-zh={article.academicKeywordZh}
+                    >
+                      {article.academicKeywordZh}
+                    </span>
+                    <small
+                      data-lang-en={article.academicKeywordZh}
+                      data-lang-zh={article.academicKeywordEn}
+                    >
+                      {article.academicKeywordEn}
+                    </small>
+                  </dd>
+                </div>
+                <div>
+                  <dt data-lang-en="Keywords" data-lang-zh="关键词">关键词</dt>
+                  <dd>
+                    <span data-lang-en={article.keywordsEn} data-lang-zh={article.keywordsZh}>
+                      {article.keywordsZh}
+                    </span>
+                    <small data-lang-en={article.keywordsZh} data-lang-zh={article.keywordsEn}>
+                      {article.keywordsEn}
+                    </small>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>

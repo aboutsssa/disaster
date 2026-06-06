@@ -33,10 +33,14 @@ export const site = {
 export const navItems = [
   { href: '/', label: { en: 'Home', zh: '首页' } },
   { href: '/research/', label: { en: 'Research', zh: '研究' } },
+  {
+    href: '/copresent-places/',
+    label: { en: 'Copresent Places', zh: '共时之地' },
+    variant: 'column'
+  },
   { href: '/projects/global-disaster-map/', label: { en: 'Projects', zh: '项目' } },
   { href: '/people/', label: { en: 'People', zh: '团队' } },
-  { href: '/teaching/', label: { en: 'Teaching', zh: '教学' } },
-  { href: '/contact/', label: { en: 'Contact', zh: '联系' } }
+  { href: '/teaching/', label: { en: 'Teaching', zh: '教学' } }
 ];
 
 export const researchThemes = [
