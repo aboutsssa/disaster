@@ -1,68 +1,229 @@
 ---
-import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../data/site';
+
+type Person = {
+  nameEn: string;
+  nameZh: string;
+  titleEn: string;
+  titleZh: string;
+  interestsEn: string;
+  interestsZh: string;
+  initials: string;
+  image?: string;
+  url?: string;
+};
+
+const lead: Person = {
+  nameEn: 'Qiushan Li',
+  nameZh: '黎秋杉',
+  titleEn: 'Lab Director · PhD · Associate Researcher, Sichuan University IDMR',
+  titleZh: '实验室负责人 · 博士 · 四川大学 IDMR 副研究员',
+  interestsEn: 'Disaster Recovery, Participatory GIS, Vernacular Landscape',
+  interestsZh: '灾后恢复、参与式 GIS、乡土景观',
+  initials: 'QL'
+};
+
+const masterStudents: Person[] = [
+  ['Li Rongjia', '李荣佳', 'LR'],
+  ['Chen Yun', '陈芸', 'CY'],
+  ['Li Zhuo', '李卓', 'LZ'],
+  ['Han Xue', '韩雪', 'HX'],
+  ['Liu Quanwei', '刘泉蔚', 'LQ'],
+  ['Yu Jiuwei', '余玖蔚', 'YJ']
+].map(([nameEn, nameZh, initials]) => ({
+  nameEn,
+  nameZh,
+  initials,
+  titleEn: 'Master Student',
+  titleZh: '硕士研究生',
+  interestsEn: 'Research interests to be updated.',
+  interestsZh: '研究兴趣待更新。'
+}));
+
+const undergraduateStudents: Person[] = [
+  ['Wang Xiaozihan', '王肖子涵', 'WX'],
+  ['Gong Hongyu', '龚红宇', 'GH'],
+  ['Zheng Yujing', '郑雨静', 'ZY'],
+  ['Wang Zihao', '王子豪', 'WZ'],
+  ['Wang Yaxuan', '王雅璇', 'WY'],
+  ['Zeng Zhixin', '曾智鑫', 'ZZ'],
+  ['Wang Yibei', '王艺蓓', 'WY'],
+  ['Wang Jiayi', '王嘉怡', 'WJ']
+].map(([nameEn, nameZh, initials]) => ({
+  nameEn,
+  nameZh,
+  initials,
+  titleEn: 'Undergraduate Student',
+  titleZh: '本科生',
+  interestsEn: 'Research interests to be updated.',
+  interestsZh: '研究兴趣待更新。'
+}));
+
+const collaboratorNote = {
+  titleEn: 'Collaborators / Participants',
+  titleZh: '合作者 / 参与者',
+  textEn:
+    'External collaborators, field partners, visiting students, and project participants can be added here as the lab network grows.',
+  textZh: '外部合作者、田野伙伴、访问学生与项目参与者可在此继续添加。'
+};
+
+const sections = [
+  {
+    eyebrowEn: 'Master Students',
+    eyebrowZh: '硕士研究生',
+    titleEn: 'Graduate researchers',
+    titleZh: '硕士研究生',
+    people: masterStudents
+  },
+  {
+    eyebrowEn: 'Undergraduate Students',
+    eyebrowZh: '本科生',
+    titleEn: 'Undergraduate researchers',
+    titleZh: '本科生',
+    people: undergraduateStudents
+  }
+];
 ---
 
 <BaseLayout title="团队" titleEn="People" titleZh="团队">
-  <PageHero
-    eyebrowEn="People"
-    eyebrowZh="团队"
-    title="面向灾害、地理与规划研究的协作团队"
-    titleEn="A collaborative group for disaster, geography, and planning research."
-    titleZh="面向灾害、地理与规划研究的协作团队"
-    textEn="The lab brings together faculty, graduate students, research assistants, visiting scholars, collaborators, and alumni working on post-disaster recovery and resilient spatial governance."
-    textZh="实验室汇聚教师、研究生、科研助理、访问学者、合作伙伴与校友，共同开展灾后恢复与韧性空间治理研究。"
-    image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
-  />
+  <section class="people-hero" aria-labelledby="people-title">
+    <div>
+      <p class="eyebrow" data-lang-en="People" data-lang-zh="团队">团队</p>
+      <h1
+        id="people-title"
+        data-lang-en="ReSpace Lab Members"
+        data-lang-zh="ReSpace Lab 团队成员"
+      >
+        ReSpace Lab 团队成员
+      </h1>
+    </div>
+    <p
+      data-lang-en="A growing research group for post-disaster recovery, participatory GIS, vernacular landscape studies, and resilient spatial governance."
+      data-lang-zh="一个围绕灾后恢复、参与式 GIS、乡土景观研究与韧性空间治理持续成长的研究团队。"
+    >
+      一个围绕灾后恢复、参与式 GIS、乡土景观研究与韧性空间治理持续成长的研究团队。
+    </p>
+  </section>
 
-  <section class="people-section">
-    <article class="person-card is-lead">
-      <div class="avatar">QL</div>
-      <div>
-        <p class="eyebrow" data-lang-en="Principal Investigator" data-lang-zh="负责人">
-          负责人
+  <section class="people-section people-lead-section" aria-label="Lab director">
+    <div class="people-section-heading">
+      <p class="eyebrow" data-lang-en="Lab Director" data-lang-zh="实验室负责人">实验室负责人</p>
+      <h2 data-lang-en="Leadership" data-lang-zh="负责人">负责人</h2>
+    </div>
+
+    <article class="member-card is-director">
+      <div class="member-photo">
+        {
+          lead.image ? (
+            <img src={withBase(lead.image)} alt="" loading="lazy" />
+          ) : (
+            <span>{lead.initials}</span>
+          )
+        }
+      </div>
+      <div class="member-copy">
+        <h3 data-lang-en={lead.nameEn} data-lang-zh={lead.nameZh}>{lead.nameZh}</h3>
+        <p class="member-title" data-lang-en={lead.titleEn} data-lang-zh={lead.titleZh}>
+          {lead.titleZh}
         </p>
-        <h2 data-lang-en="Dr. Qiushan Li" data-lang-zh="黎秋杉博士">黎秋杉博士</h2>
         <p
-          data-lang-en="Research lead in post-disaster reconstruction, spatial recovery, and the geography of resilient living environments."
-          data-lang-zh="负责灾后重建、空间复原与韧性人居环境地理学方向研究。"
+          class="member-interest"
+          data-lang-en={`Research interests: ${lead.interestsEn}`}
+          data-lang-zh={`研究兴趣：${lead.interestsZh}`}
         >
-          负责灾后重建、空间复原与韧性人居环境地理学方向研究。
+          研究兴趣：{lead.interestsZh}
         </p>
       </div>
     </article>
+  </section>
 
-    <div class="people-grid">
-      <article class="person-card">
-        <div class="avatar">GS</div>
-        <h3 data-lang-en="Graduate Students" data-lang-zh="研究生">研究生</h3>
-        <p
-          data-lang-en="Profiles, research topics, and thesis projects can be added here."
-          data-lang-zh="这里可添加研究生介绍、研究方向与论文项目。"
-        >
-          这里可添加研究生介绍、研究方向与论文项目。
-        </p>
-      </article>
-      <article class="person-card">
-        <div class="avatar">RA</div>
-        <h3 data-lang-en="Research Assistants" data-lang-zh="科研助理">科研助理</h3>
-        <p
-          data-lang-en="Space for assistants working on fieldwork, mapping, archives, and literature review."
-          data-lang-zh="这里可展示参与实地调查、制图、档案整理与文献综述的科研助理。"
-        >
-          这里可展示参与实地调查、制图、档案整理与文献综述的科研助理。
-        </p>
-      </article>
-      <article class="person-card">
-        <div class="avatar">CO</div>
-        <h3 data-lang-en="Collaborators" data-lang-zh="合作伙伴">合作伙伴</h3>
-        <p
-          data-lang-en="Partner institutions, community organizations, and affiliated researchers."
-          data-lang-zh="包括合作机构、社区组织与关联研究者。"
-        >
-          包括合作机构、社区组织与关联研究者。
-        </p>
-      </article>
+  {
+    sections.map((section) => (
+      <section class="people-section">
+        <div class="people-section-heading">
+          <p class="eyebrow" data-lang-en={section.eyebrowEn} data-lang-zh={section.eyebrowZh}>
+            {section.eyebrowZh}
+          </p>
+          <h2 data-lang-en={section.titleEn} data-lang-zh={section.titleZh}>
+            {section.titleZh}
+          </h2>
+        </div>
+
+        <div class="member-grid">
+          {section.people.map((person) =>
+            person.url ? (
+              <a class="member-card" href={person.url} target="_blank" rel="noreferrer">
+                <div class="member-photo">
+                  {person.image ? (
+                    <img src={withBase(person.image)} alt="" loading="lazy" />
+                  ) : (
+                    <span>{person.initials}</span>
+                  )}
+                </div>
+                <div class="member-copy">
+                  <h3 data-lang-en={person.nameEn} data-lang-zh={person.nameZh}>
+                    {person.nameZh}
+                  </h3>
+                  <p class="member-title" data-lang-en={person.titleEn} data-lang-zh={person.titleZh}>
+                    {person.titleZh}
+                  </p>
+                  <p
+                    class="member-interest"
+                    data-lang-en={`Research interests: ${person.interestsEn}`}
+                    data-lang-zh={`研究兴趣：${person.interestsZh}`}
+                  >
+                    研究兴趣：{person.interestsZh}
+                  </p>
+                </div>
+              </a>
+            ) : (
+              <article class="member-card">
+                <div class="member-photo">
+                  {person.image ? (
+                    <img src={withBase(person.image)} alt="" loading="lazy" />
+                  ) : (
+                    <span>{person.initials}</span>
+                  )}
+                </div>
+                <div class="member-copy">
+                  <h3 data-lang-en={person.nameEn} data-lang-zh={person.nameZh}>
+                    {person.nameZh}
+                  </h3>
+                  <p class="member-title" data-lang-en={person.titleEn} data-lang-zh={person.titleZh}>
+                    {person.titleZh}
+                  </p>
+                  <p
+                    class="member-interest"
+                    data-lang-en={`Research interests: ${person.interestsEn}`}
+                    data-lang-zh={`研究兴趣：${person.interestsZh}`}
+                  >
+                    研究兴趣：{person.interestsZh}
+                  </p>
+                </div>
+              </article>
+            )
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="people-section">
+    <div class="people-section-heading">
+      <p
+        class="eyebrow"
+        data-lang-en={collaboratorNote.titleEn}
+        data-lang-zh={collaboratorNote.titleZh}
+      >
+        {collaboratorNote.titleZh}
+      </p>
+      <h2 data-lang-en="Project network" data-lang-zh="项目网络">项目网络</h2>
     </div>
+    <article class="collaborator-panel">
+      <p data-lang-en={collaboratorNote.textEn} data-lang-zh={collaboratorNote.textZh}>
+        {collaboratorNote.textZh}
+      </p>
+    </article>
   </section>
 </BaseLayout>
