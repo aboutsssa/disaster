@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const newsItems = [
+  {
+    dateEn: 'TBD',
+    dateZh: '待定',
+    titleEn: 'News item to be added',
+    titleZh: '待添加动态',
+    textEn: 'Updates about research activities, publications, talks, fieldwork, and project milestones can be added here.',
+    textZh: '这里可添加研究活动、成果发表、报告、田野工作与项目进展。'
+  },
+  {
+    dateEn: 'TBD',
+    dateZh: '待定',
+    titleEn: 'News item to be added',
+    titleZh: '待添加动态',
+    textEn: 'This structure is ready for concise chronological updates.',
+    textZh: '该结构可用于按时间顺序发布简洁动态。'
+  }
+];
+---
+
+<BaseLayout
+  title="动态"
+  titleEn="News"
+  titleZh="动态"
+  descriptionEn="News and updates from ReSpace Lab."
+  descriptionZh="ReSpace Lab 的新闻与动态。"
+>
+  <section class="archive-hero">
+    <p class="eyebrow" data-lang-en="News" data-lang-zh="动态">动态</p>
+    <h1 data-lang-en="News" data-lang-zh="新闻与动态">新闻与动态</h1>
+  </section>
+
+  <section class="news-list" aria-label="News">
+    {
+      newsItems.map((item) => (
+        <article class="news-item">
+          <time data-lang-en={item.dateEn} data-lang-zh={item.dateZh}>{item.dateZh}</time>
+          <div>
+            <h2 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h2>
+            <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>

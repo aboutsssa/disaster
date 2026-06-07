@@ -8,16 +8,12 @@ const articles = [
     number: '001',
     dateEn: 'June 2026',
     dateZh: '2026年6月',
-    statusEn: 'Draft',
-    statusZh: '草稿',
     tagsEn: ['Multispecies', 'Disaster care', 'Home'],
     tagsZh: ['多物种', '灾害关怀', '家'],
     titleEn: 'An Invisible Secondary Disaster: Pet Loss',
     titleZh: '看不见的次生灾害：宠物丧失',
     excerptEn: 'When home loses an animal, recovery no longer means return.',
     excerptZh: '突发灾难中，多物种关系如何改变我们对脆弱性、撤离与照护的理解。',
-    academicKeywordEn: 'companion animal loss',
-    academicKeywordZh: '伴侣动物丧失',
     keywordsEn:
       'multispecies geography · disaster care · home · public health · disenfranchised grief',
     keywordsZh: '多物种地理 · 灾害关怀 · 家 · 公共卫生 · 被剥夺的悲伤'
@@ -44,8 +40,8 @@ const articles = [
     </div>
     <div class="copresent-intro">
       <p
-        data-lang-en="Life sees the infinite from within the finite. What the eye encounters may be simultaneous; what language can narrate is always successive."
-        data-lang-zh="我们的生活在有限中看见无限。眼睛所见可以是 simultaneous，而语言只能 successive。"
+        data-lang-en="A place is never only where it is. Life sees the infinite from within the finite. What the eye encounters may be simultaneous; what language can narrate is always successive. GIS, however, allows people, things, memories, and events from different times and places to meet on the same plane."
+        data-lang-zh="一个地方从不只在它所在之处。我们的生活在有限中看见无限。眼睛所见可以是 simultaneous，而语言只能 successive。但GIS可以让不同时空的人事物相遇。"
       >
         我们的生活在有限中看见无限。眼睛所见可以是 simultaneous，而语言只能 successive。
       </p>
@@ -91,17 +87,6 @@ const articles = [
                 </p>
 
                 <dl class="article-keywords">
-                  <div>
-                    <dt data-lang-en="Academic keyword" data-lang-zh="学术关键词">学术关键词</dt>
-                    <dd>
-                      <span
-                        data-lang-en={article.academicKeywordEn}
-                        data-lang-zh={article.academicKeywordZh}
-                      >
-                        {article.academicKeywordZh}
-                      </span>
-                    </dd>
-                  </div>
                   <div>
                     <dt data-lang-en="Keywords" data-lang-zh="关键词">关键词</dt>
                     <dd>

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GlobalDisasterMap from '../../components/GlobalDisasterMap.astro';
-import { geePlan, plannedRemoteSensingLayers } from '../../data/disasterProjects';
 import { withBase } from '../../data/site';
 ---
 
@@ -9,8 +8,8 @@ import { withBase } from '../../data/site';
   title="全球灾害与复原空间观测平台"
   titleEn="Global Disaster and ReSpace Observatory"
   titleZh="全球灾害与复原空间观测平台"
-  descriptionEn="A layer-based global disaster and exposure observatory using MapLibre, USGS events, WorldPop, and Earth Engine-ready remote-sensing data."
-  descriptionZh="一个基于 MapLibre、USGS 事件、WorldPop 与 Earth Engine 遥感数据流程的全球灾害与暴露观测平台。"
+  descriptionEn="A public atlas for exploring global hazards, population exposure, and post-disaster recovery conditions."
+  descriptionZh="一个用于探索全球灾害、人口暴露与灾后恢复条件的公共交互图谱。"
 >
   <section class="project-hero">
     <div>
@@ -22,10 +21,10 @@ import { withBase } from '../../data/site';
         全球灾害与复原空间观测平台
       </h1>
       <p
-        data-lang-en="A data-driven map project for comparing global hazards, population exposure, and post-disaster recovery conditions. The first version streams public web layers; the next version should publish Earth Engine-derived analytical tiles from the research pipeline."
-        data-lang-zh="一个数据驱动的地图项目，用于比较全球灾害、人口暴露与灾后恢复条件。当前版本加载公开 Web 图层，下一版本将从研究流程中发布 Earth Engine 生成的分析瓦片。"
+        data-lang-en="A data-driven atlas for exploring global hazards, population exposure, and post-disaster recovery conditions through live events and public geospatial layers."
+        data-lang-zh="一个数据驱动的交互图谱，通过实时事件与公开地理空间图层展示全球灾害、人口暴露与灾后恢复条件。"
       >
-        一个数据驱动的地图项目，用于比较全球灾害、人口暴露与灾后恢复条件。当前版本加载公开 Web 图层，下一版本将从研究流程中发布 Earth Engine 生成的分析瓦片。
+        一个数据驱动的交互图谱，通过实时事件与公开地理空间图层展示全球灾害、人口暴露与灾后恢复条件。
       </p>
     </div>
     <div class="project-meta">
@@ -36,17 +35,11 @@ import { withBase } from '../../data/site';
       <p>
         <strong data-lang-en="Data model" data-lang-zh="数据模型">数据模型</strong>
         <span
-          data-lang-en="Raster services, live GeoJSON, GEE exports"
-          data-lang-zh="栅格服务、实时 GeoJSON、GEE 导出"
+          data-lang-en="Live events and public web layers"
+          data-lang-zh="实时事件与公开 Web 图层"
         >
-          栅格服务、实时 GeoJSON、GEE 导出
+          实时事件与公开 Web 图层
         </span>
-      </p>
-      <p>
-        <strong data-lang-en="Earth Engine project" data-lang-zh="Earth Engine 项目">
-          Earth Engine 项目
-        </strong>
-        <span>{geePlan.project}</span>
       </p>
       <p>
         <strong data-lang-en="Fullscreen app" data-lang-zh="全屏应用">全屏应用</strong>
@@ -57,55 +50,5 @@ import { withBase } from '../../data/site';
     </div>
   </section>
 
-  <GlobalDisasterMap />
-
-  <section class="split-section">
-    <div>
-      <p class="eyebrow" data-lang-en="Data Strategy" data-lang-zh="数据策略">数据策略</p>
-      <h2
-        data-lang-en="Use Earth Engine upstream, not as a fragile public-browser dependency"
-        data-lang-zh="将 Earth Engine 放在上游，而不是作为脆弱的浏览器依赖"
-      >
-        将 Earth Engine 放在上游，而不是作为脆弱的浏览器依赖
-      </h2>
-      <p
-        data-lang-en="The public website should read stable map layers. Earth Engine should prepare hazard composites, exposure summaries, and before/after indicators, then export browser-ready outputs that MapLibre can load without visitor authentication or quota problems."
-        data-lang-zh="公共网站应读取稳定的地图图层。Earth Engine 用于准备灾害综合图层、暴露汇总与灾前灾后指标，并导出 MapLibre 可加载的浏览器友好成果，避免访客认证与配额问题。"
-      >
-        公共网站应读取稳定的地图图层。Earth Engine 用于准备灾害综合图层、暴露汇总与灾前灾后指标，并导出 MapLibre 可加载的浏览器友好成果，避免访客认证与配额问题。
-      </p>
-    </div>
-    <ol class="dimension-list">
-      {
-        geePlan.recommendedFlow.map((item) => (
-          <li data-lang-en={item.en} data-lang-zh={item.zh}>{item.zh}</li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <section class="section-heading">
-    <p class="eyebrow" data-lang-en="Layer Roadmap" data-lang-zh="图层路线图">图层路线图</p>
-    <h2 data-lang-en="Remote-sensing layers to publish next" data-lang-zh="下一步发布的遥感图层">
-      下一步发布的遥感图层
-    </h2>
-    <p
-      data-lang-en="The observatory should prioritize continuous global surfaces and time-series layers, then connect them to selected case-study regions for post-disaster reconstruction questions."
-      data-lang-zh="观测平台将优先发布连续的全球表面与时间序列图层，再与选定案例区连接，服务灾后重建问题研究。"
-    >
-      观测平台将优先发布连续的全球表面与时间序列图层，再与选定案例区连接，服务灾后重建问题研究。
-    </p>
-  </section>
-
-  <section class="layer-roadmap" aria-label="Planned remote-sensing layers">
-    {
-      plannedRemoteSensingLayers.map((layer) => (
-        <article>
-          <span data-lang-en={layer.status.en} data-lang-zh={layer.status.zh}>{layer.status.zh}</span>
-          <h3 data-lang-en={layer.name.en} data-lang-zh={layer.name.zh}>{layer.name.zh}</h3>
-          <p data-lang-en={layer.source.en} data-lang-zh={layer.source.zh}>{layer.source.zh}</p>
-        </article>
-      ))
-    }
-  </section>
+  <GlobalDisasterMap showcase />
 </BaseLayout>

@@ -37,9 +37,11 @@ export const navItems = [
     href: '/copresent-places/',
     label: { en: 'Copresent Places', zh: '共时之地' }
   },
-  { href: '/projects/global-disaster-map/', label: { en: 'Projects', zh: '项目' } },
+  { href: '/projects/', label: { en: 'Projects', zh: '项目' } },
   { href: '/people/', label: { en: 'People', zh: '团队' } },
-  { href: '/teaching/', label: { en: 'Teaching', zh: '教学' } }
+  { href: '/publications/', label: { en: 'Publications', zh: '成果' } },
+  { href: '/news/', label: { en: 'News', zh: '动态' } },
+  { href: '/photos/', label: { en: 'Photos', zh: '照片' } }
 ];
 
 export const researchThemes = [
@@ -153,6 +155,94 @@ export const researchProjects = [
         '规划如何将 Earth Engine 生成的遥感图层发布为公共观测平台可直接加载的浏览器图层。'
     },
     href: '/projects/global-disaster-map/'
+  }
+] as const;
+
+export const fundedResearchProjects = [
+  {
+    period: '2026.01-2027.12',
+    title: 'Research on Risk Assessment and Resilience Enhancement Strategies for Disaster Chains in Urban Agglomerations',
+    sponsor: 'Sichuan Provincial Department of Science and Technology',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2025.01-2026.12',
+    title:
+      'How ecological zoning policy benefit post-disaster reconstruction: a study on the synergy between ecological environment and socioeconomic factors',
+    sponsor: 'South Asian Network on Development and Environmental Economics',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2024.01-2026.12',
+    title:
+      'Research on the driving mechanism of poverty caused by natural disasters and the improvement of disaster resilience',
+    sponsor: 'Youth Fund for Humanities and Social Sciences of the Ministry of Education',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2021-2022',
+    title: 'Research on technologies of protection, repair, inheritance and utilization of traditional settlements',
+    sponsor: 'Postdoctoral Funding',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2023.05-2023.08',
+    title:
+      'Investigation and research on strengthening disaster resilience capacity building in high-risk areas of natural disasters in Sichuan province',
+    sponsor: 'Funding from the Provincial Committee of the Jiusan Society',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2022.04-2022.12',
+    title: 'Land and space planning of emergency system in eastern new district of Chengdu',
+    sponsor: 'Funding from Chengdu Eastern New Area Emergency Safety Administration',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2020.12-2021.04',
+    title: 'The 14th five-year plan for the construction of emergency management system in Chenghua district, Chengdu',
+    sponsor: 'Funding from Chenghua District Emergency Management Bureau',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2020.12-2021.04',
+    title:
+      'The 14th five-year plan for comprehensive disaster prevention and mitigation in Chengdu directly managed district, Sichuan Province',
+    sponsor: 'Funding from Tianfu New District Emergency Management Bureau',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2020.12-2021.04',
+    title:
+      'The 14th five-year plan for comprehensive disaster prevention and mitigation in Chengdu directly managed district, Sichuan Province',
+    sponsor: 'Funding from Tianfu New District Emergency Management Bureau',
+    role: 'Principal Investigator'
+  },
+  {
+    period: '2022.01-2022.06',
+    title: 'Compilation of Quantifying Sustainability in the Aftermath of Natural Disasters (QSAND) Guidance manual',
+    sponsor: 'Sichuan Red Cross Foundation; Mrs. Chen ZhangMincong Charity Foundation',
+    role: 'Cooperative Researcher'
+  },
+  {
+    period: '2022.01-2022.12',
+    title: 'Sichuan Province: Safety improvement and security risks reduction solution',
+    sponsor: 'Sichuan Emergency Management Department',
+    role: 'Cooperative Researcher'
+  },
+  {
+    period: '2021.11-2022.11',
+    title:
+      'Analysis of ecological space of traditional ethnic minority settlements and research on wisdom inheritance strategies',
+    sponsor: 'Key project of Ecological Civilization Construction in Sichuan Province',
+    role: 'Cooperative Researcher'
+  },
+  {
+    period: '2018-2019',
+    title:
+      'Master plan of the Linpan settlement demonstration area in the western Sichuan Dujiangyan Irrigation District and detailed planning of the start-up area',
+    sponsor: 'Government of Juyuan Town, Dujiangyan City',
+    role: 'Cooperative Researcher'
   }
 ] as const;
 

@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projectEntries } from '../../data/projects';
+import { withBase } from '../../data/site';
+---
+
+<BaseLayout
+  title="项目"
+  titleEn="Projects"
+  titleZh="项目"
+  descriptionEn="Research projects and interactive sites from ReSpace Lab."
+  descriptionZh="ReSpace Lab 的研究项目与交互式站点。"
+>
+  <section class="projects-page-hero">
+    <p class="eyebrow" data-lang-en="Projects" data-lang-zh="项目">项目</p>
+    <h1 data-lang-en="Research projects and interactive sites" data-lang-zh="研究项目与交互式站点">
+      研究项目与交互式站点
+    </h1>
+  </section>
+
+  <section class="project-directory" aria-label="Projects">
+    {
+      projectEntries.map((project) => (
+        <article class="project-entry">
+          <a class={`project-entry-media ${project.thumbnail}`} href={withBase(project.href)} aria-label={project.title.en}>
+            {project.thumbnail === 'typology' ? (
+              <div class="project-thumb-matrix" aria-hidden="true">
+                <span class="thumb-axis horizontal"></span>
+                <span class="thumb-axis vertical"></span>
+                <b>RI</b>
+                <b>IN</b>
+                <b>CR</b>
+                <b>DR</b>
+              </div>
+            ) : (
+              <div class="project-thumb-globe" aria-hidden="true">
+                <span></span>
+                <i></i>
+              </div>
+            )}
+          </a>
+          <div class="project-entry-copy">
+            <p class="project-entry-year">{project.year}</p>
+            <h2 data-lang-en={project.title.en} data-lang-zh={project.title.zh}>{project.title.zh}</h2>
+            <p data-lang-en={project.description.en} data-lang-zh={project.description.zh}>
+              {project.description.zh}
+            </p>
+            <div class="project-entry-tags">
+              {project.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+            <a class="project-entry-link" href={withBase(project.href)}>Visit site</a>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>

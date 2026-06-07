@@ -17,8 +17,8 @@ type Person = {
 const lead: Person = {
   nameEn: 'Qiushan Li',
   nameZh: '黎秋杉',
-  titleEn: 'Lab Director · PhD · Associate Researcher, Sichuan University IDMR',
-  titleZh: '实验室负责人 · 博士 · 四川大学 IDMR 副研究员',
+  titleEn: 'Lab Director · PhD · Associate Researcher',
+  titleZh: '实验室负责人 · 博士 ',
   interestsEn: 'Disaster Recovery, Participatory GIS, Vernacular Landscape',
   interestsZh: '灾后恢复、参与式 GIS、乡土景观',
   initials: 'QL',
@@ -75,6 +75,19 @@ const undergraduateStudents: Person[] = [
   interestsZh: '研究兴趣待更新。'
 }));
 
+const labMascots: Person[] = [
+  {
+    nameEn: 'Kalos',
+    nameZh: 'Kalos',
+    initials: 'K',
+    titleEn: 'Lab Mascot',
+    titleZh: '实验室吉祥物',
+    interestsEn: 'Enjoys studying people and automated machines.',
+    interestsZh: '喜欢研究人和自动化的机器',
+    image: '/assets/kalos.jpg'
+  }
+];
+
 const collaboratorNote = {
   titleEn: 'Collaborators / Participants',
   titleZh: '合作者 / 参与者',
@@ -97,6 +110,13 @@ const sections = [
     titleEn: 'Undergraduate Students',
     titleZh: '本科生',
     people: undergraduateStudents
+  },
+  {
+    eyebrowEn: 'Lab Mascots',
+    eyebrowZh: 'Lab Mascots',
+    titleEn: 'Lab Mascots',
+    titleZh: 'Lab Mascots',
+    people: labMascots
   }
 ];
 ---
@@ -113,12 +133,7 @@ const sections = [
         ReSpace Lab 团队成员
       </h1>
     </div>
-    <p
-      data-lang-en="A growing research group for post-disaster recovery, participatory GIS, vernacular landscape studies, and resilient spatial governance."
-      data-lang-zh="一个围绕灾后恢复、参与式 GIS、乡土景观研究与韧性空间治理持续成长的研究团队。"
-    >
-      一个围绕灾后恢复、参与式 GIS、乡土景观研究与韧性空间治理持续成长的研究团队。
-    </p>
+
   </section>
 
   <section class="people-section people-lead-section" aria-label="Lab director">

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../data/site';
+
+const photoGroups = [
+  {
+    image: '/assets/home-p1.png',
+    titleEn: 'Photo collection to be added',
+    titleZh: '待添加照片集',
+    textEn: 'A place for fieldwork, workshops, seminar moments, and project documentation.',
+    textZh: '用于整理田野、工作坊、研讨片段与项目记录。'
+  },
+  {
+    image: '/assets/contact-hero.png',
+    titleEn: 'Photo collection to be added',
+    titleZh: '待添加照片集',
+    textEn: 'Replace this card with a real album once photos are ready.',
+    textZh: '照片准备好后，可将此卡片替换为真实相册。'
+  },
+  {
+    image: '/assets/kalos.jpg',
+    titleEn: 'Photo collection to be added',
+    titleZh: '待添加照片集',
+    textEn: 'The layout supports compact visual archives.',
+    textZh: '该布局适合紧凑的视觉档案。'
+  }
+];
+---
+
+<BaseLayout
+  title="照片"
+  titleEn="Photos"
+  titleZh="照片"
+  descriptionEn="Photo collections from ReSpace Lab."
+  descriptionZh="ReSpace Lab 的照片集。"
+>
+  <section class="archive-hero">
+    <p class="eyebrow" data-lang-en="Photos" data-lang-zh="照片">照片</p>
+    <h1 data-lang-en="Photos" data-lang-zh="照片集">照片集</h1>
+
+  </section>
+
+  <section class="photo-grid" aria-label="Photo collections">
+    {
+      photoGroups.map((group) => (
+        <article class="photo-card">
+          <img src={withBase(group.image)} alt="" loading="lazy" />
+          <div>
+            <h2 data-lang-en={group.titleEn} data-lang-zh={group.titleZh}>{group.titleZh}</h2>
+            <p data-lang-en={group.textEn} data-lang-zh={group.textZh}>{group.textZh}</p>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>

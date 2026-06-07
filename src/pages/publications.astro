@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { publications } from '../data/publications';
+
+const yearGroups = publications.reduce<Array<{ year: string; entries: typeof publications }>>((groups, publication) => {
+  const existingGroup = groups.find((group) => group.year === publication.year);
+
+  if (existingGroup) {
+    existingGroup.entries.push(publication);
+  } else {
+    groups.push({ year: publication.year, entries: [publication] });
+  }
+
+  return groups;
+}, []);
+
+const categoryLabel = {
+  paper: 'Paper',
+  book: 'Book'
+};
+---
+
+<BaseLayout
+  title="成果"
+  titleEn="Publications"
+  titleZh="成果"
+  descriptionEn="Publications from ReSpace Lab."
+  descriptionZh="ReSpace Lab 的研究成果。"
+>
+  <section class="archive-hero">
+    <p class="eyebrow" data-lang-en="Publications" data-lang-zh="成果">成果</p>
+    <h1 data-lang-en="Publications" data-lang-zh="研究成果">研究成果</h1>
+    <p
+      data-lang-en="Peer-reviewed journal articles, book chapters, conference papers, research reports, policy documents, and other publications produced by the lab."
+      data-lang-zh="实验室发表的同行评审期刊论文、书籍章节、会议论文、研究报告与政策文件等。"
+    >
+      实验室发表的同行评审期刊论文、书籍章节、会议论文、研究报告与政策文件等。
+    </p>
+  </section>
+
+  <section class="publication-list publication-list-grouped" aria-label="Publications">
+    {
+      yearGroups.map(({ year, entries }) => (
+        <section class="publication-year-group" aria-labelledby={`publications-${year}`}>
+          <h2 id={`publications-${year}`} class="publication-year-heading">
+            {year}
+          </h2>
+          <div class="publication-year-list">
+            {entries.map((publication, index) => (
+              <article class="publication-item">
+                <div class="publication-index">{String(index + 1).padStart(2, '0')}</div>
+                <div class="publication-body">
+                  <div class="publication-meta">
+                    <span>{publication.year}</span>
+                    <span>{categoryLabel[publication.category]}</span>
+                  </div>
+                  <p class="publication-citation">{publication.citation}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </section>
+</BaseLayout>
