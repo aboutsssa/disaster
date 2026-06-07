@@ -1,0 +1,215 @@
+.copresent-title-row {
+  display: block;
+}
+
+.copresent-title-row p,
+.copresent-kicker,
+.article-title-secondary,
+.article-excerpt-secondary {
+  display: none;
+}
+
+.copresent-intro {
+  display: block;
+  max-width: 58ch;
+}
+
+.article-item {
+  display: block;
+  padding: 0;
+}
+
+.article-link {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 2.1rem) 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-link:hover h3,
+.article-link:focus-visible h3 {
+  color: var(--forest);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+}
+
+.article-link:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 6px;
+}
+
+.member-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.member-grid.is-single {
+  grid-template-columns: minmax(0, 560px);
+}
+
+.member-card,
+.member-card.is-director {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(92px, 26%, 126px);
+  align-items: center;
+  justify-items: stretch;
+  gap: clamp(1rem, 2.6vw, 1.45rem);
+  width: min(100%, 560px);
+  min-height: 172px;
+  padding: clamp(1.15rem, 2.5vw, 1.55rem);
+  overflow: hidden;
+  border: 1px solid rgba(200, 211, 206, 0.75);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.95), rgba(245, 248, 242, 0.78)),
+    var(--white);
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 0 14px 34px rgba(45, 38, 25, 0.045);
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.member-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--forest);
+  opacity: 0;
+  transform: scaleY(0.45);
+  transform-origin: center;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.member-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 1.15rem 0.9rem auto;
+  width: 46px;
+  height: 1px;
+  background: rgba(33, 77, 67, 0.35);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.member-card:hover,
+.member-card:focus-visible {
+  border-color: rgba(33, 77, 67, 0.32);
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 1), rgba(237, 246, 241, 0.92)),
+    var(--white);
+  box-shadow: 0 22px 48px rgba(45, 38, 25, 0.105);
+  transform: translateY(-4px);
+}
+
+.member-card:hover::before,
+.member-card:focus-visible::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.member-card:hover::after,
+.member-card:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.member-card:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 4px;
+}
+
+.member-photo,
+.member-card:not(.is-director) .member-photo,
+.member-card.is-director .member-photo {
+  justify-self: end;
+  width: 100%;
+  max-width: 126px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 6px;
+  box-shadow: 0 12px 24px rgba(45, 38, 25, 0.1);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.member-card:not(.is-director) .member-photo {
+  max-width: 110px;
+}
+
+.member-photo img {
+  transition: transform 240ms ease;
+}
+
+.member-card:hover .member-photo,
+.member-card:focus-visible .member-photo {
+  box-shadow: 0 16px 30px rgba(45, 38, 25, 0.14);
+  transform: translateX(-3px);
+}
+
+.member-card:hover .member-photo img,
+.member-card:focus-visible .member-photo img {
+  transform: scale(1.06);
+}
+
+.member-copy {
+  justify-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .article-item {
+    gap: 0;
+  }
+
+  .article-link {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .member-card,
+  .member-card.is-director {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    min-height: 0;
+  }
+
+  .member-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-card:not(.is-director) .member-photo,
+  .member-card.is-director .member-photo {
+    justify-self: start;
+    width: 92px;
+    max-width: 92px;
+  }
+
+  .member-card::after {
+    inset: auto auto 0.9rem 1.15rem;
+  }
+
+  .member-interest {
+    max-width: none;
+  }
+}

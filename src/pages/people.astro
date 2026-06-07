@@ -135,6 +135,19 @@ const sections = [
         rel="noreferrer"
         aria-label="Qiushan Li profile"
       >
+        <div class="member-copy">
+          <h3 data-lang-en={lead.nameEn} data-lang-zh={lead.nameZh}>{lead.nameZh}</h3>
+          <p class="member-title" data-lang-en={lead.titleEn} data-lang-zh={lead.titleZh}>
+            {lead.titleZh}
+          </p>
+          <p
+            class="member-interest"
+            data-lang-en={lead.interestsEn}
+            data-lang-zh={lead.interestsZh}
+          >
+            {lead.interestsZh}
+          </p>
+        </div>
         <div class="member-photo">
           {
             lead.image ? (
@@ -151,19 +164,6 @@ const sections = [
               <span>{lead.initials}</span>
             )
           }
-        </div>
-        <div class="member-copy">
-          <h3 data-lang-en={lead.nameEn} data-lang-zh={lead.nameZh}>{lead.nameZh}</h3>
-          <p class="member-title" data-lang-en={lead.titleEn} data-lang-zh={lead.titleZh}>
-            {lead.titleZh}
-          </p>
-          <p
-            class="member-interest"
-            data-lang-en={lead.interestsEn}
-            data-lang-zh={lead.interestsZh}
-          >
-            {lead.interestsZh}
-          </p>
         </div>
       </a>
     </div>
@@ -185,21 +185,6 @@ const sections = [
           {section.people.map((person) =>
             person.url ? (
               <a class="member-card" href={person.url} target="_blank" rel="noreferrer">
-                <div class="member-photo">
-                  {person.image ? (
-                    <>
-                      <img
-                        src={withBase(person.image)}
-                        alt=""
-                        loading="lazy"
-                        onerror="this.remove()"
-                      />
-                      <span>{person.initials}</span>
-                    </>
-                  ) : (
-                    <span>{person.initials}</span>
-                  )}
-                </div>
                 <div class="member-copy">
                   <h3 data-lang-en={person.nameEn} data-lang-zh={person.nameZh}>
                     {person.nameZh}
@@ -214,25 +199,25 @@ const sections = [
                   >
                     {person.interestsZh}
                   </p>
+                </div>
+                <div class="member-photo">
+                  {person.image ? (
+                    <>
+                      <img
+                        src={withBase(person.image)}
+                        alt=""
+                        loading="lazy"
+                        onerror="this.remove()"
+                      />
+                      <span>{person.initials}</span>
+                    </>
+                  ) : (
+                    <span>{person.initials}</span>
+                  )}
                 </div>
               </a>
             ) : (
               <article class="member-card">
-                <div class="member-photo">
-                  {person.image ? (
-                    <>
-                      <img
-                        src={withBase(person.image)}
-                        alt=""
-                        loading="lazy"
-                        onerror="this.remove()"
-                      />
-                      <span>{person.initials}</span>
-                    </>
-                  ) : (
-                    <span>{person.initials}</span>
-                  )}
-                </div>
                 <div class="member-copy">
                   <h3 data-lang-en={person.nameEn} data-lang-zh={person.nameZh}>
                     {person.nameZh}
@@ -247,6 +232,21 @@ const sections = [
                   >
                     {person.interestsZh}
                   </p>
+                </div>
+                <div class="member-photo">
+                  {person.image ? (
+                    <>
+                      <img
+                        src={withBase(person.image)}
+                        alt=""
+                        loading="lazy"
+                        onerror="this.remove()"
+                      />
+                      <span>{person.initials}</span>
+                    </>
+                  ) : (
+                    <span>{person.initials}</span>
+                  )}
                 </div>
               </article>
             )
