@@ -35,8 +35,7 @@ export const navItems = [
   { href: '/research/', label: { en: 'Research', zh: '研究' } },
   {
     href: '/copresent-places/',
-    label: { en: 'Copresent Places', zh: '共时之地' },
-    variant: 'column'
+    label: { en: 'Copresent Places', zh: '共时之地' }
   },
   { href: '/projects/global-disaster-map/', label: { en: 'Projects', zh: '项目' } },
   { href: '/people/', label: { en: 'People', zh: '团队' } },

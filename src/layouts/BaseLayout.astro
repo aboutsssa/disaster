@@ -52,7 +52,7 @@ const isActivePath = (href: string) =>
           navItems.map((item) => (
             <a
               href={withBase(item.href)}
-              class:list={[isActivePath(item.href) && 'is-active', item.variant === 'column' && 'is-column']}
+              class:list={[isActivePath(item.href) && 'is-active']}
               data-lang-en={item.label.en}
               data-lang-zh={item.label.zh}
             >
