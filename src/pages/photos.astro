@@ -2,27 +2,22 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { withBase } from '../data/site';
 
-const photoGroups = [
+const albums = [
   {
-    image: '/assets/home-p1.png',
-    titleEn: 'Photo collection to be added',
-    titleZh: '待添加照片集',
-    textEn: 'A place for fieldwork, workshops, seminar moments, and project documentation.',
-    textZh: '用于整理田野、工作坊、研讨片段与项目记录。'
-  },
-  {
-    image: '/assets/contact-hero.png',
-    titleEn: 'Photo collection to be added',
-    titleZh: '待添加照片集',
-    textEn: 'Replace this card with a real album once photos are ready.',
-    textZh: '照片准备好后，可将此卡片替换为真实相册。'
-  },
-  {
-    image: '/assets/kalos.jpg',
-    titleEn: 'Photo collection to be added',
-    titleZh: '待添加照片集',
-    textEn: 'The layout supports compact visual archives.',
-    textZh: '该布局适合紧凑的视觉档案。'
+    titleEn: 'Graduation Memory Album',
+    titleZh: '毕业纪念册',
+    photos: [
+      {
+        image: '/assets/photo/毕业纪念册/李荣佳毕业聚餐2024.jpg',
+        titleEn: 'Graduation Dinner 2024',
+        titleZh: '李荣佳毕业聚餐2024'
+      },
+      {
+        image: '/assets/photo/毕业纪念册/陈芸毕业照.jpg',
+        titleEn: "Congratulations to Chen Yun on earning her master's degree",
+        titleZh: '祝贺陈芸硕士毕业'
+      }
+    ]
   }
 ];
 ---
@@ -34,23 +29,119 @@ const photoGroups = [
   descriptionEn="Photo collections from ReSpace Lab."
   descriptionZh="ReSpace Lab 的照片集。"
 >
-  <section class="archive-hero">
+  <section class="archive-hero photos-hero">
     <p class="eyebrow" data-lang-en="Photos" data-lang-zh="照片">照片</p>
     <h1 data-lang-en="Photos" data-lang-zh="照片集">照片集</h1>
-
   </section>
 
-  <section class="photo-grid" aria-label="Photo collections">
+  <section class="photo-albums" aria-label="Photo albums">
     {
-      photoGroups.map((group) => (
-        <article class="photo-card">
-          <img src={withBase(group.image)} alt="" loading="lazy" />
-          <div>
-            <h2 data-lang-en={group.titleEn} data-lang-zh={group.titleZh}>{group.titleZh}</h2>
-            <p data-lang-en={group.textEn} data-lang-zh={group.textZh}>{group.textZh}</p>
+      albums.map((album) => (
+        <article class="photo-album">
+          <header class="photo-album-header">
+            <p class="eyebrow" data-lang-en="Album" data-lang-zh="相册">相册</p>
+            <h2 data-lang-en={album.titleEn} data-lang-zh={album.titleZh}>{album.titleZh}</h2>
+            <p data-lang-en={album.descriptionEn} data-lang-zh={album.descriptionZh}>
+              {album.descriptionZh}
+            </p>
+          </header>
+
+          <div class="photo-album-grid">
+            {
+              album.photos.map((photo) => (
+                <figure class="photo-album-item">
+                  <img src={withBase(photo.image)} alt="" loading="lazy" />
+                  <figcaption data-lang-en={photo.titleEn} data-lang-zh={photo.titleZh}>
+                    {photo.titleZh}
+                  </figcaption>
+                </figure>
+              ))
+            }
           </div>
         </article>
       ))
     }
   </section>
+
+  <style>
+    .photos-hero {
+      padding-bottom: clamp(1rem, 2vw, 1.6rem);
+    }
+
+    .photo-albums {
+      display: grid;
+      gap: clamp(2rem, 4vw, 3.2rem);
+      max-width: 1180px;
+      margin-inline: auto;
+      padding: clamp(1rem, 3vw, 1.7rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 7vw, 6rem);
+    }
+
+    .photo-album {
+      display: grid;
+      gap: clamp(1.2rem, 3vw, 2rem);
+    }
+
+    .photo-album-header {
+      display: grid;
+      gap: 0.55rem;
+      max-width: 760px;
+    }
+
+    .photo-album-header h2 {
+      max-width: 26ch;
+      font-size: clamp(1.4rem, 1.2vw, 2.8rem);
+      line-height: 1.04;
+    }
+
+    .photo-album-header p:last-child {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+      line-height: 1.7;
+    }
+
+    .photo-album-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 1.35rem);
+    }
+
+    .photo-album-item {
+      display: grid;
+      grid-template-rows: auto min-content;
+      margin: 0;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      box-shadow: 0 16px 38px rgba(45, 38, 25, 0.045);
+    }
+
+    .photo-album-item img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      filter: saturate(0.94) contrast(1.02);
+    }
+
+    .photo-album-item figcaption {
+      padding: 0.9rem 1rem;
+      color: var(--ink);
+      font-size: clamp(0.96rem, 1.1vw, 1.08rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    @media (max-width: 900px) {
+      .photo-album-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .photo-album-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </BaseLayout>
