@@ -13,5 +13,139 @@ import { withBase } from '../../data/site';
 >
 
 
-  <RecoveryTypology />
+  <div class="recovery-typology-page">
+    <RecoveryTypology />
+  </div>
+
+  <style>
+    .recovery-typology-page {
+      background: var(--paper);
+    }
+
+    .recovery-typology-page :global(.typology-section) {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      max-width: min(1180px, calc(100vw - 3rem));
+      margin-inline: auto;
+      padding: clamp(4rem, 8vw, 7rem) 0 clamp(4.5rem, 8vw, 7rem);
+    }
+
+    .recovery-typology-page :global(.typology-copy) {
+      justify-items: center;
+      max-width: 760px;
+      text-align: center;
+    }
+
+    .recovery-typology-page :global(.typology-section h2) {
+      max-width: 28ch;
+      font-size: clamp(3rem, 2vw, 2.4rem);
+      line-height: 1.02;
+    }
+
+    .recovery-typology-page :global(.typology-description) {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.3vw, 1.18rem);
+      line-height: 1.65;
+    }
+
+    .recovery-typology-page :global(.typology-panel) {
+      justify-self: center;
+      width: min(100%, 1120px);
+      padding: clamp(1.15rem, 2vw, 1.6rem);
+      background: var(--bg-layer);
+      box-shadow: 0 24px 72px rgba(29, 37, 40, 0.08);
+    }
+
+    .recovery-typology-page :global(.typology-body) {
+      display: grid;
+      gap: clamp(1rem, 2vw, 1.35rem);
+    }
+
+    .recovery-typology-page :global(.typology-map) {
+      padding: 1.25rem 1rem 3.25rem;
+    }
+
+    .recovery-typology-page :global(.typology-map::before) {
+      top: 0.65rem;
+      bottom: 3rem;
+    }
+
+    .recovery-typology-page :global(.typology-map::after) {
+      top: calc(50% - 0.45rem);
+    }
+
+    .recovery-typology-page :global(.typology-grid) {
+      gap: 1.1rem 1.45rem;
+    }
+
+    .recovery-typology-page :global(.typology-card) {
+      min-height: 150px;
+      padding: 1.1rem 1.15rem;
+    }
+
+    .recovery-typology-page :global(.typology-card h4) {
+      font-size: clamp(1.05rem, 1.45vw, 1.45rem);
+    }
+
+    .recovery-typology-page :global(.typology-card p) {
+      font-size: clamp(0.78rem, 1vw, 0.92rem);
+      line-height: 1.45;
+    }
+
+    .recovery-typology-page :global(.typology-center) {
+      width: min(100%, 620px);
+      padding: 0.55rem 1rem;
+      transform: translateY(0);
+    }
+
+    .recovery-typology-page :global(.typology-center strong) {
+      font-size: clamp(0.78rem, 1vw, 0.95rem);
+      line-height: 1.2;
+    }
+
+    .recovery-typology-page :global(.y-low),
+    .recovery-typology-page :global(.x-low),
+    .recovery-typology-page :global(.x-high) {
+      bottom: 1.25rem;
+    }
+
+    .recovery-typology-page :global(.x-axis-title) {
+      bottom: 0.1rem;
+      padding-inline: 0.5rem;
+      background: var(--bg-layer);
+    }
+
+    @media (max-width: 900px) {
+      .recovery-typology-page :global(.typology-section) {
+        max-width: none;
+        padding-inline: 1rem;
+      }
+
+      .recovery-typology-page :global(.typology-copy) {
+        text-align: left;
+        justify-items: start;
+      }
+
+      .recovery-typology-page :global(.typology-section h2) {
+        font-size: clamp(2rem, 9vw, 3.2rem);
+      }
+
+      .recovery-typology-page :global(.typology-panel) {
+        overflow-x: auto;
+      }
+
+      .recovery-typology-page :global(.typology-body) {
+        min-width: 760px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .recovery-typology-page :global(.typology-panel) {
+        padding: 0.8rem;
+      }
+    }
+  </style>
 </BaseLayout>

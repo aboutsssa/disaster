@@ -1,22 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../data/site';
 
 const newsItems = [
   {
-    dateEn: 'TBD',
-    dateZh: '待定',
-    titleEn: 'News item to be added',
-    titleZh: '待添加动态',
-    textEn: 'Updates about research activities, publications, talks, fieldwork, and project milestones can be added here.',
-    textZh: '这里可添加研究活动、成果发表、报告、田野工作与项目进展。'
+    dateEn: 'May 28, 2026',
+    dateZh: '2026年5月28日',
+    titleEn: 'Congratulations to Zhuo Li',
+    titleZh: '祝贺 Zhuo Li',
+    textEn:
+      "Zhuo Li recently defended his master's thesis and earned his master's degree. Congratulations!",
+    textZh: 'Zhuo Li 近日通过硕士论文答辩，并获得硕士学位。祝贺！'
   },
   {
-    dateEn: 'TBD',
-    dateZh: '待定',
-    titleEn: 'News item to be added',
-    titleZh: '待添加动态',
-    textEn: 'This structure is ready for concise chronological updates.',
-    textZh: '该结构可用于按时间顺序发布简洁动态。'
+    href: '/news/15th-idrim/',
+    dateEn: 'Oct 1, 2025',
+    dateZh: '2025年10月1日',
+    titleEn: 'Dr. Li presents at the 15th IDRiM International Conference',
+    titleZh: '参加第15届IDRiM国际会议并作学术报告',
+    textEn:
+      'Dr. Li presented research on long-term reconstruction in earthquake-affected rural China and participated in an international mentoring programme on disaster risk reduction.',
+    textZh:
+      '黎博士应邀参加第15届国际灾害风险管理学会年会，并围绕地震影响下中国乡村的长期重建作学术报告。'
   }
 ];
 ---
@@ -28,22 +33,146 @@ const newsItems = [
   descriptionEn="News and updates from ReSpace Lab."
   descriptionZh="ReSpace Lab 的新闻与动态。"
 >
-  <section class="archive-hero">
-    <p class="eyebrow" data-lang-en="News" data-lang-zh="动态">动态</p>
-    <h1 data-lang-en="News" data-lang-zh="新闻与动态">新闻与动态</h1>
-  </section>
+  <div class="news-index-page">
+    <section class="archive-hero news-archive-hero">
+      <p class="eyebrow" data-lang-en="News" data-lang-zh="动态">动态</p>
+      <h1 data-lang-en="News" data-lang-zh="新闻与动态">新闻与动态</h1>
+    </section>
 
-  <section class="news-list" aria-label="News">
-    {
-      newsItems.map((item) => (
-        <article class="news-item">
-          <time data-lang-en={item.dateEn} data-lang-zh={item.dateZh}>{item.dateZh}</time>
-          <div>
-            <h2 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h2>
+    <section class="news-list" aria-label="News">
+      {
+        newsItems.map((item) => (
+          <article class="news-item">
+            <time data-lang-en={item.dateEn} data-lang-zh={item.dateZh}>{item.dateZh}</time>
+            <h2>
+              {
+                item.href ? (
+                  <a href={withBase(item.href)} data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>
+                    {item.titleZh}
+                  </a>
+                ) : (
+                  <span data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</span>
+                )
+              }
+            </h2>
             <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
-          </div>
-        </article>
-      ))
+            {
+              item.href && (
+                <a
+                  class="news-read-more"
+                  href={withBase(item.href)}
+                  data-lang-en="Read More »"
+                  data-lang-zh="阅读全文 »"
+                >
+                  阅读全文 »
+                </a>
+              )
+            }
+          </article>
+        ))
+      }
+    </section>
+  </div>
+
+  <style>
+    .news-index-page {
+      background: var(--paper);
     }
-  </section>
+
+    .news-index-page .news-archive-hero {
+      max-width: 1240px;
+      margin-inline: auto;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2rem) clamp(0.35rem, 1vw, 0.8rem);
+    }
+
+    .news-index-page .news-archive-hero h1 {
+      max-width: 16ch;
+      font-size: clamp(1.8rem, 3vw, 4rem);
+      line-height: 1;
+    }
+
+    .news-index-page .news-list {
+      display: grid;
+      max-width: 1240px;
+      margin-inline: auto;
+      gap: 0;
+      padding: clamp(0.35rem, 1vw, 0.8rem) clamp(1.25rem, 4vw, 2rem) clamp(3rem, 6vw, 4.5rem);
+    }
+
+    .news-index-page .news-item {
+      display: block;
+      border: 0;
+      padding: clamp(1.2rem, 2.4vw, 2.1rem) 0;
+    }
+
+    .news-index-page .news-item:first-child {
+      padding-top: 0;
+    }
+
+    .news-index-page .news-item time {
+      display: inline-grid;
+      gap: 0.45rem;
+      color: #31577d;
+      font-size: clamp(0.75rem, 0.75vw, 1rem);
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .news-index-page .news-item time::after {
+      display: block;
+      width: clamp(4.8rem, 8vw, 6.8rem);
+      height: 0.24rem;
+      background: #e64a4a;
+      content: "";
+    }
+
+    .news-index-page .news-item h2 {
+      max-width: 62ch;
+      margin-top: 0.75rem;
+      color: #153456;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+    }
+
+    .news-index-page .news-item h2 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .news-index-page .news-item h2 a:hover,
+    .news-index-page .news-item h2 a:focus-visible {
+      color: var(--forest);
+    }
+
+    .news-index-page .news-item p {
+      max-width: 1120px;
+      margin-top: 0.75rem;
+      color: #303534;
+      font-size: clamp(1rem, 1vw, 1rem);
+      line-height: 1.32;
+    }
+
+    .news-index-page .news-read-more {
+      display: inline-block;
+      margin-top: 0.65rem;
+      color: #8b3f5b;
+      font-size: clamp(0.9rem, 0.9vw, 0.9rem);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.16em;
+    }
+
+    @media (max-width: 720px) {
+      .news-index-page .news-archive-hero h1 {
+        max-width: 18ch;
+      }
+
+      .news-index-page .news-item h2 {
+        font-size: clamp(1.7rem, 9vw, 2.4rem);
+      }
+    }
+  </style>
 </BaseLayout>
