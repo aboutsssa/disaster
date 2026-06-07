@@ -19,6 +19,24 @@ const articles = [
     keywordsZh: '多物种地理 · 灾害关怀 · 家 · 公共卫生 · 被剥夺的悲伤'
   }
 ];
+
+const gridCells = [
+  { x: 7, y: 8, size: 82, delay: -1.2, alpha: 0.5 },
+  { x: 22, y: 3, size: 54, delay: -5.1, alpha: 0.32 },
+  { x: 36, y: 16, size: 96, delay: -2.8, alpha: 0.46 },
+  { x: 55, y: 5, size: 68, delay: -6.4, alpha: 0.34 },
+  { x: 75, y: 12, size: 112, delay: -3.6, alpha: 0.42 },
+  { x: 90, y: 2, size: 60, delay: -7.2, alpha: 0.3 },
+  { x: 11, y: 45, size: 70, delay: -4.2, alpha: 0.38 },
+  { x: 28, y: 52, size: 120, delay: -0.6, alpha: 0.44 },
+  { x: 48, y: 42, size: 58, delay: -7.8, alpha: 0.32 },
+  { x: 63, y: 57, size: 88, delay: -2.2, alpha: 0.5 },
+  { x: 83, y: 48, size: 72, delay: -5.8, alpha: 0.36 },
+  { x: 18, y: 76, size: 92, delay: -8.6, alpha: 0.3 },
+  { x: 42, y: 78, size: 74, delay: -3.2, alpha: 0.4 },
+  { x: 70, y: 80, size: 104, delay: -1.8, alpha: 0.34 },
+  { x: 92, y: 72, size: 56, delay: -6.9, alpha: 0.44 }
+];
 ---
 
 <BaseLayout
@@ -29,6 +47,17 @@ const articles = [
   descriptionZh="共时地方经验与人文地理 GIS。"
 >
   <section class="copresent-hero" aria-labelledby="copresent-title">
+    <div class="copresent-grid-cells" aria-hidden="true">
+      {
+        gridCells.map((cell) => (
+          <span
+            class="copresent-grid-cell"
+            style={`--cell-x: ${cell.x}%; --cell-y: ${cell.y}%; --cell-size: ${cell.size}px; --cell-delay: ${cell.delay}s; --cell-alpha: ${cell.alpha};`}
+          />
+        ))
+      }
+    </div>
+
     <div class="copresent-title-row">
       <h1
         id="copresent-title"
