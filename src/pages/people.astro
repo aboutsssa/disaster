@@ -37,7 +37,16 @@ const masterStudents: Person[] = [
     interestsZh: '城乡规划、生态聚落设计',
     image: '/assets/rongjia-li-portalit.jpg'
   },
-  ['Yun Chen', '陈芸', 'CY'],
+  {
+    nameEn: 'Yun Chen',
+    nameZh: '陈芸',
+    initials: 'CY',
+    titleEn: 'Master of Urban and Rural Planning, SCU',
+    titleZh: '四川大学城乡规划硕士',
+    interestsEn: 'Disaster Risk Reduction, Climate Adaptability Planning',
+    interestsZh: '灾害风险降低、气候适应性规划',
+    image: '/assets/people/Yun chen.jpg'
+  },
   ['Zhuo Li', '李卓', 'LZ'],
   {
     nameEn: 'Xue Han',
@@ -66,23 +75,63 @@ const masterStudents: Person[] = [
 );
 
 const undergraduateStudents: Person[] = [
-  ['Xiaozihan Wang', '王肖子涵', 'WX'],
+  {
+    nameEn: 'Xiaozihan Wang',
+    nameZh: '王肖子涵',
+    initials: 'WX',
+    titleEn: 'School of Mathematics, SCU',
+    titleZh: '四川大学数学学院',
+    interestsEn: 'Applied mathematics, computer science',
+    interestsZh: '应用数学、计算机',
+    image: '/assets/people/xiaozihan wang.jpg'
+  },
   ['Hongyu Gong', '龚红宇', 'GH'],
-  ['Yujing Zheng', '郑雨静', 'ZY'],
-  ['Zihao Wang', '王子豪', 'WZ'],
+  {
+    nameEn: 'Yujing Zheng',
+    nameZh: '郑雨静',
+    initials: 'ZY',
+    titleEn: 'School of Arts, SCU',
+    titleZh: '四川大学艺术学院',
+    interestsEn: 'Historical archaeology, environmental archaeology',
+    interestsZh: '历史时期考古、环境考古',
+    image: '/assets/people/Yujing zheng.jpg'
+  },
+  {
+    nameEn: 'Zihao Wang',
+    nameZh: '王子豪',
+    initials: 'WZ',
+    titleEn: 'BUP, SCU · MUP, HIT',
+    titleZh: '四川大学城乡规划学士，哈尔滨工业大学城乡规划硕士',
+    interestsEn: 'Urban spatiotemporal big data, built environment, and travel behavior',
+    interestsZh: '城市时空大数据、建成环境与交通出行行为',
+    image: '/assets/people/Zihao wang.jpg'
+  },
   ['Yaxuan Wang', '王雅璇', 'WY'],
   ['Zhixin Zeng', '曾智鑫', 'ZZ'],
-  ['Yibei Wang', '王艺蓓', 'WY'],
+  {
+    nameEn: 'Yibei Wang',
+    nameZh: '王艺蓓',
+    initials: 'WY',
+    titleEn: 'West China Hospital, SCU',
+    titleZh: '四川大学华西医院',
+    interestsEn: 'Dual bachelor degrees in nursing and management',
+    interestsZh: '护理学与管理学双学士学位',
+    image: '/assets/people/yibei wang.jpg'
+  },
   ['Jiayi Wang', '王嘉怡', 'WJ']
-].map(([nameEn, nameZh, initials]) => ({
-  nameEn,
-  nameZh,
-  initials,
-  titleEn: 'Undergraduate Student',
-  titleZh: '本科生',
-  interestsEn: 'Research interests to be updated.',
-  interestsZh: '研究兴趣待更新。'
-}));
+].map((person) =>
+  Array.isArray(person)
+    ? {
+        nameEn: person[0],
+        nameZh: person[1],
+        initials: person[2],
+        titleEn: 'Undergraduate Student',
+        titleZh: '本科生',
+        interestsEn: 'Research interests to be updated.',
+        interestsZh: '研究兴趣待更新。'
+      }
+    : person
+);
 
 const labMascots: Person[] = [
   {

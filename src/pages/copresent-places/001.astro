@@ -1,21 +1,1079 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
+
+type PetLossCase = {
+  id: string;
+  year: number;
+  date?: string;
+  titleZh: string;
+  titleEn: string;
+  placeZh: string;
+  placeEn: string;
+  countryRegionZh: string;
+  countryRegionEn: string;
+  coordinates: [number, number];
+  disasterType: 'hurricane' | 'wildfire' | 'earthquake' | 'nuclear' | 'war' | 'flood' | 'public_health';
+  animalFocus: 'companion_animals' | 'companion_and_stray' | 'background_livestock';
+  separationTypeZh: string;
+  separationTypeEn: string;
+  humanImpactZh: string;
+  humanImpactEn: string;
+  governanceResponseZh: string;
+  governanceResponseEn: string;
+  researchNoteZh: string;
+  researchNoteEn: string;
+  sourceTypeZh: string;
+  sourceTypeEn: string;
+};
+
+const geoJsonPath = path.resolve('public/data/pet-loss-cases.geojson');
+const petLossGeojson = JSON.parse(fs.readFileSync(geoJsonPath, 'utf-8'));
+const cases: PetLossCase[] = petLossGeojson.features.map((feature: any) => ({
+  ...feature.properties,
+  coordinates: feature.geometry.coordinates
+}));
+
+const disasterTypes = [
+  { id: 'all', labelZh: '全部灾害', labelEn: 'All hazards', color: '#1d2528' },
+  { id: 'hurricane', labelZh: '飓风', labelEn: 'Hurricane', color: '#3478b8' },
+  { id: 'wildfire', labelZh: '山火', labelEn: 'Wildfire', color: '#d75f34' },
+  { id: 'earthquake', labelZh: '地震', labelEn: 'Earthquake', color: '#c49a45' },
+  { id: 'nuclear', labelZh: '核灾难', labelEn: 'Nuclear', color: '#7a4fa3' },
+  { id: 'war', labelZh: '战争/难民', labelEn: 'War / refugees', color: '#9e2638' },
+  { id: 'flood', labelZh: '洪水', labelEn: 'Flood', color: '#1f9db4' },
+  { id: 'public_health', labelZh: '公共卫生危机', labelEn: 'Public health', color: '#30343a' }
+];
+
+const animalFocusTypes = [
+  { id: 'all', labelZh: '全部治理焦点', labelEn: 'All governance focuses' },
+  { id: 'companion_animals', labelZh: '家庭伴侣动物', labelEn: 'Companion animals' },
+  { id: 'companion_and_stray', labelZh: '伴侣与流浪动物', labelEn: 'Companion and stray animals' },
+  { id: 'background_livestock', labelZh: '背景性牲畜', labelEn: 'Background livestock' }
+];
+
+const mechanismItems = [
+  {
+    titleZh: '家庭空间',
+    titleEn: 'Household space',
+    textZh: '宠物被困、主人不在家、无法及时返回',
+    textEn: 'Pets are trapped, owners are away, and timely return becomes impossible'
+  },
+  {
+    titleZh: '撤离通道',
+    titleEn: 'Evacuation channels',
+    textZh: '交通限制、航空箱缺失、道路封锁',
+    textEn: 'Transport limits, missing carriers, and road closures'
+  },
+  {
+    titleZh: '避难/安置空间',
+    titleEn: 'Shelter and temporary settlement',
+    textZh: '拒绝携宠、卫生争议、缺少分区安置',
+    textEn: 'Pet exclusion, hygiene disputes, and lack of separated accommodation'
+  },
+  {
+    titleZh: '临时照护',
+    titleEn: 'Temporary care',
+    textZh: '缺少托管、兽医、宠物食物和身份识别',
+    textEn: 'Missing fostering, veterinary care, food, and identification'
+  },
+  {
+    titleZh: '灾后恢复',
+    titleEn: 'Post-disaster recovery',
+    textZh: '失踪、死亡、重聚、负罪感与被剥夺的悲伤',
+    textEn: 'Disappearance, death, reunion, guilt, and disenfranchised grief'
+  }
+];
+
 ---
 
 <BaseLayout
-  title="Copresent Places 001"
-  titleEn="Copresent Places 001"
-  titleZh="共时之地 001"
-  descriptionEn="Copresent Places 001"
-  descriptionZh="共时之地 001"
+  title="看不见的次生灾害：宠物丧失"
+  titleEn="An Invisible Secondary Disaster: Pet Loss"
+  titleZh="看不见的次生灾害：宠物丧失"
+  descriptionEn="A research story map on pet loss, disaster governance, and multispecies recovery."
+  descriptionZh="一个关于宠物丧失、灾害治理与多物种恢复的研究型交互地图。"
 >
-  <section class="article-index">
-    <p
-      class="article-excerpt"
-      data-lang-en="Sorry, the page you were looking for was not found"
-      data-lang-zh="Sorry, the page you were looking for was not found"
-    >
-      Sorry, the page you were looking for was not found
-    </p>
-  </section>
+  <article class="pet-loss-page" data-geojson-url={withBase('/data/pet-loss-cases.geojson')}>
+    <section class="pet-hero">
+      <p class="eyebrow" data-lang-en="Copresent Places 001" data-lang-zh="共时之地 001">共时之地 001</p>
+      <h1
+        data-lang-en="An Invisible Secondary Disaster: Pet Loss"
+        data-lang-zh="看不见的次生灾害：宠物丧失"
+      >
+        看不见的次生灾害：宠物丧失
+      </h1>
+      <p
+        data-lang-en="How disasters separate people from companion animals, how that separation becomes grief, and how emergency governance can recognize multispecies households."
+        data-lang-zh="灾害如何使人与伴侣动物分离，这种分离如何变成悲伤，以及应急治理如何承认多物种家庭。"
+      >
+       灾害如何使人与伴侣动物分离，这种分离如何变成悲伤，以及应急治理如何承认多物种家庭。
+      </p>
+      <div class="pet-hero-actions">
+        <a href="#pet-map" data-lang-en="Open the map" data-lang-zh="进入地图">进入地图</a>
+        <a href="#pet-mechanism" data-lang-en="View mechanism" data-lang-zh="查看机制">查看机制</a>
+      </div>
+    </section>
+
+    <section class="pet-map-story" id="pet-map" aria-label="Pet loss story map">
+      <div class="pet-map-column">
+        <div class="pet-map-shell">
+          <div id="pet-loss-map" class="pet-loss-map" role="application" aria-label="Pet loss case map"></div>
+          <div class="pet-map-empty" data-lang-en="Loading research map..." data-lang-zh="正在加载研究地图...">
+            正在加载研究地图...
+          </div>
+        </div>
+        <aside class="pet-map-panel" aria-live="polite">
+          <div class="pet-filter-group" data-filter-group="disaster">
+            <p data-lang-en="Filter by hazard" data-lang-zh="按灾害类型筛选">按灾害类型筛选</p>
+            <div>
+              {
+                disasterTypes.map((type) => (
+                  <button
+                    type="button"
+                    class:list={['pet-filter-button', type.id === 'all' && 'is-active']}
+                    data-filter-type="disaster"
+                    data-filter-value={type.id}
+                    style={`--marker-color: ${type.color};`}
+                  >
+                    <span data-lang-en={type.labelEn} data-lang-zh={type.labelZh}>{type.labelZh}</span>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="pet-filter-group" data-filter-group="focus">
+            <p data-lang-en="Filter by governance focus" data-lang-zh="按治理焦点筛选">按治理焦点筛选</p>
+            <div>
+              {
+                animalFocusTypes.map((type) => (
+                  <button
+                    type="button"
+                    class:list={['pet-filter-button', type.id === 'all' && 'is-active']}
+                    data-filter-type="focus"
+                    data-filter-value={type.id}
+                  >
+                    <span data-lang-en={type.labelEn} data-lang-zh={type.labelZh}>{type.labelZh}</span>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="pet-active-card" id="pet-active-card">
+            <span class="pet-active-year">2005</span>
+            <h2 data-lang-en="Hurricane Katrina: pets excluded from sheltering systems" data-lang-zh="卡特里娜飓风：避难体系外的宠物">
+              卡特里娜飓风：避难体系外的宠物
+            </h2>
+            <p data-lang-en="Click a case or scroll the story to inspect how pet loss becomes a governance issue." data-lang-zh="点击案例点，或滚动叙事，查看宠物丧失如何成为治理议题。">
+              点击案例点，或滚动叙事，查看宠物丧失如何成为治理议题。
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="pet-story-column">
+        <section class="pet-story-intro">
+          <p class="eyebrow" data-lang-en="Interactive Map" data-lang-zh="交互地图">交互地图</p>
+          <h2 data-lang-en="Separation is spatial before it becomes emotional" data-lang-zh="分离先是空间问题，然后才成为情感问题">
+            分离先是空间问题，然后才成为情感问题
+          </h2>
+          <p
+            data-lang-en="The cases below are not a ranking of suffering. They are spatial situations: blocked roads, closed shelters, quarantine zones, border crossings, damaged homes, and improvised care networks."
+            data-lang-zh="以下案例不是苦难排序，而是一组空间情境：被封锁的道路、关闭宠物的避难所、检疫空间、边境通道、受损家庭和临时照护网络。"
+          >
+            以下案例不是苦难排序，而是一组空间情境：被封锁的道路、关闭宠物的避难所、检疫空间、边境通道、受损家庭和临时照护网络。
+          </p>
+        </section>
+
+        {
+          cases.map((caseItem) => (
+            <section class="pet-story-step" data-case-id={caseItem.id}>
+              <span class={`pet-disaster-chip ${caseItem.disasterType}`}>
+                <i></i>
+                <span
+                  data-lang-en={disasterTypes.find((type) => type.id === caseItem.disasterType)?.labelEn}
+                  data-lang-zh={disasterTypes.find((type) => type.id === caseItem.disasterType)?.labelZh}
+                >
+                  {disasterTypes.find((type) => type.id === caseItem.disasterType)?.labelZh}
+                </span>
+              </span>
+              <p class="pet-case-date">
+                <span>{caseItem.date ?? caseItem.year}</span>
+                <span data-lang-en={caseItem.countryRegionEn} data-lang-zh={caseItem.countryRegionZh}>
+                  {caseItem.countryRegionZh}
+                </span>
+              </p>
+              <h3 data-lang-en={caseItem.titleEn} data-lang-zh={caseItem.titleZh}>{caseItem.titleZh}</h3>
+              <dl>
+                <div>
+                  <dt data-lang-en="Separation mechanism" data-lang-zh="分离机制">分离机制</dt>
+                  <dd data-lang-en={caseItem.separationTypeEn} data-lang-zh={caseItem.separationTypeZh}>
+                    {caseItem.separationTypeZh}
+                  </dd>
+                </div>
+                <div>
+                  <dt data-lang-en="Human impact" data-lang-zh="人的影响">人的影响</dt>
+                  <dd data-lang-en={caseItem.humanImpactEn} data-lang-zh={caseItem.humanImpactZh}>
+                    {caseItem.humanImpactZh}
+                  </dd>
+                </div>
+                <div>
+                  <dt data-lang-en="Governance response" data-lang-zh="治理回应">治理回应</dt>
+                  <dd data-lang-en={caseItem.governanceResponseEn} data-lang-zh={caseItem.governanceResponseZh}>
+                    {caseItem.governanceResponseZh}
+                  </dd>
+                </div>
+              </dl>
+              <p class="pet-research-note" data-lang-en={caseItem.researchNoteEn} data-lang-zh={caseItem.researchNoteZh}>
+                {caseItem.researchNoteZh}
+              </p>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pet-mechanism" id="pet-mechanism">
+      <p class="eyebrow" data-lang-en="Mechanism" data-lang-zh="机制">机制</p>
+      <h2 data-lang-en="Human-pet-institution disaster risk chain" data-lang-zh="人—宠—制度的灾害风险链条">
+        人—宠—制度的灾害风险链条
+      </h2>
+      <div class="pet-chain">
+        {
+          mechanismItems.map((item, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h3>
+              <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pet-sources">
+      <h2 class="pet-endnote-title" data-lang-en="References" data-lang-zh="参考文献">参考文献</h2>
+      <ul class="pet-reference-list">
+        <li>BUTLER J. <cite>Frames of War: When Is Life Grievable?</cite>[M]. London: Verso, 2009.</li>
+        <li>DOKA K J. <cite>Disenfranchised Grief: Recognizing Hidden Sorrow</cite>[M]. Lexington, MA: Lexington Books, 1989.</li>
+        <li>FRASER H, TAYLOR N, RIGGS D W. <cite>Animals in disaster social work: An intersectional green perspective inclusive of species</cite>[J]. British Journal of Social Work, 2021, 51(5): 1739-1758. DOI:10.1093/bjsw/bcab143.</li>
+        <li>IRVINE L, ANDRE C. <cite>Pet loss in an urban firestorm: Grief and hope after Colorado’s Marshall Fire</cite>[J]. Animals, 2023, 13(3): 416. DOI:10.3390/ani13030416.</li>
+        <li>ITOH M. <cite>Animals and the Fukushima Nuclear Disaster</cite>[M]. Cham: Palgrave Macmillan, 2018. DOI:10.1007/978-3-319-70757-0.</li>
+        <li>KAJIWARA H. <cite>Surviving with Companion Animals in Japan: Life after a Tsunami and Nuclear Disaster</cite>[M]. Cham: Springer, 2020. DOI:10.1007/978-3-030-49328-8.</li>
+        <li>KIRKSEY S E, HELMREICH S. <cite>The emergence of multispecies ethnography</cite>[J]. Cultural Anthropology, 2010, 25(4): 545-576. DOI:10.1111/j.1548-1360.2010.01069.x.</li>
+        <li>PHILO C, WILBERT C, eds. <cite>Animal Spaces, Beastly Places: New Geographies of Human-Animal Relations</cite>[M]. London: Routledge, 2000.</li>
+        <li>SPAIN B, O’DWYER L, MOSTON S. <cite>Pet loss: Understanding disenfranchised grief, memorial use, and posttraumatic growth</cite>[J]. Anthrozoös, 2019, 32(4): 555-568. DOI:10.1080/08927936.2019.1621545.</li>
+        <li>URBANIK J. <cite>Placing Animals: An Introduction to the Geography of Human-Animal Relations</cite>[M]. Lanham: Rowman & Littlefield, 2012.</li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .pet-loss-page {
+      --hurricane: #3478b8;
+      --wildfire: #d75f34;
+      --earthquake: #c49a45;
+      --nuclear: #7a4fa3;
+      --war: #9e2638;
+      --flood: #1f9db4;
+      --public-health: #30343a;
+      background: var(--paper);
+    }
+
+    .pet-hero,
+    .pet-mechanism,
+    .pet-sources {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 2vw, 2rem);
+    }
+
+    .pet-hero {
+      display: grid;
+      gap: 1.15rem;
+      padding-top: clamp(3.5rem, 8vw, 6rem);
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .pet-hero h1 {
+      max-width: 60ch;
+      font-size: clamp(2.5rem, 2.5vw, 5rem);
+      line-height: 0.98;
+    }
+
+    .pet-hero > p:not(.eyebrow) {
+      max-width: 72ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1vw, 1rem);
+      line-height: 1.2;
+    }
+
+    .pet-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .pet-hero-actions a {
+      padding: 0.72rem 0.95rem;
+      color: var(--forest);
+      background: var(--white);
+      border: 1px solid var(--line);
+      font-size: 0.86rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .pet-map-story {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.86fr) minmax(0, 1fr);
+      gap: clamp(1.4rem, 3vw, 2.4rem);
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
+      align-items: start;
+    }
+
+    .pet-map-column {
+      position: sticky;
+      top: calc(78px + 1rem);
+      display: grid;
+      gap: 0.8rem;
+      min-width: 0;
+    }
+
+    .pet-map-shell {
+      position: relative;
+      min-height: min(66vh, 640px);
+      overflow: hidden;
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      background: #e7ece8;
+    }
+
+    .pet-loss-map {
+      position: absolute;
+      inset: 0;
+    }
+
+    .pet-map-empty {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 1;
+      padding: 0.45rem 0.6rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+      font-size: 0.78rem;
+      font-weight: 760;
+    }
+
+    .pet-map-shell.is-loaded .pet-map-empty {
+      display: none;
+    }
+
+    .pet-map-panel {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .pet-filter-group,
+    .pet-active-card {
+      padding: 0.9rem;
+      background: var(--white);
+      border: 1px solid rgba(200, 211, 206, 0.92);
+    }
+
+    .pet-filter-group p {
+      margin: 0 0 0.55rem;
+      color: var(--brick);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pet-filter-group > div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pet-filter-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.52rem;
+      color: var(--muted);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font: inherit;
+      font-size: 0.74rem;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .pet-filter-button::before {
+      width: 0.55rem;
+      height: 0.55rem;
+      background: var(--marker-color, var(--forest));
+      border-radius: 50%;
+      content: "";
+    }
+
+    .pet-filter-button.is-active {
+      color: var(--white);
+      background: var(--forest);
+      border-color: var(--forest);
+    }
+
+    .pet-active-card {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .pet-active-year {
+      color: var(--brick);
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .pet-active-card h2 {
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(1rem, 1.5vw, 1.24rem);
+      line-height: 1.18;
+    }
+
+    .pet-active-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .pet-story-column {
+      display: grid;
+      gap: clamp(1rem, 2vw, 1.4rem);
+    }
+
+    .pet-story-intro,
+    .pet-story-step {
+      background: var(--background);
+      border: 0px solid rgba(228, 239, 234, 0.92);
+    }
+
+    .pet-story-intro {
+      padding: clamp(1.2rem, 2.6vw, 1.8rem);
+    }
+
+    .pet-story-intro h2 {
+      max-width: 68ch;
+      font-size: clamp(1.8rem, 1.8vw, 1.55rem);
+    }
+
+    .pet-story-intro p:last-child {
+      max-width: 68ch;
+      margin: 0.8rem 0 0;
+      color: var(--muted);
+    }
+
+    .pet-story-step {
+      display: grid;
+      gap: 0.75rem;
+      padding: clamp(1.1rem, 2.3vw, 1.65rem);
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .pet-story-step.is-active {
+      border-color: rgba(33, 77, 67, 0.45);
+      box-shadow: 0 18px 42px rgba(29, 37, 40, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .pet-disaster-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      width: fit-content;
+      color: var(--forest);
+      font-size: 0.72rem;
+      font-weight: 850;
+    }
+
+    .pet-disaster-chip i {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .pet-disaster-chip.hurricane { color: var(--hurricane); }
+    .pet-disaster-chip.wildfire { color: var(--wildfire); }
+    .pet-disaster-chip.earthquake { color: var(--earthquake); }
+    .pet-disaster-chip.nuclear { color: var(--nuclear); }
+    .pet-disaster-chip.war { color: var(--war); }
+    .pet-disaster-chip.flood { color: var(--flood); }
+    .pet-disaster-chip.public_health { color: var(--public-health); }
+
+    .pet-case-date {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0;
+      color: #8d7c5b;
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pet-story-step h3 {
+      max-width: 28ch;
+      color: var(--ink);
+      font-size: clamp(1.3rem, 1.3vw, 1.3rem);
+      line-height: 1.14;
+    }
+
+    .pet-story-step dl {
+      display: grid;
+      gap: 0.7rem;
+      margin: 0;
+    }
+
+    .pet-story-step dt {
+      color: var(--brick);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pet-story-step dd {
+      margin: 0.15rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.58;
+    }
+
+    .pet-research-note {
+      margin: 0.2rem 0 0;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+      color: var(--ink);
+      font-size: 0.95rem;
+      line-height: 1.62;
+    }
+
+    .pet-mechanism,
+    .pet-sources {
+      padding-top: clamp(3rem, 6vw, 4.8rem);
+      padding-bottom: clamp(2.8rem, 5vw, 4rem);
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .pet-mechanism h2 {
+      max-width: 50ch;
+      font-size: clamp(1.4rem, 1.4vw, 3rem);
+    }
+
+    .pet-chain {
+      display: grid;
+      gap: 1px;
+      margin-top: 1.4rem;
+      background: var(--line);
+    }
+
+    .pet-chain {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .pet-chain article {
+      min-height: 190px;
+      padding: 1.15rem;
+      background: var(--white);
+    }
+
+    .pet-chain span {
+      color: var(--brick);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 800;
+    }
+
+    .pet-chain h3 {
+      margin-top: 0.7rem;
+      font-size: 1rem;
+    }
+
+    .pet-chain p {
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.58;
+    }
+
+    .pet-endnote-title {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+      max-width: 92ch;
+      margin: 0;
+      color: var(--brick);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+      font-style: italic;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .pet-endnote-title::after {
+      display: block;
+      height: 1px;
+      background: rgba(200, 211, 206, 0.9);
+      content: "";
+    }
+
+    .pet-reference-list {
+      display: grid;
+      gap: 0.48rem;
+      max-width: 92ch;
+      margin: 1.05rem 0 0;
+      padding-left: 1.35rem;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.68;
+    }
+
+    .pet-reference-list li {
+      padding-left: 0.1rem;
+    }
+
+    .pet-reference-list cite {
+      font-style: italic;
+    }
+
+    :global(.pet-case-marker) {
+      position: relative;
+      display: block;
+      width: 0;
+      height: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      color: var(--ink);
+      cursor: pointer;
+      pointer-events: auto;
+      overflow: visible;
+      font: inherit;
+      text-align: left;
+    }
+
+    :global(.pet-case-marker-dot) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border: 2px solid white;
+      border-radius: 999px;
+      background: var(--case-color);
+      box-shadow: 0 6px 18px rgba(29, 37, 40, 0.28);
+      transform: translate(-50%, -50%);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    :global(.pet-case-marker-label) {
+      position: absolute;
+      left: 14px;
+      top: 0;
+      display: grid;
+      gap: 0.16rem;
+      width: 220px;
+      max-width: 220px;
+      padding: 0.42rem 0.55rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(200, 211, 206, 0.94);
+      box-shadow: 0 10px 26px rgba(29, 37, 40, 0.13);
+      transform: translateY(-50%);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    :global(.pet-case-marker.is-left-aligned .pet-case-marker-label) {
+      right: 14px;
+      left: auto;
+      text-align: right;
+    }
+
+    :global(.pet-case-marker-label strong) {
+      display: -webkit-box;
+      color: var(--forest);
+      font-size: 0.72rem;
+      font-weight: 850;
+      line-height: 1.16;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    :global(.pet-case-marker-label span) {
+      display: -webkit-box;
+      color: var(--brick);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      text-transform: uppercase;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    :global(.pet-case-marker:hover .pet-case-marker-label),
+    :global(.pet-case-marker:focus-visible .pet-case-marker-label),
+    :global(.pet-case-marker.is-active .pet-case-marker-label) {
+      border-color: rgba(33, 77, 67, 0.45);
+      box-shadow: 0 14px 34px rgba(29, 37, 40, 0.18);
+      transform: translateY(-50%) translateX(2px);
+    }
+
+    :global(.pet-case-marker.is-left-aligned:hover .pet-case-marker-label),
+    :global(.pet-case-marker.is-left-aligned:focus-visible .pet-case-marker-label),
+    :global(.pet-case-marker.is-left-aligned.is-active .pet-case-marker-label) {
+      transform: translateY(-50%) translateX(-2px);
+    }
+
+    :global(.pet-case-marker.is-active .pet-case-marker-dot) {
+      transform: translate(-50%, -50%) scale(1.42);
+      box-shadow: 0 0 0 8px rgba(33, 77, 67, 0.13), 0 8px 24px rgba(29, 37, 40, 0.34);
+    }
+
+    :global(.pet-case-marker.is-filtered-out) {
+      display: none;
+    }
+
+    :global(.pet-map-popup) {
+      z-index: 4;
+    }
+
+    :global(.pet-map-popup .maplibregl-popup-content) {
+      padding: 0.85rem 0.95rem;
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      border-radius: 0;
+      box-shadow: 0 16px 38px rgba(29, 37, 40, 0.18);
+    }
+
+    :global(.pet-map-popup .maplibregl-popup-tip) {
+      border-top-color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    :global(.pet-popup) {
+      max-width: 280px;
+      color: var(--ink);
+    }
+
+    :global(.pet-popup strong) {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--forest);
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+
+    :global(.pet-popup span) {
+      display: block;
+      color: var(--brick);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    :global(.pet-popup p) {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .pet-map-story {
+        grid-template-columns: 1fr;
+      }
+
+      .pet-map-column {
+        position: relative;
+        top: auto;
+      }
+
+      .pet-map-shell {
+        min-height: 420px;
+      }
+
+      .pet-chain {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .pet-map-story {
+        padding-inline: 0.8rem;
+      }
+
+      .pet-map-shell {
+        min-height: 340px;
+      }
+
+      .pet-hero h1 {
+        font-size: clamp(2.35rem, 13vw, 4rem);
+      }
+
+      :global(.pet-case-marker-label) {
+        width: 160px;
+        max-width: 160px;
+        padding: 0.34rem 0.45rem;
+      }
+
+      :global(.pet-case-marker-label strong) {
+        font-size: 0.66rem;
+      }
+
+      :global(.pet-case-marker-label span) {
+        font-size: 0.56rem;
+      }
+    }
+  </style>
+
+  <script>
+    import maplibregl from 'maplibre-gl';
+
+    const page = document.querySelector('.pet-loss-page');
+    const mapElement = document.getElementById('pet-loss-map');
+    const mapShell = document.querySelector('.pet-map-shell');
+    const activeCard = document.getElementById('pet-active-card');
+    const steps = Array.from(document.querySelectorAll('.pet-story-step'));
+    const filterButtons = Array.from(document.querySelectorAll('.pet-filter-button'));
+
+    const colors = {
+      hurricane: '#3478b8',
+      wildfire: '#d75f34',
+      earthquake: '#c49a45',
+      nuclear: '#7a4fa3',
+      war: '#9e2638',
+      flood: '#1f9db4',
+      public_health: '#30343a'
+    };
+
+    const getLanguage = () => document.documentElement.dataset.language === 'en' ? 'en' : 'zh';
+    const getCaseText = (properties, key) => properties[`${key}${getLanguage() === 'en' ? 'En' : 'Zh'}`] || properties[`${key}Zh`] || '';
+    const geoJsonUrl = page?.dataset.geojsonUrl;
+    const filterState = { disaster: 'all', focus: 'all' };
+    let map;
+    let cases = [];
+    let markers = new Map();
+    let activeCaseId = 'katrina';
+    let activePopup;
+
+    const setActiveCard = (properties) => {
+      if (!activeCard || !properties) return;
+      activeCard.querySelector('.pet-active-year').textContent = properties.date || properties.year;
+      activeCard.querySelector('h2').dataset.langEn = properties.titleEn;
+      activeCard.querySelector('h2').dataset.langZh = properties.titleZh;
+      activeCard.querySelector('h2').textContent = getCaseText(properties, 'title');
+      activeCard.querySelector('p').dataset.langEn = properties.researchNoteEn;
+      activeCard.querySelector('p').dataset.langZh = properties.researchNoteZh;
+      activeCard.querySelector('p').textContent = getCaseText(properties, 'researchNote');
+    };
+
+    const popupHtml = (properties) => `
+      <div class="pet-popup">
+        <span>${properties.date || properties.year} · ${getCaseText(properties, 'countryRegion')}</span>
+        <strong>${getCaseText(properties, 'title')}</strong>
+        <p>${getCaseText(properties, 'governanceResponse')}</p>
+      </div>
+    `;
+
+    const updateMarkerLabel = (markerElement, properties) => {
+      const meta = markerElement.querySelector('.pet-case-marker-meta');
+      const title = markerElement.querySelector('.pet-case-marker-title');
+      if (!meta || !title) return;
+      meta.textContent = `${properties.date || properties.year} · ${getCaseText(properties, 'place')}`;
+      title.textContent = getCaseText(properties, 'title');
+      markerElement.setAttribute('aria-label', `${getCaseText(properties, 'title')} - ${getCaseText(properties, 'place')}`);
+    };
+
+    const updateMarkerAlignment = () => {
+      if (!map || !mapElement) return;
+      const mapWidth = mapElement.clientWidth;
+      markers.forEach((marker, id) => {
+        const feature = cases.find((item) => item.properties.id === id);
+        if (!feature) return;
+        const point = map.project(feature.geometry.coordinates);
+        marker.getElement().classList.toggle('is-left-aligned', point.x > mapWidth - 260);
+      });
+    };
+
+    const setActiveCase = (caseId, options = {}) => {
+      const feature = cases.find((item) => item.properties.id === caseId);
+      if (!feature || !map) return;
+      activeCaseId = caseId;
+      markers.forEach((marker, id) => {
+        marker.getElement().classList.toggle('is-active', id === caseId);
+        marker.getElement().parentElement?.style.setProperty('z-index', id === caseId ? '5' : '1');
+      });
+      steps.forEach((step) => step.classList.toggle('is-active', step.dataset.caseId === caseId));
+      setActiveCard(feature.properties);
+      if (options.fly !== false) {
+        map.flyTo({
+          center: feature.geometry.coordinates,
+          zoom: options.zoom || 5,
+          speed: 0.75,
+          curve: 1.25,
+          essential: false
+        });
+      }
+      if (options.popup) {
+        activePopup?.remove();
+        activePopup = new maplibregl.Popup({ offset: 18, closeButton: false, className: 'pet-map-popup' })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(popupHtml(feature.properties))
+          .addTo(map);
+      }
+    };
+
+    const matchesFilter = (feature) => {
+      const props = feature.properties;
+      return (filterState.disaster === 'all' || props.disasterType === filterState.disaster)
+        && (filterState.focus === 'all' || props.animalFocus === filterState.focus);
+    };
+
+    const applyFilters = () => {
+      markers.forEach((marker, id) => {
+        const feature = cases.find((item) => item.properties.id === id);
+        marker.getElement().classList.toggle('is-filtered-out', !matchesFilter(feature));
+      });
+      const firstVisible = cases.find(matchesFilter);
+      if (firstVisible && !matchesFilter(cases.find((item) => item.properties.id === activeCaseId))) {
+        setActiveCase(firstVisible.properties.id);
+      }
+    };
+
+    const initializeMap = async () => {
+      if (!mapElement || !geoJsonUrl) return;
+      const response = await fetch(geoJsonUrl);
+      const geojson = await response.json();
+      cases = geojson.features;
+
+      map = new maplibregl.Map({
+        container: mapElement,
+        style: {
+          version: 8,
+          sources: {
+            carto: {
+              type: 'raster',
+              tiles: [
+                'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+                'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+                'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+              ],
+              tileSize: 256,
+              attribution: '© OpenStreetMap contributors © CARTO'
+            }
+          },
+          layers: [{ id: 'carto', type: 'raster', source: 'carto' }]
+        },
+        center: [20, 25],
+        zoom: 1.35,
+        attributionControl: false
+      });
+
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+      map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+      map.on('load', () => {
+        mapShell?.classList.add('is-loaded');
+        cases.forEach((feature) => {
+          const markerElement = document.createElement('button');
+          markerElement.type = 'button';
+          markerElement.className = 'pet-case-marker';
+          markerElement.style.setProperty('--case-color', colors[feature.properties.disasterType] || '#214d43');
+          markerElement.innerHTML = `
+            <span class="pet-case-marker-dot" aria-hidden="true"></span>
+            <span class="pet-case-marker-label" aria-hidden="true">
+              <span class="pet-case-marker-meta"></span>
+              <strong class="pet-case-marker-title"></strong>
+            </span>
+          `;
+          updateMarkerLabel(markerElement, feature.properties);
+          markerElement.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setActiveCase(feature.properties.id, { popup: true, zoom: 5.2 });
+          });
+          const marker = new maplibregl.Marker({ element: markerElement, anchor: 'center' })
+            .setLngLat(feature.geometry.coordinates)
+            .addTo(map);
+          markers.set(feature.properties.id, marker);
+        });
+        setActiveCase(activeCaseId, { fly: false });
+        applyFilters();
+        updateMarkerAlignment();
+      });
+      map.on('move', updateMarkerAlignment);
+      map.on('resize', updateMarkerAlignment);
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const type = button.dataset.filterType;
+        const value = button.dataset.filterValue;
+        filterState[type] = value;
+        filterButtons
+          .filter((item) => item.dataset.filterType === type)
+          .forEach((item) => item.classList.toggle('is-active', item === button));
+        applyFilters();
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.dataset?.caseId) {
+        setActiveCase(visible.target.dataset.caseId);
+      }
+    }, { rootMargin: '-35% 0px -45% 0px', threshold: [0.2, 0.45, 0.7] });
+
+    steps.forEach((step) => observer.observe(step));
+    window.addEventListener('respace-language-change', () => {
+      const feature = cases.find((item) => item.properties.id === activeCaseId);
+      if (feature) {
+        setActiveCard(feature.properties);
+        if (activePopup) activePopup.setHTML(popupHtml(feature.properties));
+      }
+      markers.forEach((marker, id) => {
+        const markerFeature = cases.find((item) => item.properties.id === id);
+        if (markerFeature) updateMarkerLabel(marker.getElement(), markerFeature.properties);
+      });
+      updateMarkerAlignment();
+    });
+
+    initializeMap().catch((error) => {
+      console.error(error);
+      if (mapShell) mapShell.classList.add('is-error');
+    });
+  </script>
 </BaseLayout>
