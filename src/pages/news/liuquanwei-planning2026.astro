@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/site';
+
+const titleZh =
+  '硕士研究生刘泉蔚参加第四届中国国土经济学会国土空间规划学术年会，并做学术报告“基于中介网络分析的灾区街道重建居民安全感知研究”';
+const titleEn =
+  'Master’s student Quanwei Liu presents at the 4th Academic Annual Conference on Territorial Spatial Planning';
+const reportTitleZh = '基于中介网络分析的灾区街道重建居民安全感知研究';
+const reportTitleEn =
+  'Residents’ Safety Perception in Post-Disaster Street Reconstruction Based on Mediating Network Analysis';
+const photoPath = '/assets/news/liuquanwei-4th planning2026/liuquanwei-planning2026.jpg';
+---
+
+<BaseLayout
+  title={titleZh}
+  titleEn={titleEn}
+  titleZh={titleZh}
+  descriptionEn="Master’s student Quanwei Liu presented research on residents’ safety perception in post-disaster street reconstruction at the 4th Academic Annual Conference on Territorial Spatial Planning."
+  descriptionZh="硕士研究生刘泉蔚参加第四届中国国土经济学会国土空间规划学术年会，并作灾区街道重建居民安全感知研究相关学术报告。"
+>
+  <article class="news-article news-article-page">
+    <header class="news-article-hero">
+      <a class="news-back-link" href={withBase('/news/')} data-lang-en="Back to News" data-lang-zh="返回动态">
+        返回动态
+      </a>
+      <p class="eyebrow" data-lang-en="Conference" data-lang-zh="学术会议">学术会议</p>
+      <h1 data-lang-en={titleEn} data-lang-zh={titleZh}>{titleZh}</h1>
+    </header>
+
+    <div class="news-article-shell">
+      <div class="news-article-body">
+        <p
+          data-lang-en="Master’s student Quanwei Liu attended the 4th Academic Annual Conference on Territorial Spatial Planning of the China Society of Territorial Economists and the 2026 7th Beijing Forum on Spatial Planning."
+          data-lang-zh="硕士研究生刘泉蔚参加第四届中国国土经济学会国土空间规划学术年会暨2026第七届空间规划北京论坛。"
+        >
+          硕士研究生刘泉蔚参加第四届中国国土经济学会国土空间规划学术年会暨2026第七届空间规划北京论坛。
+        </p>
+
+        <p
+          data-lang-en={`At the conference, Liu delivered an academic presentation titled “${reportTitleEn}.” The study focuses on residents’ safety perception in streets undergoing post-disaster reconstruction, using mediating network analysis to examine how spatial reconstruction and perceived safety are connected.`}
+          data-lang-zh={`会议期间，刘泉蔚作题为“${reportTitleZh}”的学术报告。该研究聚焦灾区街道重建中的居民安全感知问题，基于中介网络分析方法，探讨空间重建过程与居民安全感知之间的关系。`}
+        >
+          会议期间，刘泉蔚作题为“{reportTitleZh}”的学术报告。该研究聚焦灾区街道重建中的居民安全感知问题，基于中介网络分析方法，探讨空间重建过程与居民安全感知之间的关系。
+        </p>
+
+      </div>
+
+      <div class="news-article-gallery" aria-label="Conference photos">
+        <figure>
+          <img
+            src={withBase(photoPath)}
+            alt="Quanwei Liu at the 4th Academic Annual Conference on Territorial Spatial Planning"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <style>
+    .news-article-page {
+      background: var(--paper);
+    }
+
+    .news-article-page .news-article-hero,
+    .news-article-page .news-article-shell {
+      width: min(68vw, 1080px);
+      margin-inline: auto;
+    }
+
+    .news-article-page .news-article-hero {
+      display: grid;
+      gap: clamp(0.75rem, 1.5vw, 1.1rem);
+      padding-block: clamp(3rem, 6vw, 5.4rem) clamp(1.6rem, 3vw, 2.4rem);
+    }
+
+    .news-article-page .news-back-link {
+      width: fit-content;
+      color: var(--forest);
+      font-size: 0.86rem;
+      font-weight: 850;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.18em;
+    }
+
+    .news-article-page .news-article-hero h1 {
+      max-width: 34ch;
+      color: var(--ink);
+      font-size: clamp(2rem, 2.3vw, 3.5rem);
+      line-height: 1.04;
+    }
+
+    .news-article-page .news-article-shell {
+      padding-bottom: clamp(4rem, 7vw, 6rem);
+    }
+
+    .news-article-page .news-article-body {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .news-article-page .news-article-body p {
+      max-width: 76ch;
+      margin: 0;
+      color: #26302f;
+      font-size: clamp(1rem, 1.08vw, 1.08rem);
+      line-height: 1.78;
+    }
+
+    .news-article-page .news-article-gallery {
+      display: grid;
+      gap: clamp(1rem, 2vw, 1.4rem);
+      margin-top: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .news-article-page .news-article-gallery figure {
+      margin: 0;
+    }
+
+    .news-article-page .news-article-gallery img {
+      display: block;
+      width: 70%;
+      height: auto;
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      background: var(--white);
+    }
+
+    @media (max-width: 900px) {
+      .news-article-page .news-article-hero,
+      .news-article-page .news-article-shell {
+        width: auto;
+        max-width: none;
+        padding-inline: 1.25rem;
+      }
+
+      .news-article-page .news-article-hero h1 {
+        max-width: 20ch;
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,1199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitleZh = '词汇的失地：城市化如何让词语失去地方、身体与生态参照物';
+const pageTitleEn =
+  'Displaced Vocabulary: How Urbanization Detaches Words from Place, Body, and Ecological Referents';
+const summaryZh = '城市化并不只改变土地使用，也改变语言与身体之间的距离。';
+const summaryEn =
+  'Urbanization changes not only land use, but also the distance between language and the body.';
+const descriptionZh =
+  '城市化并不只改变土地使用，也改变语言与身体之间的距离。本文将自然与农耕词汇视为微型地理档案，讨论词语如何在城市化过程中失去地方、身体与生态参照物。';
+const descriptionEn =
+  'This essay reads natural and agrarian vocabulary as miniature geographic archives, tracing how words lose place, body, and ecological referents through urbanization.';
+const keywordsZh = ['语言地理', '经验消亡', '地方记忆', '无地方性', '文化景观', '城市化'];
+const keywordsEn = [
+  'linguistic geography',
+  'experiential extinction',
+  'place memory',
+  'placelessness',
+  'cultural landscape',
+  'urbanization'
+];
+
+const openingTextZh =
+  '人类语言作为一种动态的社会规约系统，其词汇库的沉淀与演变本质上是特定历史时期人类生存方式的忠实映射。在漫长的农耕文明中，中华民族以高度发达的生态适应和农业实践，锻造出了一个极其丰富且具有深厚“具身性”的语言体系。在这个体系中，大量的成语、词汇以及修辞意境，如“鸟语花香”“如沐春风”等，直接依托于生动的物理世界和感官体验。然而，随着全球规模最大的城市化进程在中国的高速推进，社会空间、劳作方式和生存环境发生了根本性重塑。';
+const openingTextEn =
+  'Human language is a dynamic system of social convention, and the sedimentation of its vocabulary faithfully records the ways people lived in particular historical periods. Across a long agrarian civilization, ecological adaptation and agricultural practice produced a richly embodied linguistic system. Many idioms, words, and rhetorical images, such as 鸟语花香 (niao yu hua xiang) and 如沐春风 (ru mu chun feng), rely directly on a vivid physical world and sensory experience. Yet as China has undergone the largest and fastest urbanization process in the world, social space, labor, and everyday environments have been fundamentally remade.';
+const mechanismIntroZh =
+  '词语并不是凭空漂浮的符号。它们依靠身体、地方、物种、天气、劳动和代际记忆来维持意义。当这些现实参照物从日常生活中退场，词语仍然可以继续流通，但其经验厚度会逐渐变薄。';
+const mechanismIntroEn =
+  'Words are not free-floating signs. They rely on bodies, places, species, weather, labor, and intergenerational memory to sustain meaning. When these real referents withdraw from everyday life, words may still circulate, but their experiential thickness gradually thins.';
+const lexiconIntroZh =
+  '以下词语并非简单“消失”，而是在城市化语境中发生了不同形式的漂移：有的失去身体经验，有的转为抽象隐喻，有的进入商业命名，有的成为屏幕化的自然想象。';
+const lexiconIntroEn =
+  'The words below do not simply “disappear.” In urbanized contexts, they drift in different ways: some lose bodily experience, some become abstract metaphors, some enter commercial naming, and some become screen-mediated imaginations of nature.';
+
+const mechanismItems = [
+  {
+    tag: 'place',
+    titleZh: '土地使用变化',
+    titleEn: 'Land-Use Change',
+    textZh: '农田、荒地、湿地、村落与地方性景观被城市建设、道路系统和标准化空间重新组织。地方并未完全消失，但其生态细节、劳作节奏与物候结构被不断压缩。',
+    textEn:
+      'Farmland, wasteland, wetlands, villages, and local landscapes are reorganized by urban construction, road systems, and standardized space. Place does not disappear completely, but its ecological details, labor rhythms, and phenological structure are compressed.',
+    transitionZh: '词语原本扎根的土地，首先失去了它的厚度。',
+    transitionEn: 'The land in which words were rooted is the first to lose its depth.'
+  },
+  {
+    tag: 'weather',
+    titleZh: '日常自然接触减少',
+    titleEn: 'Fewer Everyday Encounters with Nature',
+    textZh: '鸟鸣、花香、泥土、作物、农具、风向和天气征兆，不再稳定地构成多数人的日常经验。人与自然的关系，从长期共处转向偶发接触与被设计过的景观消费。',
+    textEn:
+      'Birdsong, floral scent, soil, crops, tools, wind direction, and signs of weather no longer form stable parts of everyday experience for most people. Human relations with nature shift from long co-presence to occasional contact and designed landscape consumption.',
+    transitionZh: '经验开始稀薄，词语却仍在流通。',
+    transitionEn: 'Experience becomes thinner, while the words continue to circulate.'
+  },
+  {
+    tag: 'body',
+    titleZh: '身体感官经验被压缩',
+    titleEn: 'Compressed Bodily Sensation',
+    textZh: '听觉、嗅觉、触觉和劳作身体被屏幕、交通、建筑和消费空间重新中介。人仍然“知道”这些词，却越来越少通过身体进入它们。',
+    textEn:
+      'Hearing, smell, touch, and laboring bodies are re-mediated by screens, traffic, buildings, and spaces of consumption. People still “know” these words, but less often enter them through the body.',
+    transitionZh: '语言保留了名字，身体失去了进入词语的门。',
+    transitionEn: 'Language keeps the names; the body loses the door into the words.'
+  },
+  {
+    tag: 'memory',
+    titleZh: '地方记忆与物候知识弱化',
+    titleEn: 'Weakened Place Memory and Phenological Knowledge',
+    textZh: '节气、土壤、水文、作物、物种和地方气象不再稳定地进入代际传递。原本依靠家庭、土地和社区维系的微观知识，开始从日常生活中后退。',
+    textEn:
+      'Solar terms, soil, hydrology, crops, species, and local weather no longer enter intergenerational transmission in stable ways. The small-scale knowledge once held by family, land, and community begins to recede from everyday life.',
+    transitionZh: '地方还在地图上，地方经验却正在退出记忆。',
+    transitionEn: 'Place remains on the map, while place experience withdraws from memory.'
+  },
+  {
+    tag: 'symbol',
+    titleZh: '词汇空心化 / 拟像化',
+    titleEn: 'Hollowed and Simulated Vocabulary',
+    textZh: '词语仍被反复使用，但越来越多地转化为景观命名、广告修辞或社交媒体意象。能指尚在，所指却逐渐脱离了现实参照物。',
+    textEn:
+      'Words are still used repeatedly, but they increasingly become names for landscapes, advertising rhetoric, or social-media imagery. The signifier remains, while the referent drifts away from lived reality.',
+    transitionZh: '当词还在，土地已经退场。',
+    transitionEn: 'The word remains, but the land has stepped back.'
+  }
+];
+
+const theoryNotes = [
+  {
+    zh: '体认语言学：语言意义来自身体与世界的互动。',
+    en: 'Embodied linguistics: linguistic meaning emerges from interaction between body and world.'
+  },
+  {
+    zh: '经验消亡：自然经验的减少会削弱人对生态世界的识别与关心。',
+    en: 'Extinction of experience: reduced natural experience weakens recognition of and care for ecological worlds.'
+  },
+  {
+    zh: '无地方性：标准化空间削弱地方差异、地方依恋与地方记忆。',
+    en: 'Placelessness: standardized space weakens local difference, attachment, and memory.'
+  },
+  {
+    zh: '拟像化：词语可能从现实经验的描述，转变为消费景观的符号。',
+    en: 'Simulation: words may shift from descriptions of lived reality into signs of consumable landscape.'
+  }
+];
+
+type MotifKey =
+  | 'birdsFlowers'
+  | 'springWind'
+  | 'bambooShoot'
+  | 'scalesComb'
+  | 'deepTilling'
+  | 'rainPreparedness'
+  | 'fiveGrains'
+  | 'beansWheat';
+
+type LexiconEntry = {
+  wordZh: string;
+  wordEn: string;
+  categoryZh: string;
+  categoryEn: string;
+  motif: MotifKey;
+  summaryZh: string;
+  summaryEn: string;
+  originalExperienceZh: string;
+  originalExperienceEn: string;
+  urbanDriftZh: string;
+  urbanDriftEn: string;
+  diagnosisZh: string;
+  diagnosisEn: string;
+  sensesZh: string[];
+  sensesEn: string[];
+};
+
+// TODO: 后续新增词条时，继续向 lexiconEntries 数组添加对象即可。
+const lexiconEntries: LexiconEntry[] = [
+  {
+    wordZh: '鸟语花香',
+    wordEn: '鸟语花香 (niao yu hua xiang)',
+    categoryZh: '感官生态与声物候类',
+    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    motif: 'birdsFlowers',
+    summaryZh: '野鸟鸣叫、花香与季节性声景共同构成的春日经验。',
+    summaryEn: 'A springtime experience formed by wild birdsong, floral scent, and seasonal soundscapes.',
+    originalExperienceZh: '野鸟鸣叫、花香、季节性声景与嗅觉经验。',
+    originalExperienceEn: 'Wild birdsong, floral scent, seasonal soundscapes, and olfactory experience.',
+    urbanDriftZh:
+      '在小区命名、景观宣传和城市公园叙事中仍被频繁使用，但真实的多物种声景与花香经验被压缩。',
+    urbanDriftEn:
+      'Still common in residential names, landscape promotion, and urban-park narratives, while actual multispecies soundscapes and floral scents are compressed.',
+    diagnosisZh: '感官钝化与场景异化。',
+    diagnosisEn: 'Sensory dulling and scene alienation.',
+    sensesZh: ['听觉', '嗅觉', '物候'],
+    sensesEn: ['hearing', 'smell', 'phenology']
+  },
+  {
+    wordZh: '如沐春风',
+    wordEn: '如沐春风 (ru mu chun feng)',
+    categoryZh: '感官生态与声物候类',
+    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    motif: 'springWind',
+    summaryZh: '温润春风、空气湿度与皮肤触感共同进入身体。',
+    summaryEn: 'Moist spring wind, changing humidity, and tactile climate entering the body.',
+    originalExperienceZh: '身体感受温润春风、季节转暖和空气湿度变化。',
+    originalExperienceEn: 'The body senses warm spring wind, seasonal warming, and changes in humidity.',
+    urbanDriftZh: '更多作为人际交往中的抽象赞美，原本的气候触觉经验被弱化。',
+    urbanDriftEn:
+      'More often used as an abstract compliment in interpersonal contexts, with the original tactile climate experience weakened.',
+    diagnosisZh: '触觉经验的隐喻化。',
+    diagnosisEn: 'Metaphorization of tactile experience.',
+    sensesZh: ['触觉', '气候', '身体'],
+    sensesEn: ['touch', 'climate', 'body']
+  },
+  {
+    wordZh: '雨后春笋',
+    wordEn: '雨后春笋 (yu hou chun sun)',
+    categoryZh: '感官生态与声物候类',
+    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    motif: 'bambooShoot',
+    summaryZh: '雨水、泥土和竹笋破土的速度形成可见的物候经验。',
+    summaryEn: 'Rain, soil, and the speed of bamboo shoots breaking ground form a visible phenological experience.',
+    originalExperienceZh: '春雨滋润后竹笋破土而出的快速生长过程。',
+    originalExperienceEn: 'The rapid growth of bamboo shoots emerging from wet soil after spring rain.',
+    urbanDriftZh:
+      '常用于形容建筑、产业或机构快速出现，但多数使用者并未见过竹笋破土的物理过程。',
+    urbanDriftEn:
+      'Often used to describe the rapid appearance of buildings, industries, or institutions, though many users have never seen bamboo shoots physically break through soil.',
+    diagnosisZh: '物候经验的抽象化。',
+    diagnosisEn: 'Abstraction of phenological experience.',
+    sensesZh: ['视觉', '泥土', '物候'],
+    sensesEn: ['vision', 'soil', 'phenology']
+  },
+  {
+    wordZh: '鳞次栉比',
+    wordEn: '鳞次栉比 (lin ci zhi bi)',
+    categoryZh: '感官生态与手工技艺类',
+    categoryEn: 'Sensory Ecology and Craft Analogies',
+    motif: 'scalesComb',
+    summaryZh: '鱼鳞、梳齿和手工器物中的细密秩序被身体观察。',
+    summaryEn: 'Dense order observed through fish scales, comb teeth, and handmade objects.',
+    originalExperienceZh: '鱼鳞与梳齿的细密排列，以及来自自然和手工器物的观察经验。',
+    originalExperienceEn: 'Dense arrangements of fish scales and comb teeth, observed through nature and handcraft.',
+    urbanDriftZh: '常用于描述高楼密集排列，原本的鱼鳞、梳齿与手工触觉联想被削弱。',
+    urbanDriftEn:
+      'Often used to describe dense high-rise buildings, while associations with fish scales, comb teeth, and tactile craft are weakened.',
+    diagnosisZh: '具身参照物的城市化替换。',
+    diagnosisEn: 'Urban substitution of embodied referents.',
+    sensesZh: ['视觉', '触觉', '器物'],
+    sensesEn: ['vision', 'touch', 'object']
+  },
+  {
+    wordZh: '深耕',
+    wordEn: '深耕 (shen geng)',
+    categoryZh: '农耕器具与手工技艺类',
+    categoryEn: 'Agrarian Tools and Manual Craft',
+    motif: 'deepTilling',
+    summaryZh: '翻土、松土和长期劳作把土地理解为可被身体进入的层理。',
+    summaryEn: 'Turning soil, loosening earth, and long labor treat land as layers the body can enter.',
+    originalExperienceZh: '翻土、松土、改良土壤与长期劳作的农业实践。',
+    originalExperienceEn: 'Agricultural practice of turning, loosening, improving soil, and laboring over time.',
+    urbanDriftZh: '转为商业、教育、产业和治理语境中的抽象策略词。',
+    urbanDriftEn:
+      'Shifted into an abstract strategy term in business, education, industry, and governance.',
+    diagnosisZh: '劳动经验的行业隐喻化。',
+    diagnosisEn: 'Sectoral metaphorization of labor experience.',
+    sensesZh: ['劳动', '土壤', '身体'],
+    sensesEn: ['labor', 'soil', 'body']
+  },
+  {
+    wordZh: '未雨绸缪',
+    wordEn: '未雨绸缪 (wei yu chou mou)',
+    categoryZh: '物候防御与气象认知类',
+    categoryEn: 'Phenological Defense and Weather Knowledge',
+    motif: 'rainPreparedness',
+    summaryZh: '风雨来临前的观察、修补与储备构成生活防御经验。',
+    summaryEn: 'Observation, repair, and storage before rain arrives form an everyday practice of defense.',
+    originalExperienceZh: '在雨季或风雨来临前修补房屋、储备物资和预判天气。',
+    originalExperienceEn: 'Repairing homes, storing supplies, and reading weather before rainy seasons or storms.',
+    urbanDriftZh: '常用于管理学和政策话语，具体的气象观察和生活防御经验被抽象化。',
+    urbanDriftEn:
+      'Common in management and policy discourse, while concrete weather observation and domestic defense become abstract.',
+    diagnosisZh: '风险经验的制度化转译。',
+    diagnosisEn: 'Institutional translation of risk experience.',
+    sensesZh: ['气象', '防御', '生活'],
+    sensesEn: ['weather', 'defense', 'everyday life']
+  },
+  {
+    wordZh: '五谷不分',
+    wordEn: '五谷不分 (wu gu bu fen)',
+    categoryZh: '农业基础认知与作物类',
+    categoryEn: 'Basic Agrarian Knowledge and Crops',
+    motif: 'fiveGrains',
+    summaryZh: '基础粮食作物的形态差异曾是生活常识的一部分。',
+    summaryEn: 'Morphological differences among staple crops were once part of everyday knowledge.',
+    originalExperienceZh: '识别稻、黍、稷、麦、菽等基础粮食作物。',
+    originalExperienceEn: 'Recognizing staple crops such as rice, broomcorn millet, foxtail millet, wheat, and beans.',
+    urbanDriftZh: '从具体农业知识缺失，转变为对生活常识不足的泛化评价。',
+    urbanDriftEn:
+      'Shifted from a concrete lack of agricultural knowledge into a generalized judgment about common sense.',
+    diagnosisZh: '食物与土地链条的断裂。',
+    diagnosisEn: 'Breakage in the chain between food and land.',
+    sensesZh: ['作物', '食物', '土地'],
+    sensesEn: ['crop', 'food', 'land']
+  },
+  {
+    wordZh: '不辨菽麦',
+    wordEn: '不辨菽麦 (bu bian shu mai)',
+    categoryZh: '农业基础认知与作物类',
+    categoryEn: 'Basic Agrarian Knowledge and Crops',
+    motif: 'beansWheat',
+    summaryZh: '豆类与麦类的区分，指向食物来源与田野知识的识别能力。',
+    summaryEn: 'Distinguishing beans from wheat points to knowledge of food origins and field observation.',
+    originalExperienceZh: '区分豆类与麦类，理解基础作物形态和食物来源。',
+    originalExperienceEn: 'Distinguishing beans from wheat and understanding crop forms and food sources.',
+    urbanDriftZh: '常作为“不通世事”的成语使用，原本的作物识别能力被抽离。',
+    urbanDriftEn:
+      'Often used idiomatically to mean being unworldly, while the original crop-recognition ability is removed.',
+    diagnosisZh: '农业认知基线漂移。',
+    diagnosisEn: 'Drift in the baseline of agrarian cognition.',
+    sensesZh: ['作物', '视觉', '教育'],
+    sensesEn: ['crop', 'vision', 'education']
+  }
+];
+
+const categories = Array.from(
+  new Map(lexiconEntries.map((entry) => [entry.categoryZh, { zh: entry.categoryZh, en: entry.categoryEn }])).values()
+);
+
+// Lexicon visual motifs are kept together so future entries can swap or add imagery without touching card markup.
+const motifSvgs: Record<MotifKey, string> = {
+  birdsFlowers: `<svg viewBox="0 0 320 180" role="img" aria-label="枝条、鸟影、花与声波"><path class="motif-stem" d="M36 126 C82 88 122 80 176 84 C220 88 254 68 286 42"/><path class="motif-stem thin" d="M94 96 C84 72 82 56 96 36"/><path class="motif-stem thin" d="M178 84 C170 60 174 46 194 28"/><g class="motif-flower"><circle cx="88" cy="62" r="8"/><circle cx="104" cy="60" r="8"/><circle cx="97" cy="75" r="8"/></g><g class="motif-flower small"><circle cx="208" cy="48" r="6"/><circle cx="220" cy="48" r="6"/><circle cx="214" cy="60" r="6"/></g><path class="motif-bird" d="M145 58 C154 48 166 48 176 58 C164 54 156 54 145 58 Z"/><path class="motif-bird" d="M236 78 C244 70 254 70 262 78 C252 75 245 75 236 78 Z"/><path class="motif-wave" d="M44 42 C68 30 92 30 116 42"/><path class="motif-wave" d="M52 58 C72 49 92 49 112 58"/></svg>`,
+  springWind: `<svg viewBox="0 0 320 180" role="img" aria-label="春风弧线与轻微飘动的植物轮廓"><path class="motif-wind" d="M28 68 C82 28 130 88 184 50 C224 22 264 38 292 62"/><path class="motif-wind soft" d="M42 116 C94 82 150 128 206 92 C238 72 268 78 292 98"/><path class="motif-wind fine" d="M76 146 C118 126 156 148 194 128"/><path class="motif-stem" d="M102 132 C112 104 116 84 108 54"/><path class="motif-leaf" d="M110 78 C136 72 152 86 158 108 C134 106 118 96 110 78 Z"/><path class="motif-leaf pale" d="M100 102 C76 94 64 104 58 124 C80 126 94 120 100 102 Z"/></svg>`,
+  bambooShoot: `<svg viewBox="0 0 320 180" role="img" aria-label="雨痕、潮湿泥土与破土笋尖"><path class="motif-rain" d="M78 30 L64 60"/><path class="motif-rain" d="M132 20 L118 52"/><path class="motif-rain" d="M208 28 L194 58"/><path class="motif-rain" d="M260 18 L246 50"/><path class="motif-soil" d="M24 130 C70 116 116 144 164 126 C214 108 252 124 296 112"/><path class="motif-soil fine" d="M36 150 C86 138 122 156 170 144 C218 132 252 146 286 134"/><path class="motif-shoot" d="M150 130 C156 88 172 58 192 36 C202 72 202 106 188 132 Z"/><path class="motif-shoot-line" d="M166 112 C178 100 184 86 188 64"/><path class="motif-shoot small" d="M112 136 C116 108 128 88 142 74 C150 102 148 122 138 140 Z"/></svg>`,
+  scalesComb: `<svg viewBox="0 0 320 180" role="img" aria-label="鳞片和梳齿逐渐转为建筑阵列"><g class="motif-scales"><path d="M38 62 Q58 34 78 62 Q58 90 38 62 Z"/><path d="M70 62 Q90 34 110 62 Q90 90 70 62 Z"/><path d="M54 98 Q74 70 94 98 Q74 126 54 98 Z"/><path d="M86 98 Q106 70 126 98 Q106 126 86 98 Z"/></g><g class="motif-comb"><path d="M150 44 L150 138"/><path d="M166 52 L166 138"/><path d="M182 60 L182 138"/><path d="M198 68 L198 138"/></g><g class="motif-buildings"><rect x="222" y="66" width="22" height="72"/><rect x="250" y="42" width="24" height="96"/><rect x="280" y="82" width="18" height="56"/></g><path class="motif-ground" d="M32 140 H302"/></svg>`,
+  deepTilling: `<svg viewBox="0 0 320 180" role="img" aria-label="土壤剖面、犁沟与劳作轨迹"><path class="motif-soil-layer" d="M28 64 C82 46 126 78 176 58 C218 42 252 54 292 38"/><path class="motif-soil-layer middle" d="M28 100 C78 82 122 114 172 96 C220 78 256 94 292 76"/><path class="motif-soil-layer dark" d="M28 136 C80 120 130 148 178 130 C222 114 260 128 292 112"/><path class="motif-furrow" d="M82 154 C98 124 122 96 158 70"/><path class="motif-furrow" d="M134 156 C150 126 178 98 214 74"/><path class="motif-tool" d="M210 32 L150 132"/><path class="motif-tool-head" d="M136 132 C156 126 170 138 180 154"/></svg>`,
+  rainPreparedness: `<svg viewBox="0 0 320 180" role="img" aria-label="云线、雨势、针脚与织补纹理"><path class="motif-cloud" d="M48 62 C58 40 82 38 94 54 C108 30 144 38 148 66 C172 60 188 72 192 90 H48 C34 84 34 70 48 62 Z"/><path class="motif-cloud pale" d="M178 48 C190 30 214 34 222 52 C236 42 260 52 260 76 H178 C164 70 166 56 178 48 Z"/><path class="motif-rain" d="M78 100 L64 132"/><path class="motif-rain" d="M130 100 L116 132"/><path class="motif-rain" d="M224 92 L210 124"/><path class="motif-stitch" d="M54 148 C86 126 112 168 144 146 C176 124 204 166 238 144"/><path class="motif-stitch dash" d="M66 146 L76 154 M98 144 L108 152 M132 146 L142 154 M166 144 L176 152 M202 146 L212 154"/></svg>`,
+  fiveGrains: `<svg viewBox="0 0 320 180" role="img" aria-label="多种谷物轮廓并置并逐渐模糊"><path class="motif-grain rice" d="M56 136 C52 98 62 68 84 42 C106 70 114 102 104 136"/><path class="motif-grain millet" d="M104 136 C110 100 126 74 154 54 C164 88 160 116 142 136"/><path class="motif-grain wheat" d="M170 136 L170 44 M156 64 L170 78 M184 64 L170 78 M154 88 L170 102 M188 88 L170 102"/><path class="motif-grain bean" d="M218 132 C192 118 194 86 220 76 C246 88 250 118 218 132 Z"/><path class="motif-grain blur" d="M244 138 C250 98 270 72 292 48 C298 92 286 120 264 138"/><rect class="motif-fog" x="198" y="36" width="88" height="110"/></svg>`,
+  beansWheat: `<svg viewBox="0 0 320 180" role="img" aria-label="豆类与麦穗对照，中央边界逐渐消失"><g class="motif-beans"><ellipse cx="72" cy="82" rx="18" ry="26"/><ellipse cx="112" cy="100" rx="20" ry="28"/><path d="M66 78 C78 84 82 98 72 108"/><path d="M106 94 C120 102 124 116 112 126"/></g><path class="motif-boundary" d="M160 38 C152 70 172 98 160 142"/><g class="motif-wheat"><path d="M230 138 L230 46"/><path d="M214 62 L230 78"/><path d="M246 62 L230 78"/><path d="M212 88 L230 104"/><path d="M248 88 L230 104"/><path d="M216 114 L230 126"/><path d="M244 114 L230 126"/></g><path class="motif-mist" d="M126 60 C150 46 172 48 196 64 M122 94 C150 82 176 82 202 96 M128 126 C152 116 176 116 198 128"/></svg>`
+};
+---
+
+<BaseLayout
+  title={pageTitleZh}
+  titleEn={pageTitleEn}
+  titleZh={pageTitleZh}
+  descriptionEn={descriptionEn}
+  descriptionZh={descriptionZh}
+  keywordsEn={keywordsEn.join(', ')}
+  keywordsZh={keywordsZh.join(', ')}
+  canonicalPath="/copresent-places/002/"
+  ogType="article"
+>
+  <article class="lexical-page">
+    <section class="lexical-hero">
+      <p class="eyebrow" data-lang-en="Copresent Places 002" data-lang-zh="共时之地 002">共时之地 002</p>
+      <div class="lexical-hero-grid">
+        <div class="lexical-hero-copy">
+          <p
+            class="lexical-section-label"
+            data-lang-en="Copresent Places"
+            data-lang-zh="共时之地 / Copresent Places"
+          >
+            共时之地 / Copresent Places
+          </p>
+          <h1 data-lang-en={pageTitleEn} data-lang-zh={pageTitleZh}>{pageTitleZh}</h1>
+          <p class="lexical-subtitle" data-lang-en={summaryEn} data-lang-zh={summaryZh}>{summaryZh}</p>
+          <div class="lexical-tags" aria-label="Keywords">
+            {
+              keywordsZh.map((keyword, index) => (
+                <span data-lang-en={keywordsEn[index]} data-lang-zh={keyword}>{keyword}</span>
+              ))
+            }
+          </div>
+          <div class="lexical-actions">
+            <a href="#mechanism" data-lang-en="View mechanism" data-lang-zh="查看机制图">查看机制图</a>
+            <a href="#lexicon" data-lang-en="Enter lexicon cabinet" data-lang-zh="进入词汇标本室">进入词汇标本室</a>
+          </div>
+        </div>
+      </div>
+      <p class="lexical-opening" data-lang-en={openingTextEn} data-lang-zh={openingTextZh}>{openingTextZh}</p>
+    </section>
+
+    <section class="lexical-section mechanism-section" id="mechanism">
+      <div class="lexical-section-heading">
+        <p class="eyebrow" data-lang-en="Mechanism" data-lang-zh="机制图">机制图</p>
+        <h2 data-lang-en="From Embodied Experience to Hollowed Vocabulary" data-lang-zh="从身体经验到词汇空心化">
+          从身体经验到词汇空心化
+        </h2>
+        <p data-lang-en={mechanismIntroEn} data-lang-zh={mechanismIntroZh}>{mechanismIntroZh}</p>
+      </div>
+
+      <!-- Mechanism timeline: a vertical narrative path of how experience is gradually abstracted. -->
+      <div class="mechanism-timeline" aria-label="城市化与词汇空心化叙事时间线">
+        <span class="mechanism-axis" aria-hidden="true">
+          <span class="mechanism-axis-progress"></span>
+        </span>
+        {
+          mechanismItems.map((item, index) => (
+            <article class="mechanism-node" data-timeline-node>
+              <div class="mechanism-marker">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="mechanism-copy">
+                <span class="mechanism-tag">{item.tag}</span>
+                <h3 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h3>
+                <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
+                <p
+                  class="mechanism-transition"
+                  data-lang-en={item.transitionEn}
+                  data-lang-zh={item.transitionZh}
+                >
+                  {item.transitionZh}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <aside class="theory-notes" aria-label="理论注脚">
+        <p data-lang-en="Theory Notes" data-lang-zh="理论注脚 / Theory Notes">理论注脚 / Theory Notes</p>
+        <ul>
+          {theoryNotes.map((note) => <li data-lang-en={note.en} data-lang-zh={note.zh}>{note.zh}</li>)}
+        </ul>
+      </aside>
+    </section>
+
+    <section class="lexical-section lexicon-section" id="lexicon">
+      <div class="lexical-section-heading">
+        <p class="eyebrow" data-lang-en="Lexicon Cabinet" data-lang-zh="词汇标本室">词汇标本室</p>
+        <h2 data-lang-en="Lexicon Cabinet" data-lang-zh="词汇标本室">词汇标本室</h2>
+        <p data-lang-en={lexiconIntroEn} data-lang-zh={lexiconIntroZh}>{lexiconIntroZh}</p>
+      </div>
+
+      <div class="lexicon-toolbar" aria-label="词汇分类筛选">
+        <button
+          type="button"
+          class="lexicon-filter-button is-active"
+          data-category="all"
+          data-lang-en="All"
+          data-lang-zh="全部"
+        >
+          全部
+        </button>
+        {
+          categories.map((category) => (
+            <button
+              type="button"
+              class="lexicon-filter-button"
+              data-category={category.zh}
+              data-lang-en={category.en}
+              data-lang-zh={category.zh}
+            >
+              {category.zh}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="lexicon-grid" aria-live="polite">
+        {
+          lexiconEntries.map((entry, index) => (
+            <article
+              class="lexicon-card"
+              data-category={entry.categoryZh}
+              tabindex="0"
+              aria-label={`${entry.wordZh} 词汇标本`}
+            >
+              <div class="lexicon-card-topline">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span data-lang-en={entry.categoryEn} data-lang-zh={entry.categoryZh}>{entry.categoryZh}</span>
+              </div>
+              <div class="lexicon-card-body">
+                <div class="lexicon-word-block">
+                  <h3 data-lang-en={entry.wordEn} data-lang-zh={entry.wordZh}>{entry.wordZh}</h3>
+                  <p data-lang-en={entry.summaryEn} data-lang-zh={entry.summaryZh}>{entry.summaryZh}</p>
+                </div>
+                <div class="lexicon-motif" set:html={motifSvgs[entry.motif]} />
+              </div>
+              <div class="lexicon-detail">
+                <dl>
+                  <div>
+                    <dt data-lang-en="Original Place Experience" data-lang-zh="原初地方经验">原初地方经验</dt>
+                    <dd data-lang-en={entry.originalExperienceEn} data-lang-zh={entry.originalExperienceZh}>
+                      {entry.originalExperienceZh}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt data-lang-en="Urbanized Drift" data-lang-zh="城市化后的漂移">城市化后的漂移</dt>
+                    <dd data-lang-en={entry.urbanDriftEn} data-lang-zh={entry.urbanDriftZh}>{entry.urbanDriftZh}</dd>
+                  </div>
+                  <div>
+                    <dt data-lang-en="Geographic Diagnosis" data-lang-zh="地理学诊断">地理学诊断</dt>
+                    <dd data-lang-en={entry.diagnosisEn} data-lang-zh={entry.diagnosisZh}>{entry.diagnosisZh}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div class="sense-tags" aria-label={`${entry.wordZh} 感官标签`}>
+                {
+                  entry.sensesZh.map((sense, senseIndex) => (
+                    <span data-lang-en={entry.sensesEn[senseIndex]} data-lang-zh={sense}>{sense}</span>
+                  ))
+                }
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </article>
+
+  <style>
+    .lexical-page {
+      background: var(--paper);
+    }
+
+    .lexical-hero,
+    .lexical-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 2vw, 2rem);
+    }
+
+    .lexical-hero {
+      display: grid;
+      gap: clamp(1.4rem, 3vw, 2.3rem);
+      padding-top: clamp(3.5rem, 8vw, 6rem);
+      padding-bottom: clamp(2.6rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .lexical-hero-grid {
+      display: block;
+    }
+
+    .lexical-hero-copy {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .lexical-section-label {
+      margin: 0;
+      color: #7b766d;
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lexical-hero h1 {
+      max-width: 30ch;
+      font-size: clamp(2rem, 2.5vw, 3.2rem);
+      line-height: 1.08;
+    }
+
+    .lexical-subtitle {
+      max-width: 68ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .lexical-tags,
+    .sense-tags,
+    .lexical-actions,
+    .lexicon-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .lexical-tags span,
+    .sense-tags span {
+      color: #50645e;
+      background: rgba(96, 138, 128, 0.11);
+      border: 1px solid rgba(96, 138, 128, 0.14);
+      font-size: 0.76rem;
+      line-height: 1.2;
+    }
+
+    .lexical-tags span {
+      padding: 0.22rem 0.48rem;
+    }
+
+    .lexical-actions {
+      margin-top: 0.25rem;
+    }
+
+    .lexical-actions a {
+      padding: 0.72rem 0.95rem;
+      color: var(--forest);
+      background: var(--white);
+      border: 1px solid var(--line);
+      font-size: 0.86rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .lexical-actions a:hover,
+    .lexical-actions a:focus-visible {
+      color: var(--white);
+      background: var(--forest);
+      outline: 0;
+    }
+
+    .lexicon-card dt {
+      color: var(--brick);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lexicon-card dd {
+      margin: 0.12rem 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.56;
+    }
+
+    .lexical-opening {
+      max-width: 84ch;
+      margin: 0;
+      padding-top: clamp(1.1rem, 2vw, 1.6rem);
+      color: var(--ink);
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+      font-size: 0.96rem;
+      line-height: 1.78;
+    }
+
+    .lexical-section {
+      padding-top: clamp(3rem, 6vw, 4.8rem);
+      padding-bottom: clamp(2.8rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .lexical-section-heading {
+      display: grid;
+      gap: 0.8rem;
+      max-width: 860px;
+      margin-bottom: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .lexical-section-heading h2 {
+      max-width: 36ch;
+      font-size: clamp(1.4rem, 1.4vw, 2rem);
+    }
+
+    .lexical-section-heading p:last-child {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .mechanism-timeline {
+      position: relative;
+      display: grid;
+      gap: clamp(2.4rem, 6vw, 4.7rem);
+      max-width: 920px;
+      margin-top: clamp(2rem, 4vw, 3rem);
+      margin-left: clamp(0rem, 4vw, 4rem);
+      padding: 0.2rem 0 0.2rem clamp(3.4rem, 6vw, 5.6rem);
+    }
+
+    .mechanism-axis {
+      position: absolute;
+      left: clamp(1rem, 2.4vw, 2.2rem);
+      top: 0.4rem;
+      bottom: 0.4rem;
+      width: 1px;
+      background: rgba(151, 135, 105, 0.28);
+      overflow: hidden;
+    }
+
+    .mechanism-axis-progress {
+      display: block;
+      width: 100%;
+      height: var(--timeline-progress, 0%);
+      background: linear-gradient(180deg, rgba(162, 76, 56, 0.86), rgba(33, 77, 67, 0.44));
+      transition: height 240ms ease-out;
+    }
+
+    .mechanism-node {
+      position: relative;
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: start;
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 520ms ease,
+        transform 520ms ease;
+    }
+
+    .mechanism-node.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mechanism-marker {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 3.2rem;
+      aspect-ratio: 1;
+      color: rgba(33, 77, 67, 0.76);
+      background: var(--paper);
+      border: 1px solid rgba(151, 135, 105, 0.42);
+      border-radius: 999px;
+      box-shadow: 0 0 0 8px var(--paper);
+      transition:
+        color 260ms ease,
+        background 260ms ease,
+        border-color 260ms ease,
+        box-shadow 260ms ease;
+    }
+
+    .mechanism-node.is-active .mechanism-marker {
+      color: var(--white);
+      background: var(--brick);
+      border-color: var(--brick);
+      box-shadow: 0 0 0 8px rgba(162, 76, 56, 0.11);
+    }
+
+    .mechanism-marker span,
+    .lexicon-card-topline span:first-child {
+      color: var(--brick);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .mechanism-node.is-active .mechanism-marker span {
+      color: var(--white);
+    }
+
+    .mechanism-copy {
+      display: grid;
+      gap: 0.72rem;
+      max-width: 720px;
+      padding: clamp(0.95rem, 2vw, 1.35rem) 0 clamp(1.1rem, 2vw, 1.55rem);
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .mechanism-tag {
+      width: fit-content;
+      color: #746d63;
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .mechanism-copy h3 {
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.18rem, 1.35vw, 1.45rem);
+      line-height: 1.14;
+    }
+
+    .mechanism-copy p {
+      max-width: 68ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.66;
+    }
+
+    .mechanism-transition {
+      color: var(--forest) !important;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem !important;
+      font-style: italic;
+      line-height: 1.46 !important;
+    }
+
+    .theory-notes {
+      max-width: 780px;
+      margin: clamp(2.4rem, 5vw, 4rem) 0 0 clamp(3.4rem, 6vw, 5.6rem);
+      padding: 0.95rem 0 0 1.05rem;
+      border-left: 1px solid rgba(162, 76, 56, 0.34);
+    }
+
+    .theory-notes > p {
+      margin: 0 0 0.8rem;
+      color: var(--brick);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 800;
+    }
+
+    .theory-notes ul {
+      display: grid;
+      gap: 0.42rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .theory-notes li {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.68;
+    }
+
+    .theory-notes li::before {
+      color: #b08a45;
+      content: "§ ";
+    }
+
+    .lexicon-toolbar {
+      position: sticky;
+      top: 78px;
+      z-index: 3;
+      margin-bottom: 1.35rem;
+      padding: 0.58rem 0;
+      background: rgba(247, 247, 242, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .lexicon-filter-button {
+      padding: 0.42rem 0.62rem;
+      color: var(--muted);
+      background: var(--white);
+      border: 1px solid var(--line);
+      font: inherit;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .lexicon-filter-button:hover,
+    .lexicon-filter-button:focus-visible,
+    .lexicon-filter-button.is-active {
+      color: var(--white);
+      background: var(--forest);
+      border-color: var(--forest);
+      outline: 0;
+    }
+
+    .lexicon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.9rem, 2vw, 1.15rem);
+    }
+
+    .lexicon-card {
+      display: grid;
+      gap: 1rem;
+      min-height: 440px;
+      padding: clamp(1.05rem, 2vw, 1.35rem);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.98)),
+        radial-gradient(circle at 82% 10%, rgba(195, 154, 69, 0.14), transparent 32%);
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      box-shadow: 0 10px 26px rgba(29, 37, 40, 0.04);
+      cursor: pointer;
+      transition:
+        opacity 220ms ease,
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        border-color 220ms ease;
+    }
+
+    .lexicon-card:hover,
+    .lexicon-card:focus-visible,
+    .lexicon-card.is-expanded {
+      border-color: rgba(33, 77, 67, 0.32);
+      box-shadow: 0 18px 42px rgba(29, 37, 40, 0.09);
+      transform: translateY(-4px);
+      outline: 0;
+    }
+
+    .lexicon-card.is-hiding {
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+    }
+
+    .lexicon-card[hidden] {
+      display: none;
+    }
+
+    .lexicon-card-topline {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .lexicon-card-topline span:last-child {
+      color: #7b766d;
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.04em;
+      text-align: right;
+    }
+
+    .lexicon-card-body {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .lexicon-word-block {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .lexicon-card h3 {
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.32rem, 1.5vw, 1.65rem);
+      line-height: 1.12;
+      transition: color 180ms ease;
+    }
+
+    .lexicon-card:hover h3,
+    .lexicon-card:focus-visible h3,
+    .lexicon-card.is-expanded h3 {
+      color: var(--forest);
+    }
+
+    .lexicon-word-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.62;
+    }
+
+    .lexicon-motif {
+      position: relative;
+      min-height: 190px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(33, 77, 67, 0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(33, 77, 67, 0.045) 1px, transparent 1px),
+        rgba(247, 247, 242, 0.78);
+      background-size: 28px 28px;
+      border: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .lexicon-motif::after {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+      content: "";
+      opacity: 0;
+      transform: translateX(-34%);
+      transition:
+        opacity 260ms ease,
+        transform 520ms ease;
+    }
+
+    .lexicon-card:hover .lexicon-motif::after,
+    .lexicon-card:focus-visible .lexicon-motif::after,
+    .lexicon-card.is-expanded .lexicon-motif::after {
+      opacity: 0.7;
+      transform: translateX(34%);
+    }
+
+    .lexicon-motif :global(svg) {
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      display: block;
+      opacity: 0.88;
+      transition:
+        opacity 220ms ease,
+        transform 420ms ease;
+    }
+
+    .lexicon-card:hover .lexicon-motif :global(svg),
+    .lexicon-card:focus-visible .lexicon-motif :global(svg),
+    .lexicon-card.is-expanded .lexicon-motif :global(svg) {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.025);
+    }
+
+    .lexicon-detail {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition:
+        grid-template-rows 260ms ease,
+        opacity 220ms ease;
+    }
+
+    .lexicon-card:hover .lexicon-detail,
+    .lexicon-card:focus-visible .lexicon-detail,
+    .lexicon-card.is-expanded .lexicon-detail {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .lexicon-detail > dl {
+      overflow: hidden;
+    }
+
+    .lexicon-card dl {
+      display: grid;
+      gap: 0.72rem;
+      margin: 0;
+    }
+
+    .sense-tags {
+      align-self: end;
+      padding-top: 0.2rem;
+    }
+
+    .sense-tags span {
+      padding: 0.18rem 0.42rem;
+    }
+
+    .lexicon-motif :global(.motif-stem),
+    .lexicon-motif :global(.motif-wind),
+    .lexicon-motif :global(.motif-soil),
+    .lexicon-motif :global(.motif-soil-layer),
+    .lexicon-motif :global(.motif-cloud),
+    .lexicon-motif :global(.motif-ground),
+    .lexicon-motif :global(.motif-boundary),
+    .lexicon-motif :global(.motif-mist) {
+      fill: none;
+      stroke: #58766c;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 3;
+    }
+
+    .lexicon-motif :global(.thin),
+    .lexicon-motif :global(.fine),
+    .lexicon-motif :global(.soft),
+    .lexicon-motif :global(.pale) {
+      opacity: 0.58;
+      stroke-width: 2;
+    }
+
+    .lexicon-motif :global(.motif-wave),
+    .lexicon-motif :global(.motif-rain),
+    .lexicon-motif :global(.motif-stitch),
+    .lexicon-motif :global(.motif-furrow),
+    .lexicon-motif :global(.motif-tool),
+    .lexicon-motif :global(.motif-tool-head),
+    .lexicon-motif :global(.motif-shoot-line) {
+      fill: none;
+      stroke: #a24c38;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.4;
+      opacity: 0.72;
+    }
+
+    .lexicon-motif :global(.motif-flower),
+    .lexicon-motif :global(.motif-leaf),
+    .lexicon-motif :global(.motif-shoot),
+    .lexicon-motif :global(.motif-buildings),
+    .lexicon-motif :global(.motif-beans),
+    .lexicon-motif :global(.motif-wheat),
+    .lexicon-motif :global(.motif-grain) {
+      fill: rgba(111, 140, 101, 0.24);
+      stroke: #58766c;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.2;
+    }
+
+    .lexicon-motif :global(.motif-bird),
+    .lexicon-motif :global(.motif-scales path),
+    .lexicon-motif :global(.motif-comb path) {
+      fill: rgba(162, 76, 56, 0.12);
+      stroke: #a24c38;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.2;
+    }
+
+    .lexicon-motif :global(.motif-soil-layer.middle),
+    .lexicon-motif :global(.motif-soil.fine) {
+      stroke: #8d7c5b;
+    }
+
+    .lexicon-motif :global(.motif-soil-layer.dark) {
+      stroke: #5f5141;
+    }
+
+    .lexicon-motif :global(.motif-fog) {
+      fill: rgba(247, 247, 242, 0.68);
+    }
+
+    @media (max-width: 980px) {
+      .lexicon-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mechanism-timeline {
+        margin-left: 0;
+        padding-left: 3.4rem;
+      }
+
+      .mechanism-node {
+        grid-template-columns: 2.7rem minmax(0, 1fr);
+      }
+
+      .mechanism-marker {
+        width: 2.7rem;
+      }
+
+      .theory-notes {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .lexical-hero h1 {
+        max-width: 22ch;
+        font-size: clamp(2rem, 9vw, 2.8rem);
+      }
+
+      .lexical-actions a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .lexicon-filter-button {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      .mechanism-timeline {
+        gap: 2.2rem;
+        padding-left: 2.9rem;
+      }
+
+      .mechanism-axis {
+        left: 0.88rem;
+      }
+
+      .mechanism-node {
+        grid-template-columns: 2.25rem minmax(0, 1fr);
+        gap: 0.82rem;
+      }
+
+      .mechanism-marker {
+        width: 2.25rem;
+      }
+
+      .mechanism-marker span {
+        font-size: 1rem;
+      }
+
+      .lexicon-card {
+        min-height: 0;
+      }
+
+      .lexicon-motif,
+      .lexicon-motif :global(svg) {
+        min-height: 160px;
+      }
+    }
+  </style>
+
+  <script>
+    const timeline = document.querySelector<HTMLElement>('.mechanism-timeline');
+    const timelineNodes = Array.from(document.querySelectorAll<HTMLElement>('[data-timeline-node]'));
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.lexicon-filter-button'));
+    const lexiconCards = Array.from(document.querySelectorAll<HTMLElement>('.lexicon-card'));
+    const filterTimers = new WeakMap<HTMLElement, number>();
+
+    const setTimelineProgress = () => {
+      if (!timeline) return;
+      const rect = timeline.getBoundingClientRect();
+      const viewportMarker = window.innerHeight * 0.58;
+      const rawProgress = (viewportMarker - rect.top) / Math.max(rect.height, 1);
+      const progress = Math.min(1, Math.max(0, rawProgress));
+      timeline.style.setProperty('--timeline-progress', `${progress * 100}%`);
+    };
+
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
+        entry.target.classList.toggle('is-active', entry.isIntersecting && entry.intersectionRatio > 0.45);
+      });
+    }, { rootMargin: '-18% 0px -34% 0px', threshold: [0.16, 0.45, 0.7] });
+
+    timelineNodes.forEach((node) => timelineObserver.observe(node));
+    setTimelineProgress();
+    window.addEventListener('scroll', setTimelineProgress, { passive: true });
+    window.addEventListener('resize', setTimelineProgress);
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const category = button.dataset.category || 'all';
+        filterButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+        lexiconCards.forEach((card) => {
+          const isHidden = category !== 'all' && card.dataset.category !== category;
+          card.setAttribute('aria-hidden', String(isHidden));
+          const existingTimer = filterTimers.get(card);
+          if (existingTimer) window.clearTimeout(existingTimer);
+
+          if (isHidden) {
+            card.classList.remove('is-expanded');
+            card.classList.add('is-hiding');
+            const timer = window.setTimeout(() => {
+              card.hidden = true;
+            }, 190);
+            filterTimers.set(card, timer);
+          } else {
+            card.hidden = false;
+            requestAnimationFrame(() => {
+              card.classList.remove('is-hiding');
+            });
+          }
+        });
+      });
+    });
+
+    lexiconCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        if (card.hidden || card.classList.contains('is-hiding')) return;
+        card.classList.toggle('is-expanded');
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        card.click();
+      });
+    });
+  </script>
+</BaseLayout>

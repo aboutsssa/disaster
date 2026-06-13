@@ -9,6 +9,12 @@ interface Props {
   description?: string;
   descriptionEn?: string;
   descriptionZh?: string;
+  keywords?: string;
+  keywordsEn?: string;
+  keywordsZh?: string;
+  canonicalPath?: string;
+  ogType?: string;
+  ogImage?: string;
 }
 
 const {
@@ -17,12 +23,24 @@ const {
   titleZh = title,
   description,
   descriptionEn = description ?? site.affiliation.en,
-  descriptionZh = description ?? site.affiliation.zh
+  descriptionZh = description ?? site.affiliation.zh,
+  keywords,
+  keywordsEn = keywords,
+  keywordsZh = keywords,
+  canonicalPath,
+  ogType = 'website',
+  ogImage
 } = Astro.props;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
 const isActivePath = (href: string) =>
   currentPath === href || (href !== '/' && currentPath.startsWith(href));
+const canonicalUrl = canonicalPath && Astro.site
+  ? new URL(withBase(canonicalPath), Astro.site).toString()
+  : undefined;
+const ogImageUrl = ogImage && Astro.site
+  ? new URL(withBase(ogImage), Astro.site).toString()
+  : undefined;
 ---
 
 <!doctype html>
@@ -35,7 +53,33 @@ const isActivePath = (href: string) =>
       data-lang-en={descriptionEn}
       data-lang-zh={descriptionZh}
     />
+    {
+      keywordsZh && keywordsEn && (
+        <meta
+          name="keywords"
+          content={keywordsZh}
+          data-lang-en={keywordsEn}
+          data-lang-zh={keywordsZh}
+        />
+      )
+    }
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta property="og:type" content={ogType} />
+    <meta
+      property="og:title"
+      content={`${titleZh} | ${site.name.zh}`}
+      data-lang-en={`${titleEn} | ${site.name.en}`}
+      data-lang-zh={`${titleZh} | ${site.name.zh}`}
+    />
+    <meta
+      property="og:description"
+      content={descriptionZh}
+      data-lang-en={descriptionEn}
+      data-lang-zh={descriptionZh}
+    />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
     <title>{titleZh} | {site.name.zh}</title>
   </head>
   <body>
