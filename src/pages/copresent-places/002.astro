@@ -2,14 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ShareMenu from '../../components/ShareMenu.astro';
 
-const pageTitleZh = '词汇的失地：城市化如何让词语失去地方、身体与环境参照物';
+const pageTitleZh = '词汇的失地：城市化如何让词语失去地方、感知与环境参照物';
 const pageTitleEn =
-  'Displaced Vocabulary: How Urbanization Detaches Words from Place, Body, and Environmental Referents';
-const summaryZh = '城市化并不只改变土地使用，也改变语言与身体之间的距离。';
+  'Displaced Vocabulary: How Urbanization Detaches Words from Place, Perception, and Environmental Referents';
+const summaryZh = '城市化并不只改变土地使用，也改变语言与感知主体之间的距离。';
 const summaryEn =
   'Urbanization changes not only land use, but also the distance between language and the body.';
 const descriptionZh =
-  '城市化并不只改变土地使用，也改变语言与身体之间的距离。本文收集正在失去置身感的场景词，并邀请读者共同补充那些仍被理解、却越来越难被亲身经验的词语。';
+  '城市化并不只改变土地使用，也改变语言与感知主体之间的距离。本文收集正在失去置身感的场景词，并邀请读者共同补充那些仍被理解、却越来越难被亲身经验的词语。';
 const descriptionEn =
   'Urbanization changes not only land use, but also the distance between language and the body. This essay collects scene words losing situatedness and invites readers to contribute words that remain intelligible but increasingly difficult to experience firsthand.';
 const keywordsZh = ['语言地理', '经验消亡', '地方记忆', '无地方性', '文化景观', '城市化'];
@@ -31,7 +31,7 @@ const mechanismIntroZh =
 const mechanismIntroEn =
   'Words are not free-floating signs. They rely on bodies, places, species, weather, labor, and intergenerational memory to sustain meaning. The five mechanisms below are not merely a linear process, but the combined result of urbanization, spatial production, extinction of experience, embodied cognition, and symbolic simulation.';
 const lexiconIntroZh =
-  '以下词语并不是简单地“消失”，而是它们所依托的场景正在从日常生活中退场。人们仍然认识这些词，却越来越少能通过身体、感官和地方经验进入它们。';
+  '以下词语并不是简单地“消失”，而是它们所依托的场景正在从日常生活中淡化。人们仍然认识这些词，却越来越少能通过身体、感官和地方经验进入它们。';
 const lexiconIntroEn =
   'The words below do not simply disappear. The scenes they depend on are receding from everyday life. People still recognize these words, yet increasingly struggle to enter them through body, senses, and place-based experience.';
 const contributionFormEndpoint = import.meta.env.PUBLIC_CONTRIBUTION_FORM_ENDPOINT ?? '';
@@ -141,7 +141,7 @@ const mechanismItems: MechanismItem[] = [
       '在索绪尔的符号学框架中，语言符号由能指和所指构成。当现实参照物仍然可被经验时，词语能够把人带回具体场景；当参照物从日常生活中退场后，词语仍然可以流通，但其所指向的感官经验和地方经验会逐渐变薄。进一步说，在鲍德里亚所谓“拟像化”的语境中，词语可能不再描述一个可置身其中的场景，而转化为景观命名、广告修辞和社交媒体意象。此时，“鸟语花香”未必指向真实鸟鸣和花香，“月明星稀”未必指向真实黑夜与星空，而是一种被消费、被设计、被滤镜化的自然感。',
     textEn:
       'In Saussure’s semiotic framework, linguistic signs are composed of signifier and signified. When real referents remain experienceable, words can return people to concrete scenes; after those referents withdraw from everyday life, words may still circulate, but the sensory and place-based experience they signify gradually thins. Further, in Baudrillard’s sense of simulation, words may no longer describe scenes one can inhabit, but become landscape naming, advertising rhetoric, and social-media imagery. At this point, 鸟语花香 (niao yu hua xiang) may no longer point to actual birdsong and floral scent, and 月明星稀 (yue ming xing xi) may no longer point to real darkness and stars, but to a consumable, designed, filtered sense of nature.',
-    transitionZh: '当词还在，土地已经退场。',
+    transitionZh: '当词还在，土地已经淡出。',
     transitionEn: 'The word remains, but the land has stepped back.',
     citationIds: [6, 7]
   }
@@ -591,8 +591,8 @@ const motifSvgs: Record<MotifKey, string> = {
           </div>
           <div class="lexical-actions">
             <a href="#mechanism" data-lang-en="View mechanism" data-lang-zh="查看机制图">查看机制图</a>
-            <a href="#lexicon" data-lang-en="Enter scene lexicon" data-lang-zh="进入场景词标本室">
-              进入场景词标本室
+            <a href="#lexicon" data-lang-en="Enter lexicon cabinet" data-lang-zh="进入词语标本室">
+              进入词语标本室
             </a>
             <a href="#contribute" data-lang-en="Submit a word" data-lang-zh="提交词语">提交词语</a>
           </div>
@@ -696,8 +696,8 @@ const motifSvgs: Record<MotifKey, string> = {
         <p class="eyebrow" data-lang-en="Lexicon Cabinet" data-lang-zh="词语图谱">
           词语图谱
         </p>
-        <h2 data-lang-en="Situated Scene Word Cabinet" data-lang-zh="置身场景词标本室">
-          置身场景词标本室
+        <h2 data-lang-en="Lexicon Cabinet" data-lang-zh="词语标本室">
+          词语标本室
         </h2>
         <p data-lang-en={lexiconIntroEn} data-lang-zh={lexiconIntroZh}>{lexiconIntroZh}</p>
       </div>
@@ -1013,10 +1013,10 @@ const motifSvgs: Record<MotifKey, string> = {
           <label class="consent-field">
             <input type="checkbox" name="consent" required />
             <span
-              data-lang-en="I understand that submissions are not published automatically, and site maintainers may organize, edit, or excerpt them for the Situated Scene Word Cabinet."
-              data-lang-zh="我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“置身场景词标本室”。"
+              data-lang-en="I understand that submissions are not published automatically, and site maintainers may organize, edit, or excerpt them for the Lexicon Cabinet."
+              data-lang-zh="我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“词语标本室”。"
             >
-              我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“置身场景词标本室”。
+              我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“词语标本室”。
             </span>
           </label>
 
