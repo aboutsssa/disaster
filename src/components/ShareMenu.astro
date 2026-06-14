@@ -12,7 +12,18 @@ interface Props {
 
 const { titleZh, titleEn = titleZh, descriptionZh = '', descriptionEn = descriptionZh, path, compact = false } = Astro.props;
 const shareUrl = Astro.site ? new URL(withBase(path), Astro.site).toString() : withBase(path);
+const shareUrlEn = (() => {
+  try {
+    const url = new URL(shareUrl, Astro.site?.toString() ?? 'https://aboutsssa.github.io');
+    url.searchParams.set('lang', 'en');
+    return url.toString();
+  } catch {
+    const separator = shareUrl.includes('?') ? '&' : '?';
+    return `${shareUrl}${separator}lang=en`;
+  }
+})();
 const encodedUrl = encodeURIComponent(shareUrl);
+const encodedUrlEn = encodeURIComponent(shareUrlEn);
 const shareTextZh = [titleZh, descriptionZh].filter(Boolean).join('\n');
 const shareTextEn = [titleEn, descriptionEn].filter(Boolean).join('\n');
 const encodedShareTextZh = encodeURIComponent(shareTextZh);
@@ -39,7 +50,7 @@ const encodedShareTextEn = encodeURIComponent(shareTextEn);
       </button>
       <a
         class="share-button"
-        href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedShareTextEn}`}
+        href={`https://twitter.com/intent/tweet?url=${encodedUrlEn}&text=${encodedShareTextEn}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -47,7 +58,7 @@ const encodedShareTextEn = encodeURIComponent(shareTextEn);
       </a>
       <a
         class="share-button"
-        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrlEn}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -55,7 +66,7 @@ const encodedShareTextEn = encodeURIComponent(shareTextEn);
       </a>
       <a
         class="share-button"
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrlEn}`}
         target="_blank"
         rel="noopener noreferrer"
       >

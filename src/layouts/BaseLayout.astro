@@ -66,20 +66,35 @@ const ogImageUrl = ogImage && Astro.site
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="en_US" />
     <meta
       property="og:title"
-      content={`${titleZh} | ${site.name.zh}`}
+      content={`${titleEn} | ${site.name.en}`}
       data-lang-en={`${titleEn} | ${site.name.en}`}
       data-lang-zh={`${titleZh} | ${site.name.zh}`}
     />
     <meta
       property="og:description"
-      content={descriptionZh}
+      content={descriptionEn}
       data-lang-en={descriptionEn}
       data-lang-zh={descriptionZh}
     />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta
+      name="twitter:title"
+      content={`${titleEn} | ${site.name.en}`}
+      data-lang-en={`${titleEn} | ${site.name.en}`}
+      data-lang-zh={`${titleZh} | ${site.name.zh}`}
+    />
+    <meta
+      name="twitter:description"
+      content={descriptionEn}
+      data-lang-en={descriptionEn}
+      data-lang-zh={descriptionZh}
+    />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     <title>{titleZh} | {site.name.zh}</title>
   </head>
   <body>
@@ -160,7 +175,8 @@ const ogImageUrl = ogImage && Astro.site
         }
       };
 
-      const initialLanguage = normalizeLanguage(localStorage.getItem(STORAGE_KEY) || 'zh');
+      const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+      const initialLanguage = normalizeLanguage(urlLanguage || localStorage.getItem(STORAGE_KEY) || 'zh');
       window.setReSpaceLanguage(initialLanguage, { silent: true });
 
       document.querySelectorAll('[data-site-language]').forEach((button) => {
