@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareMenu from '../../components/ShareMenu.astro';
 import { projectEntries } from '../../data/projects';
 import { withBase } from '../../data/site';
 ---
@@ -50,7 +51,17 @@ import { withBase } from '../../data/site';
                 <span>{tag}</span>
               ))}
             </div>
-            <a class="project-entry-link" href={withBase(project.href)}>Visit site</a>
+            <div class="project-entry-actions">
+              <a class="project-entry-link" href={withBase(project.href)}>Visit site</a>
+              <ShareMenu
+                titleZh={project.title.zh}
+                titleEn={project.title.en}
+                descriptionZh={project.description.zh}
+                descriptionEn={project.description.en}
+                path={project.href}
+                compact
+              />
+            </div>
           </div>
         </article>
       ))

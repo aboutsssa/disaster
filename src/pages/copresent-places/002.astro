@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareMenu from '../../components/ShareMenu.astro';
 
 const pageTitleZh = '词汇的失地：城市化如何让词语失去地方、身体与生态参照物';
 const pageTitleEn =
@@ -8,9 +9,9 @@ const summaryZh = '城市化并不只改变土地使用，也改变语言与身�
 const summaryEn =
   'Urbanization changes not only land use, but also the distance between language and the body.';
 const descriptionZh =
-  '城市化并不只改变土地使用，也改变语言与身体之间的距离。本文将自然与农耕词汇视为微型地理档案，讨论词语如何在城市化过程中失去地方、身体与生态参照物。';
+  '城市化并不只改变土地使用，也改变语言与身体之间的距离。本文收集正在失去置身感的场景词，并邀请读者共同补充那些仍被理解、却越来越难被亲身经验的词语。';
 const descriptionEn =
-  'This essay reads natural and agrarian vocabulary as miniature geographic archives, tracing how words lose place, body, and ecological referents through urbanization.';
+  'Urbanization changes not only land use, but also the distance between language and the body. This essay collects scene words losing situatedness and invites readers to contribute words that remain intelligible but increasingly difficult to experience firsthand.';
 const keywordsZh = ['语言地理', '经验消亡', '地方记忆', '无地方性', '文化景观', '城市化'];
 const keywordsEn = [
   'linguistic geography',
@@ -26,261 +27,512 @@ const openingTextZh =
 const openingTextEn =
   'Human language is a dynamic system of social convention, and the sedimentation of its vocabulary faithfully records the ways people lived in particular historical periods. Across a long agrarian civilization, ecological adaptation and agricultural practice produced a richly embodied linguistic system. Many idioms, words, and rhetorical images, such as 鸟语花香 (niao yu hua xiang) and 如沐春风 (ru mu chun feng), rely directly on a vivid physical world and sensory experience. Yet as China has undergone the largest and fastest urbanization process in the world, social space, labor, and everyday environments have been fundamentally remade.';
 const mechanismIntroZh =
-  '词语并不是凭空漂浮的符号。它们依靠身体、地方、物种、天气、劳动和代际记忆来维持意义。当这些现实参照物从日常生活中退场，词语仍然可以继续流通，但其经验厚度会逐渐变薄。';
+  '词语并不是凭空漂浮的符号。它们依靠身体、地方、物种、天气、劳动和代际记忆来维持意义。以下五个机制并非单纯的线性流程，而是城市化、空间生产、经验消亡、具身认知和符号拟像共同作用的结果。';
 const mechanismIntroEn =
-  'Words are not free-floating signs. They rely on bodies, places, species, weather, labor, and intergenerational memory to sustain meaning. When these real referents withdraw from everyday life, words may still circulate, but their experiential thickness gradually thins.';
+  'Words are not free-floating signs. They rely on bodies, places, species, weather, labor, and intergenerational memory to sustain meaning. The five mechanisms below are not merely a linear process, but the combined result of urbanization, spatial production, extinction of experience, embodied cognition, and symbolic simulation.';
 const lexiconIntroZh =
-  '以下词语并非简单“消失”，而是在城市化语境中发生了不同形式的漂移：有的失去身体经验，有的转为抽象隐喻，有的进入商业命名，有的成为屏幕化的自然想象。';
+  '以下词语并不是简单地“消失”，而是它们所依托的场景正在从日常生活中退场。人们仍然认识这些词，却越来越少能通过身体、感官和地方经验进入它们。';
 const lexiconIntroEn =
-  'The words below do not simply “disappear.” In urbanized contexts, they drift in different ways: some lose bodily experience, some become abstract metaphors, some enter commercial naming, and some become screen-mediated imaginations of nature.';
+  'The words below do not simply disappear. The scenes they depend on are receding from everyday life. People still recognize these words, yet increasingly struggle to enter them through body, senses, and place-based experience.';
+const contributionFormEndpoint = import.meta.env.PUBLIC_CONTRIBUTION_FORM_ENDPOINT ?? '';
+const contributionEmail = import.meta.env.PUBLIC_CONTRIBUTION_EMAIL ?? 'aboutsssa@gmail.com';
+const hasContributionEmail = Boolean(contributionEmail);
+const contributionSenseOptions = [
+  { zh: '听觉', en: 'Hearing' },
+  { zh: '嗅觉', en: 'Smell' },
+  { zh: '触觉', en: 'Touch' },
+  { zh: '视觉', en: 'Vision' },
+  { zh: '湿度', en: 'Humidity' },
+  { zh: '风', en: 'Wind' },
+  { zh: '雨', en: 'Rain' },
+  { zh: '土壤', en: 'Soil' },
+  { zh: '作物', en: 'Crops' },
+  { zh: '夜空', en: 'Night sky' },
+  { zh: '动物', en: 'Animals' },
+  { zh: '村落', en: 'Village' },
+  { zh: '食物', en: 'Food' },
+  { zh: '微光', en: 'Faint light' },
+  { zh: '其他', en: 'Other' }
+];
 
-const mechanismItems = [
+type MechanismItem = {
+  id: string;
+  tag: string;
+  titleZh: string;
+  titleEn: string;
+  theoryTermsZh: string[];
+  theoryTermsEn: string[];
+  textZh: string;
+  textEn: string;
+  transitionZh: string;
+  transitionEn: string;
+  citationIds: number[];
+};
+
+const mechanismItems: MechanismItem[] = [
   {
-    tag: 'place',
-    titleZh: '土地使用变化',
-    titleEn: 'Land-Use Change',
-    textZh: '农田、荒地、湿地、村落与地方性景观被城市建设、道路系统和标准化空间重新组织。地方并未完全消失，但其生态细节、劳作节奏与物候结构被不断压缩。',
+    id: '01',
+    tag: 'PLACE / PLACELESSNESS',
+    titleZh: '土地使用变化：从地方到标准化空间',
+    titleEn: 'Land-Use Change: From Place to Standardized Space',
+    theoryTermsZh: ['地方', '恋地情结', '无地方性', '空间均质化'],
+    theoryTermsEn: ['place', 'topophilia', 'placelessness', 'spatial homogenization'],
+    textZh:
+      '在段义孚关于“空间与地方”的讨论中，地方并不是抽象坐标，而是由身体经验、情感依恋和时间沉积生成的生活世界。传统自然与农耕词汇所依托的，正是这种可被进入、可被反复经验的地方。随着农田、荒地、湿地、村落与地方性景观被城市建设、道路系统和标准化空间重新组织，地方并未完全消失，但其生态细节、劳作节奏与物候结构被不断压缩。Relph 所说的“无地方性”在这里表现为：不同城市空间越来越相似，地方差异和地方记忆变得越来越难以被身体感知。',
     textEn:
-      'Farmland, wasteland, wetlands, villages, and local landscapes are reorganized by urban construction, road systems, and standardized space. Place does not disappear completely, but its ecological details, labor rhythms, and phenological structure are compressed.',
+      'In Yi-Fu Tuan’s discussion of space and place, place is not an abstract coordinate, but a lifeworld generated through bodily experience, affective attachment, and accumulated time. Traditional natural and agrarian vocabulary depends precisely on this kind of place: enterable and repeatedly experienced. As farmland, wasteland, wetlands, villages, and local landscapes are reorganized by urban construction, road systems, and standardized space, place does not disappear completely, but its ecological details, labor rhythms, and phenological structure are compressed. Relph’s “placelessness” appears here as urban spaces becoming increasingly similar, while local difference and place memory become harder to perceive bodily.',
     transitionZh: '词语原本扎根的土地，首先失去了它的厚度。',
-    transitionEn: 'The land in which words were rooted is the first to lose its depth.'
+    transitionEn: 'The land in which words were rooted is the first to lose its depth.',
+    citationIds: [4, 5]
   },
   {
-    tag: 'weather',
-    titleZh: '日常自然接触减少',
-    titleEn: 'Fewer Everyday Encounters with Nature',
-    textZh: '鸟鸣、花香、泥土、作物、农具、风向和天气征兆，不再稳定地构成多数人的日常经验。人与自然的关系，从长期共处转向偶发接触与被设计过的景观消费。',
+    id: '02',
+    tag: 'EXTINCTION OF EXPERIENCE',
+    titleZh: '日常自然接触减少：经验消亡的开始',
+    titleEn: 'Fewer Everyday Encounters with Nature: The Beginning of Extinction of Experience',
+    theoryTermsZh: ['经验消亡', '人—自然互动减少', '生态识别能力'],
+    theoryTermsEn: ['extinction of experience', 'reduced human-nature interaction', 'ecological recognition'],
+    textZh:
+      'Pyle 提出的“经验消亡”指出，当自然不再稳定地出现在日常生活中，人们失去的不只是自然本身，也包括识别、命名和关心自然的能力。鸟鸣、花香、泥土、作物、农具、风向和天气征兆，不再持续构成多数人的生活经验。人与自然的关系，从长期共处转向偶发接触，从生产生活中的持续观察转向公园、景区、屏幕和商业空间中被设计过的自然体验。Soga 与 Gaston 后续进一步将这一现象概括为人—自然互动的系统性减少及其生态、情感和行为后果。',
     textEn:
-      'Birdsong, floral scent, soil, crops, tools, wind direction, and signs of weather no longer form stable parts of everyday experience for most people. Human relations with nature shift from long co-presence to occasional contact and designed landscape consumption.',
+      'Pyle’s “extinction of experience” suggests that when nature no longer appears stably in everyday life, people lose not only nature itself, but also the ability to recognize, name, and care for it. Birdsong, floral scent, soil, crops, tools, wind direction, and weather signs no longer continuously form the lived experience of most people. Human relations with nature shift from long co-presence to occasional contact, and from sustained observation in productive life to designed nature experiences in parks, scenic areas, screens, and commercial space. Soga and Gaston later described this as a systematic loss of human-nature interactions and its ecological, emotional, and behavioral consequences.',
     transitionZh: '经验开始稀薄，词语却仍在流通。',
-    transitionEn: 'Experience becomes thinner, while the words continue to circulate.'
+    transitionEn: 'Experience becomes thinner, while the words continue to circulate.',
+    citationIds: [2, 3]
   },
   {
-    tag: 'body',
-    titleZh: '身体感官经验被压缩',
-    titleEn: 'Compressed Bodily Sensation',
-    textZh: '听觉、嗅觉、触觉和劳作身体被屏幕、交通、建筑和消费空间重新中介。人仍然“知道”这些词，却越来越少通过身体进入它们。',
+    id: '03',
+    tag: 'EMBODIED LANGUAGE',
+    titleZh: '身体感官经验被压缩：进入词语的身体路径变窄',
+    titleEn: 'Compressed Bodily Sensation: Narrowing the Bodily Path into Words',
+    theoryTermsZh: ['具身隐喻', '体认语言', '身体经验', '感官中介'],
+    theoryTermsEn: ['embodied metaphor', 'embodied-cognitive language', 'bodily experience', 'sensory mediation'],
+    textZh:
+      'Lakoff 与 Johnson 关于具身隐喻的研究提示我们，许多词语的意义并不是纯粹概念性的，而是来自身体在世界中的反复经验。风的触感、雨的湿度、泥土的气味、鸟鸣的方向感、夜空的明暗变化，都会进入语言的意义结构。现代城市生活中，听觉、嗅觉、触觉和劳作身体被屏幕、交通、建筑、空调和消费空间重新中介。人仍然“知道”这些词，却越来越少通过身体进入它们。“如沐春风”成为人际修辞，“雨后春笋”成为增长隐喻，“鸟语花香”成为景观话术，而它们原本携带的温度、湿度、气味、手感和停留感逐渐退场。',
     textEn:
-      'Hearing, smell, touch, and laboring bodies are re-mediated by screens, traffic, buildings, and spaces of consumption. People still “know” these words, but less often enter them through the body.',
+      'Lakoff and Johnson’s work on embodied metaphor reminds us that the meaning of many words is not purely conceptual, but comes from repeated bodily experience in the world. The touch of wind, the humidity of rain, the smell of soil, the directionality of birdsong, and changes in night-sky brightness all enter the structure of linguistic meaning. In modern urban life, hearing, smell, touch, and laboring bodies are re-mediated by screens, traffic, buildings, air conditioning, and spaces of consumption. People still “know” these words, but less often enter them through the body. 如沐春风 (ru mu chun feng) becomes interpersonal rhetoric, 雨后春笋 (yu hou chun sun) becomes a metaphor of growth, and 鸟语花香 (niao yu hua xiang) becomes landscape language, while the temperature, humidity, smell, tactility, and lingering bodily presence they once carried gradually withdraw.',
     transitionZh: '语言保留了名字，身体失去了进入词语的门。',
-    transitionEn: 'Language keeps the names; the body loses the door into the words.'
+    transitionEn: 'Language keeps the names; the body loses the door into the words.',
+    citationIds: [1]
   },
   {
-    tag: 'memory',
-    titleZh: '地方记忆与物候知识弱化',
-    titleEn: 'Weakened Place Memory and Phenological Knowledge',
-    textZh: '节气、土壤、水文、作物、物种和地方气象不再稳定地进入代际传递。原本依靠家庭、土地和社区维系的微观知识，开始从日常生活中后退。',
+    id: '04',
+    tag: 'PLACE MEMORY',
+    titleZh: '地方记忆与物候知识弱化：场景不再被代际继承',
+    titleEn: 'Weakened Place Memory and Phenological Knowledge: Scenes No Longer Inherited',
+    theoryTermsZh: ['地方经验', '物候知识', '代际传递', '生活世界'],
+    theoryTermsEn: ['place experience', 'phenological knowledge', 'intergenerational transmission', 'lifeworld'],
+    textZh:
+      '场景词的意义并不只由词典保存，也依靠家庭、村落、社区和地方实践不断被重新激活。节气、土壤、水文、作物、物种和地方气象，原本通过日常生活进入代际传递：什么时候起风，什么雨会连下，什么虫声意味着季节转换，哪一条小路通向田埂或水边。当地理空间被标准化、生活节奏被通勤和屏幕重组，这些微观知识不再稳定进入身体和记忆。于是，词语仍然作为文化常识被理解，但其背后的地方经验不再被自然继承。这个过程可以被理解为地方经验的薄化，也是经验消亡在语言层面的延伸。',
     textEn:
-      'Solar terms, soil, hydrology, crops, species, and local weather no longer enter intergenerational transmission in stable ways. The small-scale knowledge once held by family, land, and community begins to recede from everyday life.',
+      'The meaning of scene words is not preserved by dictionaries alone; it is continually reactivated by families, villages, communities, and local practice. Solar terms, soil, hydrology, crops, species, and local weather once entered intergenerational transmission through everyday life: when wind begins, which rain will continue, which insect sound marks seasonal change, and which small path leads to a ridge or waterside. When geographic space is standardized and daily rhythms are reorganized by commuting and screens, these small forms of knowledge no longer enter bodies and memory in stable ways. Words remain intelligible as cultural common sense, but the place experience behind them is no longer naturally inherited. This can be understood as the thinning of place experience and as the linguistic extension of the extinction of experience.',
     transitionZh: '地方还在地图上，地方经验却正在退出记忆。',
-    transitionEn: 'Place remains on the map, while place experience withdraws from memory.'
+    transitionEn: 'Place remains on the map, while place experience withdraws from memory.',
+    citationIds: [3, 4, 5]
   },
   {
-    tag: 'symbol',
-    titleZh: '词汇空心化 / 拟像化',
-    titleEn: 'Hollowed and Simulated Vocabulary',
-    textZh: '词语仍被反复使用，但越来越多地转化为景观命名、广告修辞或社交媒体意象。能指尚在，所指却逐渐脱离了现实参照物。',
+    id: '05',
+    tag: 'SEMIOTICS / SIMULACRA',
+    titleZh: '词汇空心化与拟像化：能指仍在，所指变薄',
+    titleEn: 'Hollowed and Simulated Vocabulary: Signifier Remains, Signified Thins',
+    theoryTermsZh: ['能指', '所指', '参照物变薄', '拟像化', '消费景观'],
+    theoryTermsEn: ['signifier', 'signified', 'thinning referents', 'simulacra', 'consumable landscape'],
+    textZh:
+      '在索绪尔的符号学框架中，语言符号由能指和所指构成。当现实参照物仍然可被经验时，词语能够把人带回具体场景；当参照物从日常生活中退场后，词语仍然可以流通，但其所指向的感官经验和地方经验会逐渐变薄。进一步说，在鲍德里亚所谓“拟像化”的语境中，词语可能不再描述一个可置身其中的场景，而转化为景观命名、广告修辞和社交媒体意象。此时，“鸟语花香”未必指向真实鸟鸣和花香，“月明星稀”未必指向真实黑夜与星空，而是一种被消费、被设计、被滤镜化的自然感。',
     textEn:
-      'Words are still used repeatedly, but they increasingly become names for landscapes, advertising rhetoric, or social-media imagery. The signifier remains, while the referent drifts away from lived reality.',
+      'In Saussure’s semiotic framework, linguistic signs are composed of signifier and signified. When real referents remain experienceable, words can return people to concrete scenes; after those referents withdraw from everyday life, words may still circulate, but the sensory and place-based experience they signify gradually thins. Further, in Baudrillard’s sense of simulation, words may no longer describe scenes one can inhabit, but become landscape naming, advertising rhetoric, and social-media imagery. At this point, 鸟语花香 (niao yu hua xiang) may no longer point to actual birdsong and floral scent, and 月明星稀 (yue ming xing xi) may no longer point to real darkness and stars, but to a consumable, designed, filtered sense of nature.',
     transitionZh: '当词还在，土地已经退场。',
-    transitionEn: 'The word remains, but the land has stepped back.'
+    transitionEn: 'The word remains, but the land has stepped back.',
+    citationIds: [6, 7]
   }
 ];
 
-const theoryNotes = [
+type TheoryReference = {
+  id: number;
+  text: string;
+};
+
+const theoryReferences: TheoryReference[] = [
   {
-    zh: '体认语言学：语言意义来自身体与世界的互动。',
-    en: 'Embodied linguistics: linguistic meaning emerges from interaction between body and world.'
+    id: 1,
+    text: 'Lakoff, George, and Mark Johnson. 1980. Metaphors We Live By. Chicago: University of Chicago Press.'
   },
   {
-    zh: '经验消亡：自然经验的减少会削弱人对生态世界的识别与关心。',
-    en: 'Extinction of experience: reduced natural experience weakens recognition of and care for ecological worlds.'
+    id: 2,
+    text: 'Pyle, Robert Michael. 1978. “The Extinction of Experience.” Horticulture 56: 64–67.'
   },
   {
-    zh: '无地方性：标准化空间削弱地方差异、地方依恋与地方记忆。',
-    en: 'Placelessness: standardized space weakens local difference, attachment, and memory.'
+    id: 3,
+    text: 'Soga, Masashi, and Kevin J. Gaston. 2016. “Extinction of Experience: The Loss of Human–Nature Interactions.” Frontiers in Ecology and the Environment 14(2): 94–101. doi:10.1002/fee.1225.'
   },
   {
-    zh: '拟像化：词语可能从现实经验的描述，转变为消费景观的符号。',
-    en: 'Simulation: words may shift from descriptions of lived reality into signs of consumable landscape.'
+    id: 4,
+    text: 'Tuan, Yi-Fu. 1977. Space and Place: The Perspective of Experience. Minneapolis: University of Minnesota Press.'
+  },
+  {
+    id: 5,
+    text: 'Relph, Edward. 1976. Place and Placelessness. London: Pion.'
+  },
+  {
+    id: 6,
+    text: 'Saussure, Ferdinand de. 1916/1983. Course in General Linguistics. Edited by Charles Bally and Albert Sechehaye. Translated and annotated by Roy Harris. London: Duckworth.'
+  },
+  {
+    id: 7,
+    text: 'Baudrillard, Jean. 1981/1994. Simulacra and Simulation. Translated by Sheila Faria Glaser. Ann Arbor: University of Michigan Press.'
   }
 ];
 
 type MotifKey =
   | 'birdsFlowers'
+  | 'grassWarbler'
   | 'springWind'
+  | 'slantRain'
   | 'bambooShoot'
-  | 'scalesComb'
-  | 'deepTilling'
-  | 'rainPreparedness'
-  | 'fiveGrains'
-  | 'beansWheat';
+  | 'bananaRain'
+  | 'riceFrog'
+  | 'fieldPaths'
+  | 'villageSounds'
+  | 'cookingSmoke'
+  | 'moonStars'
+  | 'fireflySnow';
 
 type LexiconEntry = {
+  id: string;
   wordZh: string;
   wordEn: string;
+  subtitleZh?: string;
+  subtitleEn?: string;
   categoryZh: string;
   categoryEn: string;
   motif: MotifKey;
-  summaryZh: string;
-  summaryEn: string;
+  motifZh: string;
+  motifEn: string;
+  glimpseZh: string;
+  glimpseEn: string;
   originalExperienceZh: string;
   originalExperienceEn: string;
   urbanDriftZh: string;
   urbanDriftEn: string;
-  diagnosisZh: string;
-  diagnosisEn: string;
+  geographicDiagnosisZh: string;
+  geographicDiagnosisEn: string;
   sensesZh: string[];
   sensesEn: string[];
 };
 
-// TODO: 后续新增词条时，继续向 lexiconEntries 数组添加对象即可。
+// 后续新增词条时，继续向 lexiconEntries 数组添加对象，并在 motifSvgs 中复用或补充 motif。
 const lexiconEntries: LexiconEntry[] = [
   {
+    id: '001',
     wordZh: '鸟语花香',
     wordEn: '鸟语花香 (niao yu hua xiang)',
-    categoryZh: '感官生态与声物候类',
-    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    categoryZh: '春日空气',
+    categoryEn: 'Spring Air',
     motif: 'birdsFlowers',
-    summaryZh: '野鸟鸣叫、花香与季节性声景共同构成的春日经验。',
-    summaryEn: 'A springtime experience formed by wild birdsong, floral scent, and seasonal soundscapes.',
-    originalExperienceZh: '野鸟鸣叫、花香、季节性声景与嗅觉经验。',
-    originalExperienceEn: 'Wild birdsong, floral scent, seasonal soundscapes, and olfactory experience.',
+    motifZh: '枝条、鸟影、花朵、淡淡声波、春季空气流线。',
+    motifEn: 'Branches, bird shadows, blossoms, faint sound waves, and spring air lines.',
+    glimpseZh: '野鸟鸣叫、花香与季节性声景共同构成的春日经验。',
+    glimpseEn: 'A springtime experience formed by wild birdsong, floral scent, and seasonal soundscapes.',
+    originalExperienceZh:
+      '“鸟语花香”原本并不只是一个视觉化的春天图像，而是一种多感官环境。鸟类的鸣叫、花朵的气味、空气的湿度、季节的转暖和人在户外行走时获得的身体感受，共同构成了它的意义。',
+    originalExperienceEn:
+      '鸟语花香 (niao yu hua xiang) was never only a visual image of spring, but a multisensory environment. Birdsong, floral scent, humidity, seasonal warming, and the bodily feeling of walking outdoors together produced its meaning.',
     urbanDriftZh:
-      '在小区命名、景观宣传和城市公园叙事中仍被频繁使用，但真实的多物种声景与花香经验被压缩。',
+      '在小区命名、景观宣传、城市公园叙事和文旅广告中，“鸟语花香”仍被频繁使用。但真实的多物种声景和可被嗅到的花香经验，往往被草坪、景观树、背景音乐和视觉化绿化替代。',
     urbanDriftEn:
-      'Still common in residential names, landscape promotion, and urban-park narratives, while actual multispecies soundscapes and floral scents are compressed.',
-    diagnosisZh: '感官钝化与场景异化。',
-    diagnosisEn: 'Sensory dulling and scene alienation.',
+      'It remains common in residential names, landscape promotion, urban-park narratives, and cultural-tourism advertising. Yet actual multispecies soundscapes and smellable floral experience are often replaced by lawns, ornamental trees, background music, and visualized greenery.',
+    geographicDiagnosisZh:
+      '感官钝化与场景异化。词语仍在描述“自然感”，但自然被压缩成可观看的景观，听觉、嗅觉和物候经验逐渐退场。',
+    geographicDiagnosisEn:
+      'Sensory dulling and scene alienation. The word still describes a sense of nature, but nature is compressed into viewable landscape as hearing, smell, and phenological experience recede.',
     sensesZh: ['听觉', '嗅觉', '物候'],
     sensesEn: ['hearing', 'smell', 'phenology']
   },
   {
+    id: '002',
+    wordZh: '草长莺飞',
+    wordEn: '草长莺飞 (cao zhang ying fei)',
+    categoryZh: '春日空气',
+    categoryEn: 'Spring Air',
+    motif: 'grassWarbler',
+    motifZh: '低矮草叶、掠过的鸟影、轻风中的生长线条。',
+    motifEn: 'Low grasses, passing bird shadows, and growth lines in light wind.',
+    glimpseZh: '草木向上生长，鸟类掠过低空，春天作为一种动态环境展开。',
+    glimpseEn: 'Grasses rise, birds pass low through the air, and spring unfolds as a moving environment.',
+    originalExperienceZh:
+      '“草长莺飞”保存的是早春到仲春之间的乡野场景。草地不是被修剪成统一高度的景观草坪，而是随季节自由生长；鸟也不是装饰性的符号，而是在草地、林缘和水边活动的真实生命。',
+    originalExperienceEn:
+      '草长莺飞 (cao zhang ying fei) preserves a countryside scene between early and mid spring. Grass is not a uniformly trimmed lawn but seasonal growth; birds are not decorative symbols but living beings moving through grassland, woodland edges, and watersides.',
+    urbanDriftZh:
+      '现代城市仍然保留草坪和绿化带，但这些空间常常被修剪、围栏、道路和管理制度规训。草的野性生长和鸟的自由活动被压缩，春天更多变成可拍照的景观背景。',
+    urbanDriftEn:
+      'Modern cities still retain lawns and green belts, but these spaces are often disciplined by trimming, fences, roads, and management rules. Wild grass growth and free bird movement are compressed, while spring becomes a photographable landscape backdrop.',
+    geographicDiagnosisZh:
+      '物候动态的景观化。词语中的生命运动被保留在文学想象中，但现实空间中的生长过程被标准化维护所取代。',
+    geographicDiagnosisEn:
+      'Landscaping of phenological motion. The living movement inside the phrase remains in literary imagination, while growth in real space is replaced by standardized maintenance.',
+    sensesZh: ['视觉', '听觉', '风'],
+    sensesEn: ['vision', 'hearing', 'wind']
+  },
+  {
+    id: '003',
     wordZh: '如沐春风',
     wordEn: '如沐春风 (ru mu chun feng)',
-    categoryZh: '感官生态与声物候类',
-    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    categoryZh: '春日空气',
+    categoryEn: 'Spring Air',
     motif: 'springWind',
-    summaryZh: '温润春风、空气湿度与皮肤触感共同进入身体。',
-    summaryEn: 'Moist spring wind, changing humidity, and tactile climate entering the body.',
-    originalExperienceZh: '身体感受温润春风、季节转暖和空气湿度变化。',
-    originalExperienceEn: 'The body senses warm spring wind, seasonal warming, and changes in humidity.',
-    urbanDriftZh: '更多作为人际交往中的抽象赞美，原本的气候触觉经验被弱化。',
+    motifZh: '柔和风线、被风包裹的抽象身体轮廓、轻微摆动的植物。',
+    motifEn: 'Soft wind lines, an abstract body contour wrapped by wind, and lightly moving plants.',
+    glimpseZh: '身体被温润春风包围时产生的舒缓、松动与亲近感。',
+    glimpseEn: 'The ease, loosening, and closeness felt when the body is surrounded by warm spring wind.',
+    originalExperienceZh:
+      '“如沐春风”包含一种明确的气候触觉。春季空气转暖，风不再刺骨，湿度与温度共同作用于皮肤，使人产生被轻柔包裹的身体感受。',
+    originalExperienceEn:
+      '如沐春风 (ru mu chun feng) contains a clear tactile climate experience: spring air turns warm, the wind no longer cuts, and humidity and temperature act on the skin to create a bodily feeling of gentle enclosure.',
+    urbanDriftZh:
+      '今天这个词更多用于形容人的态度、谈吐和交往感受。它仍然保留“温和、舒展”的意味，却越来越少指向真实春风中的温度、湿度和空气流动。',
     urbanDriftEn:
-      'More often used as an abstract compliment in interpersonal contexts, with the original tactile climate experience weakened.',
-    diagnosisZh: '触觉经验的隐喻化。',
-    diagnosisEn: 'Metaphorization of tactile experience.',
+      'Today the phrase more often describes a person’s attitude, speech, or interpersonal presence. It still carries warmth and ease, but less often points to the temperature, humidity, and air movement of actual spring wind.',
+    geographicDiagnosisZh:
+      '触觉经验的隐喻化。气候经验被转译为人际修辞，身体与季节之间的直接联系被削弱。',
+    geographicDiagnosisEn:
+      'Metaphorization of tactile experience. Climate sensation is translated into interpersonal rhetoric, weakening the direct link between body and season.',
     sensesZh: ['触觉', '气候', '身体'],
     sensesEn: ['touch', 'climate', 'body']
   },
   {
+    id: '004',
+    wordZh: '斜风细雨',
+    wordEn: '斜风细雨 (xie feng xi yu)',
+    categoryZh: '雨后与湿润',
+    categoryEn: 'Rain and Humidity',
+    motif: 'slantRain',
+    motifZh: '斜向细雨线、浅色水痕、低风速流线、湿润地面。',
+    motifEn: 'Slanting fine rain, pale water traces, low-speed wind lines, and wet ground.',
+    glimpseZh: '人在微风与细雨之间缓慢行走时形成的湿润身体经验。',
+    glimpseEn: 'A damp bodily experience formed while walking slowly between light wind and fine rain.',
+    originalExperienceZh:
+      '“斜风细雨”不是暴雨灾害，而是一种低强度、可被身体细细感知的天气状态。风斜斜吹来，雨轻轻落在衣物、皮肤、地面、河岸或田埂上，构成一种缓慢而潮湿的环境。',
+    originalExperienceEn:
+      '斜风细雨 (xie feng xi yu) is not a storm disaster, but a low-intensity weather state the body can register in detail. Wind arrives at a slant, and rain lightly touches clothing, skin, ground, riverbanks, or field ridges, forming a slow, damp environment.',
+    urbanDriftZh:
+      '现代城市生活常常通过车窗、雨伞、地下通道、建筑雨棚和天气 App 来处理中小尺度天气。雨仍然存在，但人对雨的身体感知被通勤效率和建筑系统中介。',
+    urbanDriftEn:
+      'Modern urban life often handles small and medium-scale weather through car windows, umbrellas, underpasses, building canopies, and weather apps. Rain still exists, but bodily perception of it is mediated by commuting efficiency and building systems.',
+    geographicDiagnosisZh:
+      '天气经验的通勤化。细雨不再首先是可感受的环境，而成为需要被规避、预测或管理的外部条件。',
+    geographicDiagnosisEn:
+      'Commuting of weather experience. Fine rain is no longer first encountered as a sensible environment, but as an external condition to avoid, predict, or manage.',
+    sensesZh: ['雨', '触觉', '湿度'],
+    sensesEn: ['rain', 'touch', 'humidity']
+  },
+  {
+    id: '005',
     wordZh: '雨后春笋',
     wordEn: '雨后春笋 (yu hou chun sun)',
-    categoryZh: '感官生态与声物候类',
-    categoryEn: 'Sensory Ecology and Phenological Soundscapes',
+    categoryZh: '雨后与湿润',
+    categoryEn: 'Rain and Humidity',
     motif: 'bambooShoot',
-    summaryZh: '雨水、泥土和竹笋破土的速度形成可见的物候经验。',
-    summaryEn: 'Rain, soil, and the speed of bamboo shoots breaking ground form a visible phenological experience.',
-    originalExperienceZh: '春雨滋润后竹笋破土而出的快速生长过程。',
-    originalExperienceEn: 'The rapid growth of bamboo shoots emerging from wet soil after spring rain.',
+    motifZh: '土壤剖面、雨滴残痕、破土而出的笋尖。',
+    motifEn: 'Soil section, rain traces, and bamboo shoots breaking through the ground.',
+    glimpseZh: '春雨之后，竹笋顶开潮湿泥土、迅速生长的物候景象。',
+    glimpseEn: 'After spring rain, bamboo shoots press through wet soil and grow with visible speed.',
+    originalExperienceZh:
+      '“雨后春笋”来自对春雨、土壤湿度和竹笋生长速度的观察。它包含雨后泥土的气味、地表被顶开的微小裂隙，以及植物在短时间内旺盛生长的视觉震动。',
+    originalExperienceEn:
+      '雨后春笋 (yu hou chun sun) comes from observing spring rain, soil moisture, and the speed of bamboo-shoot growth. It includes the smell of rain-wet soil, small cracks opened in the ground, and the visual shock of vigorous plant growth in a short time.',
     urbanDriftZh:
-      '常用于形容建筑、产业或机构快速出现，但多数使用者并未见过竹笋破土的物理过程。',
+      '在现代语境中，它常被用来形容建筑、企业、机构、项目或平台快速出现。词语的增长感被保留，但竹林、泥土、春雨和破土过程本身往往从经验中消失。',
     urbanDriftEn:
-      'Often used to describe the rapid appearance of buildings, industries, or institutions, though many users have never seen bamboo shoots physically break through soil.',
-    diagnosisZh: '物候经验的抽象化。',
-    diagnosisEn: 'Abstraction of phenological experience.',
+      'In modern usage, it often describes the rapid appearance of buildings, firms, institutions, projects, or platforms. The sense of growth remains, but bamboo groves, soil, spring rain, and the process of breaking ground often vanish from experience.',
+    geographicDiagnosisZh:
+      '物候经验的抽象化。自然生长过程被借用为发展速度的隐喻，词语从生态观察转向增长叙事。',
+    geographicDiagnosisEn:
+      'Abstraction of phenological experience. Natural growth is borrowed as a metaphor for development speed, shifting the word from ecological observation to growth narrative.',
     sensesZh: ['视觉', '泥土', '物候'],
     sensesEn: ['vision', 'soil', 'phenology']
   },
   {
-    wordZh: '鳞次栉比',
-    wordEn: '鳞次栉比 (lin ci zhi bi)',
-    categoryZh: '感官生态与手工技艺类',
-    categoryEn: 'Sensory Ecology and Craft Analogies',
-    motif: 'scalesComb',
-    summaryZh: '鱼鳞、梳齿和手工器物中的细密秩序被身体观察。',
-    summaryEn: 'Dense order observed through fish scales, comb teeth, and handmade objects.',
-    originalExperienceZh: '鱼鳞与梳齿的细密排列，以及来自自然和手工器物的观察经验。',
-    originalExperienceEn: 'Dense arrangements of fish scales and comb teeth, observed through nature and handcraft.',
-    urbanDriftZh: '常用于描述高楼密集排列，原本的鱼鳞、梳齿与手工触觉联想被削弱。',
+    id: '006',
+    wordZh: '雨打芭蕉',
+    wordEn: '雨打芭蕉 (yu da ba jiao)',
+    categoryZh: '雨后与湿润',
+    categoryEn: 'Rain and Humidity',
+    motif: 'bananaRain',
+    motifZh: '宽大的芭蕉叶、雨点落下的细线、叶面水珠和室内听雨的窗格。',
+    motifEn: 'Broad banana leaves, falling rain lines, droplets on leaves, and a window frame for listening indoors.',
+    glimpseZh: '雨点敲击宽大芭蕉叶时形成的植物声景与室内听雨经验。',
+    glimpseEn: 'A plant soundscape and indoor rain-listening experience formed by raindrops striking broad banana leaves.',
+    originalExperienceZh:
+      '“雨打芭蕉”是一种极具声学特征的场景。雨并不是落在抽象地面上，而是落在宽大的叶片上，发出密集、清脆、轻重不一的声音。它常常连接庭院、窗边、夜雨和人在室内静听的经验。',
+    originalExperienceEn:
+      '雨打芭蕉 (yu da ba jiao) is a strongly acoustic scene. Rain does not fall onto abstract ground, but onto broad leaves, producing dense, crisp, uneven sounds. It often connects courtyards, windowsides, night rain, and indoor listening.',
+    urbanDriftZh:
+      '在现代城市中，雨声更多被玻璃、混凝土、车流、空调和室内隔音材料过滤。芭蕉、庭院和可停留的听雨空间减少，使这个词更多留在古典诗词、园林想象和室内装饰语汇中。',
     urbanDriftEn:
-      'Often used to describe dense high-rise buildings, while associations with fish scales, comb teeth, and tactile craft are weakened.',
-    diagnosisZh: '具身参照物的城市化替换。',
-    diagnosisEn: 'Urban substitution of embodied referents.',
-    sensesZh: ['视觉', '触觉', '器物'],
-    sensesEn: ['vision', 'touch', 'object']
+      'In modern cities, rain sounds are filtered by glass, concrete, traffic, air conditioning, and indoor acoustic materials. Banana plants, courtyards, and spaces for lingering with rain decrease, leaving the phrase more often in classical poetry, garden imagination, and interior decor vocabulary.',
+    geographicDiagnosisZh:
+      '植物声景的室内化与审美化。原本可被听见的雨中植物环境，逐渐转化为文学意象和景观符号。',
+    geographicDiagnosisEn:
+      'Interiorization and aestheticization of plant soundscape. A plant environment once heard in rain gradually becomes literary image and landscape symbol.',
+    sensesZh: ['听觉', '雨', '植物'],
+    sensesEn: ['hearing', 'rain', 'plant']
   },
   {
-    wordZh: '深耕',
-    wordEn: '深耕 (shen geng)',
-    categoryZh: '农耕器具与手工技艺类',
-    categoryEn: 'Agrarian Tools and Manual Craft',
-    motif: 'deepTilling',
-    summaryZh: '翻土、松土和长期劳作把土地理解为可被身体进入的层理。',
-    summaryEn: 'Turning soil, loosening earth, and long labor treat land as layers the body can enter.',
-    originalExperienceZh: '翻土、松土、改良土壤与长期劳作的农业实践。',
-    originalExperienceEn: 'Agricultural practice of turning, loosening, improving soil, and laboring over time.',
-    urbanDriftZh: '转为商业、教育、产业和治理语境中的抽象策略词。',
+    id: '007',
+    wordZh: '稻花蛙声',
+    wordEn: '稻花蛙声 (dao hua wa sheng)',
+    categoryZh: '田野村落',
+    categoryEn: 'Fields and Villages',
+    motif: 'riceFrog',
+    motifZh: '水田线条、稻穗、低处蛙影、夜色声波、淡淡月光。',
+    motifEn: 'Paddy lines, rice ears, low frog shadows, night sound waves, and faint moonlight.',
+    glimpseZh: '稻花香、水田湿气与蛙声共同构成的夏夜田野。',
+    glimpseEn: 'Rice-blossom scent, paddy moisture, and frog calls forming a summer-night field.',
+    originalExperienceZh:
+      '这一场景来自“稻花香里说丰年，听取蛙声一片”。它不是单纯的田园画面，而是水田、稻花、夜气、蛙声和丰年想象共同生成的置身经验。',
+    originalExperienceEn:
+      'This scene emerges from the combined action of paddy fields, rice blossoms, night air, and frog calls. It is not merely a pastoral picture, but an imagination of abundance that can be heard, smelled, inhaled, and inhabited.',
+    urbanDriftZh:
+      '随着农田远离城市生活，水田声景、稻花气味和夏夜蛙声不再构成多数人的日常经验。它们更多停留在诗词记忆、文旅宣传或乡愁叙事中。',
     urbanDriftEn:
-      'Shifted into an abstract strategy term in business, education, industry, and governance.',
-    diagnosisZh: '劳动经验的行业隐喻化。',
-    diagnosisEn: 'Sectoral metaphorization of labor experience.',
-    sensesZh: ['劳动', '土壤', '身体'],
-    sensesEn: ['labor', 'soil', 'body']
+      'As farmland recedes from urban life, paddy soundscapes, rice-blossom scent, and summer-night frog calls no longer form everyday experience for most people. They remain more often in poetic memory, tourism promotion, or nostalgia narratives.',
+    geographicDiagnosisZh:
+      '田野声景的记忆化。农业空间从生活环境退为文化意象，丰年不再由身体经验感知，而由文字和图像唤起。',
+    geographicDiagnosisEn:
+      'Memorialization of field soundscape. Agricultural space withdraws from lived environment into cultural image; abundance is no longer sensed bodily, but evoked by words and images.',
+    sensesZh: ['嗅觉', '听觉', '夏夜'],
+    sensesEn: ['smell', 'hearing', 'summer night']
   },
   {
-    wordZh: '未雨绸缪',
-    wordEn: '未雨绸缪 (wei yu chou mou)',
-    categoryZh: '物候防御与气象认知类',
-    categoryEn: 'Phenological Defense and Weather Knowledge',
-    motif: 'rainPreparedness',
-    summaryZh: '风雨来临前的观察、修补与储备构成生活防御经验。',
-    summaryEn: 'Observation, repair, and storage before rain arrives form an everyday practice of defense.',
-    originalExperienceZh: '在雨季或风雨来临前修补房屋、储备物资和预判天气。',
-    originalExperienceEn: 'Repairing homes, storing supplies, and reading weather before rainy seasons or storms.',
-    urbanDriftZh: '常用于管理学和政策话语，具体的气象观察和生活防御经验被抽象化。',
+    id: '008',
+    wordZh: '阡陌纵横',
+    wordEn: '阡陌纵横 (qian mo zong heng)',
+    categoryZh: '田野村落',
+    categoryEn: 'Fields and Villages',
+    motif: 'fieldPaths',
+    motifZh: '交错田埂、农田边界、细线道路、步行尺度的空间网格。',
+    motifEn: 'Intersecting field ridges, farmland boundaries, fine paths, and a walking-scale spatial grid.',
+    glimpseZh: '田埂、地块和乡间小路共同组织出的步行尺度田野空间。',
+    glimpseEn: 'A walking-scale field space organized by ridges, plots, and rural paths.',
+    originalExperienceZh:
+      '“阡陌纵横”指向的是农田之间纵横交错的小路和地块边界。它不是俯瞰式地图，而是人在田间行走时对路径、地块、水渠、边界和邻近关系的身体理解。',
+    originalExperienceEn:
+      '阡陌纵横 (qian mo zong heng) points to the small paths and plot boundaries crossing between fields. It is not only an overhead map, but a bodily understanding of routes, plots, waterways, boundaries, and adjacency while walking in fields.',
+    urbanDriftZh:
+      '现代城市空间更多由机动车道路、封闭小区、快速通勤和导航系统组织。人仍然能理解“纵横”的结构，却越来越少在田埂、水渠和作物之间通过步行进入这种空间秩序。',
     urbanDriftEn:
-      'Common in management and policy discourse, while concrete weather observation and domestic defense become abstract.',
-    diagnosisZh: '风险经验的制度化转译。',
-    diagnosisEn: 'Institutional translation of risk experience.',
-    sensesZh: ['气象', '防御', '生活'],
-    sensesEn: ['weather', 'defense', 'everyday life']
+      'Modern urban space is more often organized by motor roads, gated compounds, fast commuting, and navigation systems. People still understand the structure of crossing lines, but less often enter this spatial order on foot among ridges, waterways, and crops.',
+    geographicDiagnosisZh:
+      '步行尺度的土地经验退场。农业地景中的路径感被城市交通网络替代，词语中的地方肌理逐渐变成抽象空间结构。',
+    geographicDiagnosisEn:
+      'Withdrawal of walking-scale land experience. Path sense in agrarian landscape is replaced by urban transport networks, and the local texture inside the phrase becomes abstract spatial structure.',
+    sensesZh: ['路径', '田野', '步行'],
+    sensesEn: ['path', 'field', 'walking']
   },
   {
-    wordZh: '五谷不分',
-    wordEn: '五谷不分 (wu gu bu fen)',
-    categoryZh: '农业基础认知与作物类',
-    categoryEn: 'Basic Agrarian Knowledge and Crops',
-    motif: 'fiveGrains',
-    summaryZh: '基础粮食作物的形态差异曾是生活常识的一部分。',
-    summaryEn: 'Morphological differences among staple crops were once part of everyday knowledge.',
-    originalExperienceZh: '识别稻、黍、稷、麦、菽等基础粮食作物。',
-    originalExperienceEn: 'Recognizing staple crops such as rice, broomcorn millet, foxtail millet, wheat, and beans.',
-    urbanDriftZh: '从具体农业知识缺失，转变为对生活常识不足的泛化评价。',
+    id: '009',
+    wordZh: '鸡犬相闻',
+    wordEn: '鸡犬相闻 (ji quan xiang wen)',
+    categoryZh: '田野村落',
+    categoryEn: 'Fields and Villages',
+    motif: 'villageSounds',
+    motifZh: '低矮屋舍、犬吠声波、鸡鸣符号、相邻院落之间的声音传播。',
+    motifEn: 'Low houses, barking sound waves, rooster-call signs, and sound transmission between adjacent courtyards.',
+    glimpseZh: '村落中人、家畜、院落和邻里距离共同构成的生活声景。',
+    glimpseEn: 'An everyday soundscape formed by people, domestic animals, courtyards, and neighborly distance.',
+    originalExperienceZh:
+      '“鸡犬相闻”保存的是一种近距离村落声景。鸡鸣、犬吠、院落、家户和邻里之间的可听距离，构成了人与人、人与动物、人与居住空间之间的日常关系。',
+    originalExperienceEn:
+      '鸡犬相闻 (ji quan xiang wen) preserves a close-range village soundscape. Rooster calls, dog barks, courtyards, households, and audible neighborly distance form everyday relations among people, animals, and dwelling space.',
+    urbanDriftZh:
+      '在城市居住中，声音被墙体、楼层、物业规则和噪声治理重新组织。邻里距离更近，但生活声景更受控制；动物声音也从日常环境退为扰民、宠物管理或乡村想象的一部分。',
     urbanDriftEn:
-      'Shifted from a concrete lack of agricultural knowledge into a generalized judgment about common sense.',
-    diagnosisZh: '食物与土地链条的断裂。',
-    diagnosisEn: 'Breakage in the chain between food and land.',
-    sensesZh: ['作物', '食物', '土地'],
-    sensesEn: ['crop', 'food', 'land']
+      'In urban dwelling, sound is reorganized by walls, floors, property rules, and noise governance. Neighborly distance may be closer, but the living soundscape is more controlled; animal sounds recede into nuisance, pet management, or rural imagination.',
+    geographicDiagnosisZh:
+      '生活声景的规训化。村落中自然混杂的声音关系，被现代居住秩序中的隔音、管理和投诉机制重塑。',
+    geographicDiagnosisEn:
+      'Disciplining of everyday soundscape. Naturally mixed village sound relations are reshaped by insulation, management, and complaint mechanisms in modern residential order.',
+    sensesZh: ['声景', '邻里', '居住'],
+    sensesEn: ['soundscape', 'neighboring', 'dwelling']
   },
   {
-    wordZh: '不辨菽麦',
-    wordEn: '不辨菽麦 (bu bian shu mai)',
-    categoryZh: '农业基础认知与作物类',
-    categoryEn: 'Basic Agrarian Knowledge and Crops',
-    motif: 'beansWheat',
-    summaryZh: '豆类与麦类的区分，指向食物来源与田野知识的识别能力。',
-    summaryEn: 'Distinguishing beans from wheat points to knowledge of food origins and field observation.',
-    originalExperienceZh: '区分豆类与麦类，理解基础作物形态和食物来源。',
-    originalExperienceEn: 'Distinguishing beans from wheat and understanding crop forms and food sources.',
-    urbanDriftZh: '常作为“不通世事”的成语使用，原本的作物识别能力被抽离。',
+    id: '010',
+    wordZh: '炊烟袅袅',
+    wordEn: '炊烟袅袅 (chui yan niao niao)',
+    categoryZh: '暮色与微光',
+    categoryEn: 'Dusk and Faint Light',
+    motif: 'cookingSmoke',
+    motifZh: '低矮屋顶、细烟上升、暮色、远处树线。',
+    motifEn: 'Low roofs, thin rising smoke, dusk, and distant tree lines.',
+    glimpseZh: '傍晚村落中灶火、饭点、烟气和归家节奏共同形成的人居场景。',
+    glimpseEn: 'An inhabited evening scene formed by hearth fire, mealtime, smoke, and returning-home rhythms.',
+    originalExperienceZh:
+      '“炊烟袅袅”保存的是一种乡村居住时间。它连接灶台、燃料、饭点、屋顶、黄昏和邻里生活，让人通过烟气看见一个地方正在进入晚饭时刻。',
+    originalExperienceEn:
+      '炊烟袅袅 (chui yan niao niao) preserves a rural time of dwelling. It connects hearths, fuel, mealtime, rooftops, dusk, and neighborhood life, allowing smoke to reveal a place entering dinner time.',
+    urbanDriftZh:
+      '现代城市居住更多依赖燃气、电器、集中管网、外卖系统和高层住宅。烟火气被卫生、效率和垂直居住重新组织，“炊烟”作为真实气味和可见时间信号逐渐退出日常。',
     urbanDriftEn:
-      'Often used idiomatically to mean being unworldly, while the original crop-recognition ability is removed.',
-    diagnosisZh: '农业认知基线漂移。',
-    diagnosisEn: 'Drift in the baseline of agrarian cognition.',
-    sensesZh: ['作物', '视觉', '教育'],
-    sensesEn: ['crop', 'vision', 'education']
+      'Modern urban dwelling relies more on gas, appliances, centralized networks, delivery systems, and high-rise housing. Hearth atmosphere is reorganized by hygiene, efficiency, and vertical living; cooking smoke as real smell and visible time signal gradually leaves everyday life.',
+    geographicDiagnosisZh:
+      '人居气味与地方时间的消退。词语保留了乡土温度，但它所依靠的生活方式和空间尺度已被重构。',
+    geographicDiagnosisEn:
+      'Recession of dwelling smell and local time. The phrase keeps rural warmth, but the way of life and spatial scale it depends on have been reorganized.',
+    sensesZh: ['嗅觉', '居住', '黄昏'],
+    sensesEn: ['smell', 'dwelling', 'dusk']
+  },
+  {
+    id: '011',
+    wordZh: '月明星稀',
+    wordEn: '月明星稀 (yue ming xing xi)',
+    categoryZh: '暮色与微光',
+    categoryEn: 'Dusk and Faint Light',
+    motif: 'moonStars',
+    motifZh: '月亮、稀疏星点、深色天幕、下方淡淡城市光晕。',
+    motifEn: 'Moon, sparse stars, dark sky canopy, and a faint urban glow below.',
+    glimpseZh: '在足够黑的夜晚抬头，看见月光、稀疏星点与开阔天幕。',
+    glimpseEn: 'Looking up on a dark enough night to see moonlight, sparse stars, and an open sky.',
+    originalExperienceZh:
+      '“月明星稀”依赖真实黑夜。只有当人处于低照度环境中，远离强光和屏幕，月亮、星点、天幕和夜间寂静才会共同成为可感知的空间。',
+    originalExperienceEn:
+      '月明星稀 (yue ming xing xi) depends on real darkness. Only in low-light environments, away from strong lighting and screens, can the moon, stars, sky canopy, and nighttime quiet become a sensible space together.',
+    urbanDriftZh:
+      '城市夜晚被路灯、楼宇照明、车流、广告屏和手机屏幕持续照亮。夜更亮了，但星空更远了；人更安全地移动，却更少经验真正的黑暗。',
+    urbanDriftEn:
+      'Urban nights are continuously lit by streetlights, building illumination, traffic, advertising screens, and phone screens. Night becomes brighter, but the starry sky recedes; people move more safely, yet experience true darkness less often.',
+    geographicDiagnosisZh:
+      '夜间自然基线的漂移。光污染和屏幕生活重塑了人对夜晚的理解，使黑暗、星空和寂静从日常感知中退场。',
+    geographicDiagnosisEn:
+      'Drift in the nighttime natural baseline. Light pollution and screen life reshape how people understand night, causing darkness, stars, and quiet to recede from everyday perception.',
+    sensesZh: ['夜空', '光', '寂静'],
+    sensesEn: ['night sky', 'light', 'quiet']
+  },
+  {
+    id: '012',
+    wordZh: '囊萤映雪',
+    wordEn: '囊萤映雪 (nang ying ying xue)',
+    categoryZh: '暮色与微光',
+    categoryEn: 'Dusk and Faint Light',
+    motif: 'fireflySnow',
+    motifZh: '萤火微光、雪地反光、书页、夜间低照度环境。',
+    motifEn: 'Firefly glimmers, reflected snow light, pages, and a low-light night environment.',
+    glimpseZh: '在匮乏照明条件下，借助萤火与雪光读书的夜间经验。',
+    glimpseEn: 'A night-reading experience under scarce lighting, borrowing firefly glimmers and snowlight.',
+    originalExperienceZh:
+      '“囊萤映雪”连接的是前现代夜晚的低照度环境。萤火、雪光、书页、寒冷和身体坚持共同构成了这个词的场景。它不是简单的勤学象征，也包含人对微弱自然光的依赖。',
+    originalExperienceEn:
+      '囊萤映雪 (nang ying ying xue) connects to the low-light environment of premodern nights. Firefly light, snow reflection, pages, cold, and bodily persistence together form its scene. It is not only a symbol of diligence, but also a dependence on weak natural light.',
+    urbanDriftZh:
+      '现代照明系统、电子屏幕和稳定电力改变了夜读经验。人们仍然理解它的励志意义，却越来越少能感知萤火、雪光和黑夜之间的照明关系。',
+    urbanDriftEn:
+      'Modern lighting systems, electronic screens, and stable electricity have changed night reading. People still understand its inspirational meaning, but less often sense the lighting relation among fireflies, snowlight, and darkness.',
+    geographicDiagnosisZh:
+      '微光经验的象征化。自然光从生活条件退为道德寓意，词语的感官层被教育化和符号化。',
+    geographicDiagnosisEn:
+      'Symbolization of faint-light experience. Natural light withdraws from living condition into moral meaning, and the sensory layer of the phrase becomes educationalized and symbolic.',
+    sensesZh: ['微光', '夜读', '寒冷'],
+    sensesEn: ['faint light', 'night reading', 'cold']
   }
 ];
 
@@ -291,13 +543,17 @@ const categories = Array.from(
 // Lexicon visual motifs are kept together so future entries can swap or add imagery without touching card markup.
 const motifSvgs: Record<MotifKey, string> = {
   birdsFlowers: `<svg viewBox="0 0 320 180" role="img" aria-label="枝条、鸟影、花与声波"><path class="motif-stem" d="M36 126 C82 88 122 80 176 84 C220 88 254 68 286 42"/><path class="motif-stem thin" d="M94 96 C84 72 82 56 96 36"/><path class="motif-stem thin" d="M178 84 C170 60 174 46 194 28"/><g class="motif-flower"><circle cx="88" cy="62" r="8"/><circle cx="104" cy="60" r="8"/><circle cx="97" cy="75" r="8"/></g><g class="motif-flower small"><circle cx="208" cy="48" r="6"/><circle cx="220" cy="48" r="6"/><circle cx="214" cy="60" r="6"/></g><path class="motif-bird" d="M145 58 C154 48 166 48 176 58 C164 54 156 54 145 58 Z"/><path class="motif-bird" d="M236 78 C244 70 254 70 262 78 C252 75 245 75 236 78 Z"/><path class="motif-wave" d="M44 42 C68 30 92 30 116 42"/><path class="motif-wave" d="M52 58 C72 49 92 49 112 58"/></svg>`,
+  grassWarbler: `<svg viewBox="0 0 320 180" role="img" aria-label="草叶、生长线条与低空鸟影"><path class="motif-ground" d="M28 136 C78 126 120 142 170 132 C218 122 262 130 296 118"/><path class="motif-grass" d="M54 136 C58 112 66 92 78 74"/><path class="motif-grass thin" d="M86 138 C92 108 104 88 122 66"/><path class="motif-grass" d="M132 136 C138 108 150 88 166 68"/><path class="motif-grass thin" d="M184 132 C188 108 202 92 218 78"/><path class="motif-grass" d="M238 128 C244 104 258 88 274 72"/><path class="motif-wind soft" d="M42 72 C86 50 128 76 172 54 C214 36 252 46 286 66"/><path class="motif-bird" d="M118 52 C130 42 144 44 154 56 C140 50 130 50 118 52 Z"/><path class="motif-bird" d="M214 72 C224 62 238 64 248 74 C236 70 226 70 214 72 Z"/></svg>`,
   springWind: `<svg viewBox="0 0 320 180" role="img" aria-label="春风弧线与轻微飘动的植物轮廓"><path class="motif-wind" d="M28 68 C82 28 130 88 184 50 C224 22 264 38 292 62"/><path class="motif-wind soft" d="M42 116 C94 82 150 128 206 92 C238 72 268 78 292 98"/><path class="motif-wind fine" d="M76 146 C118 126 156 148 194 128"/><path class="motif-stem" d="M102 132 C112 104 116 84 108 54"/><path class="motif-leaf" d="M110 78 C136 72 152 86 158 108 C134 106 118 96 110 78 Z"/><path class="motif-leaf pale" d="M100 102 C76 94 64 104 58 124 C80 126 94 120 100 102 Z"/></svg>`,
+  slantRain: `<svg viewBox="0 0 320 180" role="img" aria-label="斜向细雨、水痕与低风速流线"><path class="motif-wind soft" d="M28 62 C82 42 130 70 184 50 C224 36 260 42 292 58"/><path class="motif-rain" d="M72 40 L50 86"/><path class="motif-rain" d="M118 30 L94 82"/><path class="motif-rain" d="M164 42 L140 94"/><path class="motif-rain" d="M214 34 L190 86"/><path class="motif-rain" d="M260 46 L236 98"/><path class="motif-ground" d="M28 136 C78 130 112 146 164 138 C212 130 250 140 292 128"/><path class="motif-water" d="M58 152 C86 142 112 156 140 148"/><path class="motif-water" d="M178 154 C204 144 230 156 260 148"/></svg>`,
   bambooShoot: `<svg viewBox="0 0 320 180" role="img" aria-label="雨痕、潮湿泥土与破土笋尖"><path class="motif-rain" d="M78 30 L64 60"/><path class="motif-rain" d="M132 20 L118 52"/><path class="motif-rain" d="M208 28 L194 58"/><path class="motif-rain" d="M260 18 L246 50"/><path class="motif-soil" d="M24 130 C70 116 116 144 164 126 C214 108 252 124 296 112"/><path class="motif-soil fine" d="M36 150 C86 138 122 156 170 144 C218 132 252 146 286 134"/><path class="motif-shoot" d="M150 130 C156 88 172 58 192 36 C202 72 202 106 188 132 Z"/><path class="motif-shoot-line" d="M166 112 C178 100 184 86 188 64"/><path class="motif-shoot small" d="M112 136 C116 108 128 88 142 74 C150 102 148 122 138 140 Z"/></svg>`,
-  scalesComb: `<svg viewBox="0 0 320 180" role="img" aria-label="鳞片和梳齿逐渐转为建筑阵列"><g class="motif-scales"><path d="M38 62 Q58 34 78 62 Q58 90 38 62 Z"/><path d="M70 62 Q90 34 110 62 Q90 90 70 62 Z"/><path d="M54 98 Q74 70 94 98 Q74 126 54 98 Z"/><path d="M86 98 Q106 70 126 98 Q106 126 86 98 Z"/></g><g class="motif-comb"><path d="M150 44 L150 138"/><path d="M166 52 L166 138"/><path d="M182 60 L182 138"/><path d="M198 68 L198 138"/></g><g class="motif-buildings"><rect x="222" y="66" width="22" height="72"/><rect x="250" y="42" width="24" height="96"/><rect x="280" y="82" width="18" height="56"/></g><path class="motif-ground" d="M32 140 H302"/></svg>`,
-  deepTilling: `<svg viewBox="0 0 320 180" role="img" aria-label="土壤剖面、犁沟与劳作轨迹"><path class="motif-soil-layer" d="M28 64 C82 46 126 78 176 58 C218 42 252 54 292 38"/><path class="motif-soil-layer middle" d="M28 100 C78 82 122 114 172 96 C220 78 256 94 292 76"/><path class="motif-soil-layer dark" d="M28 136 C80 120 130 148 178 130 C222 114 260 128 292 112"/><path class="motif-furrow" d="M82 154 C98 124 122 96 158 70"/><path class="motif-furrow" d="M134 156 C150 126 178 98 214 74"/><path class="motif-tool" d="M210 32 L150 132"/><path class="motif-tool-head" d="M136 132 C156 126 170 138 180 154"/></svg>`,
-  rainPreparedness: `<svg viewBox="0 0 320 180" role="img" aria-label="云线、雨势、针脚与织补纹理"><path class="motif-cloud" d="M48 62 C58 40 82 38 94 54 C108 30 144 38 148 66 C172 60 188 72 192 90 H48 C34 84 34 70 48 62 Z"/><path class="motif-cloud pale" d="M178 48 C190 30 214 34 222 52 C236 42 260 52 260 76 H178 C164 70 166 56 178 48 Z"/><path class="motif-rain" d="M78 100 L64 132"/><path class="motif-rain" d="M130 100 L116 132"/><path class="motif-rain" d="M224 92 L210 124"/><path class="motif-stitch" d="M54 148 C86 126 112 168 144 146 C176 124 204 166 238 144"/><path class="motif-stitch dash" d="M66 146 L76 154 M98 144 L108 152 M132 146 L142 154 M166 144 L176 152 M202 146 L212 154"/></svg>`,
-  fiveGrains: `<svg viewBox="0 0 320 180" role="img" aria-label="多种谷物轮廓并置并逐渐模糊"><path class="motif-grain rice" d="M56 136 C52 98 62 68 84 42 C106 70 114 102 104 136"/><path class="motif-grain millet" d="M104 136 C110 100 126 74 154 54 C164 88 160 116 142 136"/><path class="motif-grain wheat" d="M170 136 L170 44 M156 64 L170 78 M184 64 L170 78 M154 88 L170 102 M188 88 L170 102"/><path class="motif-grain bean" d="M218 132 C192 118 194 86 220 76 C246 88 250 118 218 132 Z"/><path class="motif-grain blur" d="M244 138 C250 98 270 72 292 48 C298 92 286 120 264 138"/><rect class="motif-fog" x="198" y="36" width="88" height="110"/></svg>`,
-  beansWheat: `<svg viewBox="0 0 320 180" role="img" aria-label="豆类与麦穗对照，中央边界逐渐消失"><g class="motif-beans"><ellipse cx="72" cy="82" rx="18" ry="26"/><ellipse cx="112" cy="100" rx="20" ry="28"/><path d="M66 78 C78 84 82 98 72 108"/><path d="M106 94 C120 102 124 116 112 126"/></g><path class="motif-boundary" d="M160 38 C152 70 172 98 160 142"/><g class="motif-wheat"><path d="M230 138 L230 46"/><path d="M214 62 L230 78"/><path d="M246 62 L230 78"/><path d="M212 88 L230 104"/><path d="M248 88 L230 104"/><path d="M216 114 L230 126"/><path d="M244 114 L230 126"/></g><path class="motif-mist" d="M126 60 C150 46 172 48 196 64 M122 94 C150 82 176 82 202 96 M128 126 C152 116 176 116 198 128"/></svg>`
+  bananaRain: `<svg viewBox="0 0 320 180" role="img" aria-label="芭蕉叶、落雨、水珠与窗格"><path class="motif-window" d="M34 36 H124 V142 H34 Z M79 36 V142 M34 88 H124"/><path class="motif-banana-leaf" d="M176 128 C150 86 160 48 210 24 C240 62 238 104 176 128 Z"/><path class="motif-banana-leaf pale" d="M226 136 C206 98 220 66 268 46 C292 84 278 118 226 136 Z"/><path class="motif-leaf-vein" d="M178 124 C198 92 208 58 210 28"/><path class="motif-leaf-vein fine" d="M228 132 C244 104 258 76 268 48"/><path class="motif-rain" d="M154 34 L142 72"/><path class="motif-rain" d="M190 42 L176 88"/><path class="motif-rain" d="M244 36 L230 82"/><circle class="motif-drop" cx="186" cy="102" r="3"/><circle class="motif-drop" cx="236" cy="114" r="2.8"/><path class="motif-wave soft" d="M144 146 C178 132 214 150 252 136"/></svg>`,
+  riceFrog: `<svg viewBox="0 0 320 180" role="img" aria-label="水田、稻穗、蛙影与夜色声波"><path class="motif-water" d="M28 136 C78 126 118 146 166 134 C218 122 256 138 292 126"/><path class="motif-water thin" d="M40 154 C86 144 122 160 174 150 C222 140 252 152 286 144"/><path class="motif-rice" d="M88 132 L88 62 M78 76 L88 90 M98 76 L88 90 M76 102 L88 114 M100 102 L88 114"/><path class="motif-rice" d="M126 136 L126 56 M114 72 L126 88 M140 72 L126 88 M112 102 L126 118 M142 102 L126 118"/><path class="motif-frog" d="M206 130 C190 116 194 94 216 90 C238 96 242 118 226 132 C220 138 212 138 206 130 Z"/><circle class="motif-star" cx="226" cy="104" r="2"/><path class="motif-wave" d="M172 58 C198 42 226 42 252 58"/><path class="motif-wave soft" d="M182 76 C202 66 226 66 246 76"/><circle class="motif-moon" cx="266" cy="42" r="16"/></svg>`,
+  fieldPaths: `<svg viewBox="0 0 320 180" role="img" aria-label="田埂、地块边界与步行尺度路径"><path class="motif-field" d="M38 42 H284 V142 H38 Z"/><path class="motif-path" d="M96 42 C86 72 92 112 78 142"/><path class="motif-path" d="M170 42 C178 76 158 104 164 142"/><path class="motif-path" d="M236 42 C222 78 240 110 222 142"/><path class="motif-path" d="M38 82 C90 72 140 92 190 80 C230 70 260 80 284 70"/><path class="motif-path" d="M38 118 C86 110 128 128 174 116 C220 102 250 114 284 106"/><path class="motif-footstep" d="M120 104 C112 108 108 116 112 122 C122 122 128 116 126 108"/><path class="motif-footstep" d="M142 92 C134 96 130 104 134 110 C144 110 150 104 148 96"/></svg>`,
+  villageSounds: `<svg viewBox="0 0 320 180" role="img" aria-label="低矮屋舍、鸡犬声波与相邻院落"><path class="motif-house" d="M46 136 V94 L84 64 L122 94 V136 Z"/><path class="motif-house" d="M198 138 V98 L238 70 L278 98 V138 Z"/><path class="motif-ground" d="M34 140 H288"/><path class="motif-wave" d="M126 76 C148 60 172 60 194 76"/><path class="motif-wave soft" d="M136 96 C154 86 170 86 188 96"/><path class="motif-dog" d="M82 132 C90 118 108 118 116 132 L110 132 L106 124 L96 124 L92 132 Z"/><path class="motif-rooster" d="M232 132 C224 116 232 102 248 104 C260 110 258 126 246 132 Z"/><circle class="motif-star" cx="250" cy="104" r="2.5"/></svg>`,
+  cookingSmoke: `<svg viewBox="0 0 320 180" role="img" aria-label="低矮屋顶、暮色树线与上升炊烟"><path class="motif-tree-line" d="M28 126 C54 112 76 130 104 116 C130 104 154 122 182 110 C218 94 248 118 292 102"/><path class="motif-roof" d="M58 138 L98 104 L138 138 Z"/><path class="motif-roof" d="M150 140 L190 110 L234 140 Z"/><path class="motif-ground" d="M40 142 H278"/><path class="motif-smoke" d="M104 98 C88 78 116 66 104 46 C94 30 118 22 112 10"/><path class="motif-smoke soft" d="M200 104 C184 82 210 72 198 54 C190 42 206 34 204 22"/><path class="motif-sunset" d="M44 58 C92 42 140 52 188 42 C230 34 266 42 292 54"/></svg>`,
+  moonStars: `<svg viewBox="0 0 320 180" role="img" aria-label="月亮、稀疏星点、深色天幕与城市光晕"><rect class="motif-night" x="24" y="24" width="272" height="116" rx="2"/><circle class="motif-moon" cx="92" cy="62" r="20"/><circle class="motif-star" cx="156" cy="48" r="2.5"/><circle class="motif-star" cx="212" cy="72" r="2"/><circle class="motif-star" cx="250" cy="42" r="1.8"/><circle class="motif-star pale" cx="184" cy="96" r="1.6"/><path class="motif-cityglow" d="M36 142 C86 126 132 138 176 128 C222 118 260 128 292 116"/><path class="motif-buildings" d="M198 138 V112 H214 V138 M222 138 V104 H240 V138 M250 138 V118 H264 V138"/></svg>`,
+  fireflySnow: `<svg viewBox="0 0 320 180" role="img" aria-label="萤火、雪光、书页和低照度夜读"><rect class="motif-night" x="30" y="26" width="260" height="116" rx="2"/><path class="motif-book" d="M92 126 C116 116 140 116 160 130 C180 116 204 116 228 126 V146 C204 136 180 136 160 150 C140 136 116 136 92 146 Z"/><path class="motif-snow" d="M42 142 C86 126 124 144 168 132 C216 120 250 136 284 124"/><circle class="motif-firefly" cx="102" cy="64" r="4"/><circle class="motif-firefly pale" cx="138" cy="46" r="3"/><circle class="motif-firefly" cx="220" cy="70" r="3.5"/><path class="motif-glow" d="M92 64 C102 54 112 54 122 64 M210 70 C220 60 232 60 242 70"/></svg>`
 };
 ---
 
@@ -335,8 +591,18 @@ const motifSvgs: Record<MotifKey, string> = {
           </div>
           <div class="lexical-actions">
             <a href="#mechanism" data-lang-en="View mechanism" data-lang-zh="查看机制图">查看机制图</a>
-            <a href="#lexicon" data-lang-en="Enter lexicon cabinet" data-lang-zh="进入词汇标本室">进入词汇标本室</a>
+            <a href="#lexicon" data-lang-en="Enter scene lexicon" data-lang-zh="进入场景词标本室">
+              进入场景词标本室
+            </a>
+            <a href="#contribute" data-lang-en="Submit a word" data-lang-zh="提交词语">提交词语</a>
           </div>
+          <ShareMenu
+            titleZh={pageTitleZh}
+            titleEn={pageTitleEn}
+            descriptionZh={descriptionZh}
+            descriptionEn={descriptionEn}
+            path="/copresent-places/002/"
+          />
         </div>
       </div>
       <p class="lexical-opening" data-lang-en={openingTextEn} data-lang-zh={openingTextZh}>{openingTextZh}</p>
@@ -357,15 +623,34 @@ const motifSvgs: Record<MotifKey, string> = {
           <span class="mechanism-axis-progress"></span>
         </span>
         {
-          mechanismItems.map((item, index) => (
+          mechanismItems.map((item) => (
             <article class="mechanism-node" data-timeline-node>
               <div class="mechanism-marker">
-                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span>{item.id}</span>
               </div>
               <div class="mechanism-copy">
                 <span class="mechanism-tag">{item.tag}</span>
                 <h3 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h3>
-                <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
+                <div class="mechanism-lens">
+                  <span data-lang-en="Theoretical lens" data-lang-zh="理论视角">理论视角</span>
+                  <div>
+                    {
+                      item.theoryTermsZh.map((term, termIndex) => (
+                        <span data-lang-en={item.theoryTermsEn[termIndex]} data-lang-zh={term}>{term}</span>
+                      ))
+                    }
+                  </div>
+                </div>
+                <p class="mechanism-body">
+                  <span data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</span>
+                  <span class="mechanism-citations" aria-label="citations">
+                    {
+                      item.citationIds.map((citationId) => (
+                        <a href={`#ref-${citationId}`} aria-label={`Reference ${citationId}`}>[{citationId}]</a>
+                      ))
+                    }
+                  </span>
+                </p>
                 <p
                   class="mechanism-transition"
                   data-lang-en={item.transitionEn}
@@ -379,18 +664,41 @@ const motifSvgs: Record<MotifKey, string> = {
         }
       </div>
 
-      <aside class="theory-notes" aria-label="理论注脚">
-        <p data-lang-en="Theory Notes" data-lang-zh="理论注脚 / Theory Notes">理论注脚 / Theory Notes</p>
-        <ul>
-          {theoryNotes.map((note) => <li data-lang-en={note.en} data-lang-zh={note.zh}>{note.zh}</li>)}
-        </ul>
+      <aside class="theory-references" aria-label="Selected References">
+        <section class="selected-references" aria-labelledby="selected-references-title">
+          <div class="references-head">
+            <h3
+              id="selected-references-title"
+              data-lang-en="Selected References"
+              data-lang-zh="核心理论文献"
+            >
+              核心理论文献
+            </h3>
+          </div>
+          <ol class="reference-list">
+            {
+              theoryReferences.map((reference) => (
+                <li id={`ref-${reference.id}`}>
+                  <a class="reference-number" href={`#ref-${reference.id}`} aria-label={`Reference ${reference.id}`}>
+                    [{reference.id}]
+                  </a>
+                  <span>{reference.text}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
       </aside>
     </section>
 
     <section class="lexical-section lexicon-section" id="lexicon">
       <div class="lexical-section-heading">
-        <p class="eyebrow" data-lang-en="Lexicon Cabinet" data-lang-zh="词汇标本室">词汇标本室</p>
-        <h2 data-lang-en="Lexicon Cabinet" data-lang-zh="词汇标本室">词汇标本室</h2>
+        <p class="eyebrow" data-lang-en="Lexicon Cabinet" data-lang-zh="词语图谱">
+          词语图谱
+        </p>
+        <h2 data-lang-en="Situated Scene Word Cabinet" data-lang-zh="置身场景词标本室">
+          置身场景词标本室
+        </h2>
         <p data-lang-en={lexiconIntroEn} data-lang-zh={lexiconIntroZh}>{lexiconIntroZh}</p>
       </div>
 
@@ -421,23 +729,41 @@ const motifSvgs: Record<MotifKey, string> = {
 
       <div class="lexicon-grid" aria-live="polite">
         {
-          lexiconEntries.map((entry, index) => (
+          lexiconEntries.map((entry) => (
             <article
               class="lexicon-card"
               data-category={entry.categoryZh}
+              data-motif={entry.motif}
               tabindex="0"
+              role="button"
+              aria-expanded="false"
               aria-label={`${entry.wordZh} 词汇标本`}
             >
               <div class="lexicon-card-topline">
-                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span>{entry.id}</span>
                 <span data-lang-en={entry.categoryEn} data-lang-zh={entry.categoryZh}>{entry.categoryZh}</span>
               </div>
               <div class="lexicon-card-body">
                 <div class="lexicon-word-block">
                   <h3 data-lang-en={entry.wordEn} data-lang-zh={entry.wordZh}>{entry.wordZh}</h3>
-                  <p data-lang-en={entry.summaryEn} data-lang-zh={entry.summaryZh}>{entry.summaryZh}</p>
+                  {
+                    entry.subtitleZh && (
+                      <p
+                        class="lexicon-subtitle"
+                        data-lang-en={entry.subtitleEn}
+                        data-lang-zh={entry.subtitleZh}
+                      >
+                        {entry.subtitleZh}
+                      </p>
+                    )
+                  }
+                  <p data-lang-en={entry.glimpseEn} data-lang-zh={entry.glimpseZh}>{entry.glimpseZh}</p>
                 </div>
-                <div class="lexicon-motif" set:html={motifSvgs[entry.motif]} />
+                <div
+                  class="lexicon-motif"
+                  aria-label={entry.motifZh}
+                  set:html={motifSvgs[entry.motif]}
+                />
               </div>
               <div class="lexicon-detail">
                 <dl>
@@ -448,12 +774,17 @@ const motifSvgs: Record<MotifKey, string> = {
                     </dd>
                   </div>
                   <div>
-                    <dt data-lang-en="Urbanized Drift" data-lang-zh="城市化后的漂移">城市化后的漂移</dt>
+                    <dt data-lang-en="Modernized Drift" data-lang-zh="现代化后的漂移">现代化后的漂移</dt>
                     <dd data-lang-en={entry.urbanDriftEn} data-lang-zh={entry.urbanDriftZh}>{entry.urbanDriftZh}</dd>
                   </div>
                   <div>
                     <dt data-lang-en="Geographic Diagnosis" data-lang-zh="地理学诊断">地理学诊断</dt>
-                    <dd data-lang-en={entry.diagnosisEn} data-lang-zh={entry.diagnosisZh}>{entry.diagnosisZh}</dd>
+                    <dd
+                      data-lang-en={entry.geographicDiagnosisEn}
+                      data-lang-zh={entry.geographicDiagnosisZh}
+                    >
+                      {entry.geographicDiagnosisZh}
+                    </dd>
                   </div>
                 </dl>
               </div>
@@ -467,6 +798,238 @@ const motifSvgs: Record<MotifKey, string> = {
             </article>
           ))
         }
+      </div>
+    </section>
+
+    <section class="lexical-section contribute-section" id="contribute">
+      <div class="contribute-grid">
+        <div class="contribute-copy">
+          <p class="eyebrow" data-lang-en="Collaborative Cabinet" data-lang-zh="共建标本室">共建标本室</p>
+          <h2 data-lang-en="Contribute a Scene Word" data-lang-zh="共建标本室">共建标本室</h2>
+          <p
+            data-lang-en="If you remember a word, idiom, dialect expression, or line of poetry that is losing its sense of situated experience, you are welcome to leave it with the scene it evokes. We will review submissions manually and may add suitable entries to the cabinet; where possible, we will also continue drawing situated motifs so more readers can re-sense these thinning experiences."
+            data-lang-zh="如果你也想起一个正在失去置身感的词语、成语、方言或诗句，欢迎留下它和你记忆中的场景。我们会人工整理，并选择适合的词条加入标本室；如果可能，也会继续为它绘制意向场景，让更多人重新感知这些正在变薄的经验。"
+          >
+            如果你也想起一个正在失去置身感的词语、成语、方言或诗句，欢迎留下它和你记忆中的场景。我们会人工整理，并选择适合的词条加入标本室；如果可能，也会继续为它绘制意向场景，让更多人重新感知这些正在变薄的经验。
+          </p>
+
+          <div class="contribute-criteria">
+            <h3 data-lang-en="What are we looking for?" data-lang-zh="我们正在寻找什么？">我们正在寻找什么？</h3>
+            <ul>
+              <li
+                data-lang-en="Words that let a reader enter a concrete scene."
+                data-lang-zh="能让人进入一个具体场景的词语"
+              >
+                能让人进入一个具体场景的词语
+              </li>
+              <li
+                data-lang-en="Expressions carrying sound, smell, touch, light, weather, or place memory."
+                data-lang-zh="带有声音、气味、触感、光线、天气或地方记忆的表达"
+              >
+                带有声音、气味、触感、光线、天气或地方记忆的表达
+              </li>
+              <li
+                data-lang-en="Words still understood in urban life but increasingly hard to experience firsthand."
+                data-lang-zh="在现代城市生活中仍被理解、却越来越难被亲身经验的词语"
+              >
+                在现代城市生活中仍被理解、却越来越难被亲身经验的词语
+              </li>
+            </ul>
+          </div>
+
+          <p
+            class="contribute-note"
+            data-lang-en="Submissions are not published automatically. We prioritize words with scene, place, and sensory thickness, and may draw situated motifs for future versions."
+            data-lang-zh="提交内容不会自动发布。我们会优先选择具有场景感、地方性和感官厚度的词条，并在后续版本中尝试绘制意向场景。"
+          >
+            提交内容不会自动发布。我们会优先选择具有场景感、地方性和感官厚度的词条，并在后续版本中尝试绘制意向场景。
+          </p>
+
+          {
+            !contributionFormEndpoint && !hasContributionEmail && (
+              <p
+                class="contribute-config-note"
+                data-lang-en="Submission email is not configured yet. Set PUBLIC_CONTRIBUTION_EMAIL or PUBLIC_CONTRIBUTION_FORM_ENDPOINT before publishing this form."
+                data-lang-zh="投稿邮箱尚未配置。发布前请设置 PUBLIC_CONTRIBUTION_EMAIL 或 PUBLIC_CONTRIBUTION_FORM_ENDPOINT。"
+              >
+                投稿邮箱尚未配置。发布前请设置 PUBLIC_CONTRIBUTION_EMAIL 或 PUBLIC_CONTRIBUTION_FORM_ENDPOINT。
+              </p>
+            )
+          }
+        </div>
+
+        <form
+          class="contribution-form"
+          data-contribution-form
+          data-endpoint={contributionFormEndpoint}
+          data-email={contributionEmail}
+          data-has-email={String(hasContributionEmail)}
+          novalidate
+        >
+          <input
+            class="form-honeypot"
+            type="text"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <div class="form-heading">
+            <h3 data-lang-en="Submit a Scene Word" data-lang-zh="提交一个词语 / Submit a Scene Word">
+              提交一个词语 / Submit a Scene Word
+            </h3>
+            <p
+              data-lang-en="No registration is needed. You may leave only the word and a scene memory; name and contact are optional. Submissions are reviewed manually before any public use."
+              data-lang-zh="无需注册。你可以只留下词语和场景记忆；署名和联系方式均为可选。提交内容不会自动公开，我们会人工整理后再决定是否收入标本室。"
+            >
+              无需注册。你可以只留下词语和场景记忆；署名和联系方式均为可选。提交内容不会自动公开，我们会人工整理后再决定是否收入标本室。
+            </p>
+          </div>
+
+          <label class="form-field">
+            <span data-lang-en="Recommended word, idiom, dialect, or verse" data-lang-zh="推荐词语、成语、方言或诗句">
+              推荐词语、成语、方言或诗句
+            </span>
+            <input
+              type="text"
+              name="word"
+              required
+              maxlength="80"
+              placeholder="例如：晨露未晞、雨打芭蕉、麦浪滚滚、鸡犬相闻"
+              data-placeholder-en="For example: chen lu wei xi, yu da ba jiao, mai lang gun gun, ji quan xiang wen"
+              data-placeholder-zh="例如：晨露未晞、雨打芭蕉、麦浪滚滚、鸡犬相闻"
+            />
+          </label>
+
+          <label class="form-field">
+            <span data-lang-en="What scene does it bring to mind?" data-lang-zh="它让你想到怎样的场景？">
+              它让你想到怎样的场景？
+            </span>
+            <textarea
+              name="scene"
+              required
+              maxlength="1200"
+              rows="6"
+              placeholder="请描述你记忆中的地方、季节、声音、气味、光线、身体感受，或你觉得这个词正在失去的经验。"
+              data-placeholder-en="Describe the place, season, sound, smell, light, bodily feeling, or the experience you think this word is losing."
+              data-placeholder-zh="请描述你记忆中的地方、季节、声音、气味、光线、身体感受，或你觉得这个词正在失去的经验。"
+            ></textarea>
+          </label>
+
+          <label class="form-field">
+            <span data-lang-en="Place or life experience connected to this word" data-lang-zh="这个词与你的哪个地方或生活经验有关？">
+              这个词与你的哪个地方或生活经验有关？
+            </span>
+            <input
+              type="text"
+              name="place"
+              maxlength="140"
+              placeholder="例如：江南梅雨季、华北村庄、四川山地、小时候的院子、某种方言语境"
+              data-placeholder-en="For example: Jiangnan plum rain, a North China village, Sichuan mountains, a childhood courtyard, a dialect context"
+              data-placeholder-zh="例如：江南梅雨季、华北村庄、四川山地、小时候的院子、某种方言语境"
+            />
+          </label>
+
+          <fieldset class="form-field senses-field">
+            <legend data-lang-en="Sensory tags" data-lang-zh="感官标签">感官标签</legend>
+            <div class="checkbox-grid">
+              {
+                contributionSenseOptions.map((sense) => (
+                  <label class="checkbox-option">
+                    <input type="checkbox" name="senses" value={sense.zh} />
+                    <span data-lang-en={sense.en} data-lang-zh={sense.zh}>{sense.zh}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <label class="form-field">
+            <span data-lang-en="How might this be drawn as a situated scene?" data-lang-zh="你希望它被绘制成怎样的意向场景？">
+              你希望它被绘制成怎样的意向场景？
+            </span>
+            <textarea
+              name="visual_idea"
+              maxlength="800"
+              rows="4"
+              placeholder="例如：一片雨中的芭蕉叶、远处低矮屋顶上的炊烟、夏夜水田里的蛙声波纹。"
+              data-placeholder-en="For example: a banana leaf in rain, cooking smoke above low roofs, or frog-sound ripples in a summer night paddy."
+              data-placeholder-zh="例如：一片雨中的芭蕉叶、远处低矮屋顶上的炊烟、夏夜水田里的蛙声波纹。"
+            ></textarea>
+          </label>
+
+          <label class="form-field">
+            <span data-lang-en="Optional image or material link" data-lang-zh="可选图片或素材链接">
+              可选图片或素材链接
+            </span>
+            <input
+              type="url"
+              name="image_link"
+              placeholder="如果你有参考图片、旧照片或公开素材链接，可以贴在这里。暂不强制上传文件。"
+              data-placeholder-en="Paste a reference image, old photo, or public material link if you have one. Upload is not required."
+              data-placeholder-zh="如果你有参考图片、旧照片或公开素材链接，可以贴在这里。暂不强制上传文件。"
+            />
+          </label>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span data-lang-en="Your name" data-lang-zh="你的称呼">你的称呼</span>
+              <input
+                type="text"
+                name="contributor_name"
+                maxlength="80"
+                placeholder="可匿名，也可留下希望显示的名字。"
+                data-placeholder-en="You may stay anonymous or leave a display name."
+                data-placeholder-zh="可匿名，也可留下希望显示的名字。"
+              />
+            </label>
+            <label class="form-field">
+              <span data-lang-en="Contact email" data-lang-zh="联系邮箱">联系邮箱</span>
+              <input
+                type="email"
+                name="contributor_email"
+                placeholder="如果希望我们联系你确认词条或意向图，可留下邮箱。"
+                data-placeholder-en="Leave an email if you would like us to contact you about the entry or motif."
+                data-placeholder-zh="如果希望我们联系你确认词条或意向图，可留下邮箱。"
+              />
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span data-lang-en="Attribution preference" data-lang-zh="是否愿意在词条被收录时署名">
+              是否愿意在词条被收录时署名
+            </span>
+            <select name="attribution">
+              <option value="" data-lang-en="No preference yet" data-lang-zh="暂不选择">暂不选择</option>
+              <option value="可以署名" data-lang-en="Attribution is OK" data-lang-zh="可以署名">可以署名</option>
+              <option value="请匿名" data-lang-en="Please keep anonymous" data-lang-zh="请匿名">请匿名</option>
+              <option value="请先联系我确认" data-lang-en="Please contact me first" data-lang-zh="请先联系我确认">
+                请先联系我确认
+              </option>
+            </select>
+          </label>
+
+          <label class="consent-field">
+            <input type="checkbox" name="consent" required />
+            <span
+              data-lang-en="I understand that submissions are not published automatically, and site maintainers may organize, edit, or excerpt them for the Situated Scene Word Cabinet."
+              data-lang-zh="我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“置身场景词标本室”。"
+            >
+              我理解提交内容不会自动公开，站点维护者可能会对内容进行整理、编辑或摘选后用于“置身场景词标本室”。
+            </span>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="form-submit" data-lang-en="Submit word" data-lang-zh="提交词语">
+              提交词语
+            </button>
+            <a class="mailto-fallback" data-mailto-fallback hidden data-lang-en="Send by email" data-lang-zh="通过邮箱发送">
+              通过邮箱发送
+            </a>
+          </div>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+        </form>
       </div>
     </section>
   </article>
@@ -552,7 +1115,7 @@ const motifSvgs: Record<MotifKey, string> = {
     .lexical-actions a {
       padding: 0.72rem 0.95rem;
       color: var(--forest);
-      background: var(--white);
+      background: transparent;
       border: 1px solid var(--line);
       font-size: 0.86rem;
       font-weight: 850;
@@ -560,8 +1123,9 @@ const motifSvgs: Record<MotifKey, string> = {
     }
 
     .lexical-actions a:hover,
-    .lexical-actions a:focus-visible {
-      color: var(--white);
+    .lexical-actions a:focus-visible,
+    .lexical-actions a:active {
+      color: #fff;
       background: var(--forest);
       outline: 0;
     }
@@ -726,12 +1290,75 @@ const motifSvgs: Record<MotifKey, string> = {
       line-height: 1.14;
     }
 
+    .mechanism-lens {
+      display: grid;
+      gap: 0.34rem;
+      max-width: 68ch;
+    }
+
+    .mechanism-lens > span {
+      color: var(--brick);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mechanism-lens > div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.32rem;
+    }
+
+    .mechanism-lens > div span {
+      padding: 0.18rem 0.42rem;
+      color: rgba(33, 77, 67, 0.78);
+      background: rgba(232, 236, 230, 0.54);
+      border: 1px solid rgba(200, 211, 206, 0.72);
+      font-size: 0.7rem;
+      font-weight: 760;
+      line-height: 1.25;
+    }
+
     .mechanism-copy p {
       max-width: 68ch;
       margin: 0;
       color: var(--muted);
       font-size: 0.92rem;
       line-height: 1.66;
+    }
+
+    .mechanism-body {
+      color: #505a57 !important;
+      font-size: 0.98rem !important;
+      line-height: 1.78 !important;
+    }
+
+    .mechanism-citations {
+      display: inline-flex;
+      gap: 0.16rem;
+      margin-left: 0.28rem;
+      white-space: nowrap;
+      vertical-align: 0.08em;
+    }
+
+    .mechanism-citations a,
+    .reference-number {
+      color: #a24c38;
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .mechanism-citations a:hover,
+    .mechanism-citations a:focus-visible,
+    .reference-number:hover,
+    .reference-number:focus-visible {
+      color: var(--forest);
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
+      outline: 0;
     }
 
     .mechanism-transition {
@@ -742,39 +1369,60 @@ const motifSvgs: Record<MotifKey, string> = {
       line-height: 1.46 !important;
     }
 
-    .theory-notes {
-      max-width: 780px;
+    .theory-references {
+      max-width: 980px;
       margin: clamp(2.4rem, 5vw, 4rem) 0 0 clamp(3.4rem, 6vw, 5.6rem);
-      padding: 0.95rem 0 0 1.05rem;
+      padding: 1.05rem 0 0 1.15rem;
       border-left: 1px solid rgba(162, 76, 56, 0.34);
     }
 
-    .theory-notes > p {
-      margin: 0 0 0.8rem;
-      color: var(--brick);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1rem;
-      font-style: italic;
-      font-weight: 800;
+    .selected-references {
+      margin: 0;
     }
 
-    .theory-notes ul {
+    .references-head {
       display: grid;
       gap: 0.42rem;
+      max-width: 78ch;
+      margin-bottom: 1rem;
+    }
+
+    .references-head h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+      line-height: 1.2;
+    }
+
+    .references-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.62;
+    }
+
+    .reference-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.62rem 1.05rem;
       margin: 0;
       padding: 0;
       list-style: none;
     }
 
-    .theory-notes li {
+    .reference-list li {
+      display: grid;
+      grid-template-columns: 2.2rem minmax(0, 1fr);
+      gap: 0.45rem;
+      scroll-margin-top: 96px;
       color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.68;
+      font-size: 0.78rem;
+      line-height: 1.58;
     }
 
-    .theory-notes li::before {
-      color: #b08a45;
-      content: "§ ";
+    .reference-list li:target {
+      color: var(--ink);
     }
 
     .lexicon-toolbar {
@@ -809,7 +1457,7 @@ const motifSvgs: Record<MotifKey, string> = {
 
     .lexicon-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(0.9rem, 2vw, 1.15rem);
     }
 
@@ -894,6 +1542,14 @@ const motifSvgs: Record<MotifKey, string> = {
       color: var(--muted);
       font-size: 0.88rem;
       line-height: 1.62;
+    }
+
+    .lexicon-word-block .lexicon-subtitle {
+      color: #7b766d;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      line-height: 1.45;
     }
 
     .lexicon-motif {
@@ -988,7 +1644,20 @@ const motifSvgs: Record<MotifKey, string> = {
     .lexicon-motif :global(.motif-cloud),
     .lexicon-motif :global(.motif-ground),
     .lexicon-motif :global(.motif-boundary),
-    .lexicon-motif :global(.motif-mist) {
+    .lexicon-motif :global(.motif-mist),
+    .lexicon-motif :global(.motif-grass),
+    .lexicon-motif :global(.motif-water),
+    .lexicon-motif :global(.motif-rice),
+    .lexicon-motif :global(.motif-smoke),
+    .lexicon-motif :global(.motif-tree-line),
+    .lexicon-motif :global(.motif-sunset),
+    .lexicon-motif :global(.motif-cityglow),
+    .lexicon-motif :global(.motif-window),
+    .lexicon-motif :global(.motif-leaf-vein),
+    .lexicon-motif :global(.motif-field),
+    .lexicon-motif :global(.motif-path),
+    .lexicon-motif :global(.motif-snow),
+    .lexicon-motif :global(.motif-glow) {
       fill: none;
       stroke: #58766c;
       stroke-linecap: round;
@@ -1025,7 +1694,16 @@ const motifSvgs: Record<MotifKey, string> = {
     .lexicon-motif :global(.motif-buildings),
     .lexicon-motif :global(.motif-beans),
     .lexicon-motif :global(.motif-wheat),
-    .lexicon-motif :global(.motif-grain) {
+    .lexicon-motif :global(.motif-grain),
+    .lexicon-motif :global(.motif-roof),
+    .lexicon-motif :global(.motif-frog),
+    .lexicon-motif :global(.motif-banana-leaf),
+    .lexicon-motif :global(.motif-drop),
+    .lexicon-motif :global(.motif-house),
+    .lexicon-motif :global(.motif-dog),
+    .lexicon-motif :global(.motif-rooster),
+    .lexicon-motif :global(.motif-footstep),
+    .lexicon-motif :global(.motif-book) {
       fill: rgba(111, 140, 101, 0.24);
       stroke: #58766c;
       stroke-linecap: round;
@@ -1043,6 +1721,27 @@ const motifSvgs: Record<MotifKey, string> = {
       stroke-width: 2.2;
     }
 
+    .lexicon-motif :global(.motif-moon),
+    .lexicon-motif :global(.motif-star),
+    .lexicon-motif :global(.motif-firefly) {
+      fill: rgba(195, 154, 69, 0.42);
+      stroke: #8d7c5b;
+      stroke-width: 1.8;
+    }
+
+    .lexicon-motif :global(.motif-night) {
+      fill: rgba(33, 77, 67, 0.13);
+      stroke: rgba(33, 77, 67, 0.18);
+    }
+
+    .lexicon-motif :global(.motif-smoke),
+    .lexicon-motif :global(.motif-cityglow),
+    .lexicon-motif :global(.motif-sunset),
+    .lexicon-motif :global(.motif-glow) {
+      stroke: #a24c38;
+      opacity: 0.62;
+    }
+
     .lexicon-motif :global(.motif-soil-layer.middle),
     .lexicon-motif :global(.motif-soil.fine) {
       stroke: #8d7c5b;
@@ -1056,9 +1755,296 @@ const motifSvgs: Record<MotifKey, string> = {
       fill: rgba(247, 247, 242, 0.68);
     }
 
+    .contribute-section {
+      padding-top: clamp(3rem, 6vw, 4.7rem);
+      padding-bottom: clamp(4rem, 8vw, 6rem);
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .contribute-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(1.6rem, 4vw, 3.2rem);
+      align-items: start;
+    }
+
+    .contribute-copy {
+      display: grid;
+      gap: 1.1rem;
+      position: sticky;
+      top: 112px;
+    }
+
+    .contribute-copy h2 {
+      max-width: 11ch;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 3.1vw, 3.2rem);
+      line-height: 1.08;
+    }
+
+    .contribute-copy > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.78;
+    }
+
+    .contribute-criteria {
+      margin-top: 0.5rem;
+      padding: 1.1rem 1.15rem;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(200, 211, 206, 0.82);
+    }
+
+    .contribute-criteria h3 {
+      margin: 0 0 0.72rem;
+      color: var(--forest);
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+    }
+
+    .contribute-criteria ul {
+      display: grid;
+      gap: 0.6rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contribute-criteria li {
+      position: relative;
+      padding-left: 1.05rem;
+      color: var(--ink);
+      font-size: 0.9rem;
+      line-height: 1.56;
+    }
+
+    .contribute-criteria li::before {
+      position: absolute;
+      left: 0;
+      color: #a24c38;
+      content: "·";
+    }
+
+    .contribute-note,
+    .contribute-config-note {
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+      font-size: 0.86rem !important;
+    }
+
+    .contribute-config-note {
+      color: #a24c38 !important;
+      font-weight: 750;
+    }
+
+    .contribution-form {
+      display: grid;
+      gap: 1rem;
+      padding: clamp(1rem, 2vw, 1.35rem);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.96)),
+        linear-gradient(90deg, rgba(33, 77, 67, 0.035) 1px, transparent 1px);
+      background-size: auto, 32px 32px;
+      border: 1px solid rgba(200, 211, 206, 0.92);
+      box-shadow: 0 18px 44px rgba(29, 37, 40, 0.055);
+    }
+
+    .form-heading {
+      display: grid;
+      gap: 0.45rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .form-heading h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
+      line-height: 1.16;
+    }
+
+    .form-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.62;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .form-field,
+    .senses-field {
+      display: grid;
+      gap: 0.42rem;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      color: var(--ink);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .form-field > span,
+    .senses-field legend {
+      color: var(--forest);
+    }
+
+    .form-field:has([required]) > span::after,
+    .senses-field:has([required]) legend::after {
+      margin-left: 0.18rem;
+      color: #a24c38;
+      content: "*";
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      padding: 0.72rem 0.78rem;
+      color: var(--ink);
+      background: rgba(247, 247, 242, 0.84);
+      border: 1px solid rgba(174, 190, 184, 0.82);
+      border-radius: 0;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .form-field textarea {
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: rgba(33, 77, 67, 0.72);
+      box-shadow: 0 0 0 3px rgba(33, 77, 67, 0.09);
+      outline: 0;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.46rem;
+    }
+
+    .checkbox-option,
+    .consent-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.42rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .checkbox-option {
+      padding: 0.42rem 0.48rem;
+      background: rgba(247, 247, 242, 0.72);
+      border: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .checkbox-option input,
+    .consent-field input {
+      width: 0.92rem;
+      height: 0.92rem;
+      margin-top: 0.14rem;
+      accent-color: var(--forest);
+      flex: 0 0 auto;
+    }
+
+    .consent-field {
+      padding: 0.86rem 0;
+      border-top: 1px solid rgba(200, 211, 206, 0.72);
+      border-bottom: 1px solid rgba(200, 211, 206, 0.72);
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+    }
+
+    .form-submit,
+    .mailto-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.7rem;
+      padding: 0.72rem 1.05rem;
+      color: var(--forest);
+      background: var(--white);
+      border: 1px solid var(--line);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .form-submit:hover,
+    .form-submit:focus-visible,
+    .mailto-fallback:hover,
+    .mailto-fallback:focus-visible {
+      color: var(--white);
+      background: var(--forest);
+      border-color: var(--forest);
+      outline: 0;
+    }
+
+    .mailto-fallback[hidden] {
+      display: none;
+    }
+
+    .form-status {
+      min-height: 1.3rem;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .form-status.is-success {
+      color: var(--forest);
+      font-weight: 750;
+    }
+
+    .form-status.is-error {
+      color: #a24c38;
+      font-weight: 750;
+    }
+
+    .form-honeypot {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     @media (max-width: 980px) {
       .lexicon-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contribute-grid,
+      .form-row {
         grid-template-columns: 1fr;
+      }
+
+      .contribute-copy {
+        position: static;
       }
 
       .mechanism-timeline {
@@ -1074,8 +2060,12 @@ const motifSvgs: Record<MotifKey, string> = {
         width: 2.7rem;
       }
 
-      .theory-notes {
+      .theory-references {
         margin-left: 0;
+      }
+
+      .reference-list {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1093,6 +2083,11 @@ const motifSvgs: Record<MotifKey, string> = {
       .lexicon-filter-button {
         max-width: 100%;
         overflow-wrap: anywhere;
+      }
+
+      .lexicon-grid,
+      .checkbox-grid {
+        grid-template-columns: 1fr;
       }
 
       .mechanism-timeline {
@@ -1134,6 +2129,66 @@ const motifSvgs: Record<MotifKey, string> = {
     const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.lexicon-filter-button'));
     const lexiconCards = Array.from(document.querySelectorAll<HTMLElement>('.lexicon-card'));
     const filterTimers = new WeakMap<HTMLElement, number>();
+    const contributionForm = document.querySelector<HTMLFormElement>('[data-contribution-form]');
+    const contributionStatus = contributionForm?.querySelector<HTMLElement>('[data-form-status]');
+    const mailtoFallback = contributionForm?.querySelector<HTMLAnchorElement>('[data-mailto-fallback]');
+    const placeholderFields = Array.from(
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-en][data-placeholder-zh]')
+    );
+
+    const getCurrentLanguage = () => (document.documentElement.dataset.language === 'en' ? 'en' : 'zh');
+
+    const setContributionStatus = (type: 'success' | 'error' | 'neutral', zh: string, en: string) => {
+      if (!contributionStatus) return;
+      contributionStatus.dataset.langZh = zh;
+      contributionStatus.dataset.langEn = en;
+      contributionStatus.textContent = getCurrentLanguage() === 'en' ? en : zh;
+      contributionStatus.classList.toggle('is-success', type === 'success');
+      contributionStatus.classList.toggle('is-error', type === 'error');
+    };
+
+    const syncContributionPlaceholders = () => {
+      const language = getCurrentLanguage();
+      placeholderFields.forEach((field) => {
+        field.placeholder = language === 'en' ? field.dataset.placeholderEn || '' : field.dataset.placeholderZh || '';
+      });
+    };
+
+    const buildContributionPayload = (form: HTMLFormElement) => {
+      const formData = new FormData(form);
+      return {
+        word: String(formData.get('word') || '').trim(),
+        scene: String(formData.get('scene') || '').trim(),
+        place: String(formData.get('place') || '').trim(),
+        senses: formData.getAll('senses').map(String),
+        visual_idea: String(formData.get('visual_idea') || '').trim(),
+        image_link: String(formData.get('image_link') || '').trim(),
+        contributor_name: String(formData.get('contributor_name') || '').trim(),
+        contributor_email: String(formData.get('contributor_email') || '').trim(),
+        attribution: String(formData.get('attribution') || '').trim(),
+        consent: formData.get('consent') === 'on',
+        source: '/copresent-places/002/',
+        submitted_at: new Date().toISOString()
+      };
+    };
+
+    const buildMailtoLink = (payload: ReturnType<typeof buildContributionPayload>, email: string) => {
+      const subject = `共建标本室投稿：${payload.word}`;
+      const body = [
+        `推荐词语：${payload.word}`,
+        `场景记忆：${payload.scene}`,
+        `相关地方或经验：${payload.place || '未填写'}`,
+        `感官标签：${payload.senses.length ? payload.senses.join('、') : '未选择'}`,
+        `意向场景：${payload.visual_idea || '未填写'}`,
+        `图片或素材链接：${payload.image_link || '未填写'}`,
+        `称呼：${payload.contributor_name || '匿名'}`,
+        `联系邮箱：${payload.contributor_email || '未填写'}`,
+        `署名偏好：${payload.attribution || '未选择'}`,
+        `来源页面：${payload.source}`
+      ].join('\n\n');
+
+      return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
 
     const setTimelineProgress = () => {
       if (!timeline) return;
@@ -1168,6 +2223,7 @@ const motifSvgs: Record<MotifKey, string> = {
 
           if (isHidden) {
             card.classList.remove('is-expanded');
+            card.setAttribute('aria-expanded', 'false');
             card.classList.add('is-hiding');
             const timer = window.setTimeout(() => {
               card.hidden = true;
@@ -1187,6 +2243,7 @@ const motifSvgs: Record<MotifKey, string> = {
       card.addEventListener('click', () => {
         if (card.hidden || card.classList.contains('is-hiding')) return;
         card.classList.toggle('is-expanded');
+        card.setAttribute('aria-expanded', String(card.classList.contains('is-expanded')));
       });
 
       card.addEventListener('keydown', (event) => {
@@ -1195,5 +2252,86 @@ const motifSvgs: Record<MotifKey, string> = {
         card.click();
       });
     });
+
+    syncContributionPlaceholders();
+    window.addEventListener('respace-language-change', syncContributionPlaceholders);
+
+    if (contributionForm) {
+      contributionForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (String(new FormData(contributionForm).get('website') || '').trim()) return;
+
+        if (!contributionForm.reportValidity()) {
+          setContributionStatus(
+            'error',
+            '请先补全必填项，并检查邮箱或链接格式。',
+            'Please complete required fields and check the email or URL format.'
+          );
+          return;
+        }
+
+        const payload = buildContributionPayload(contributionForm);
+        const endpoint = contributionForm.dataset.endpoint || '';
+        const email = contributionForm.dataset.email || '';
+        const hasEmail = contributionForm.dataset.hasEmail === 'true';
+
+        try {
+          if (endpoint) {
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error(`Contribution endpoint failed: ${response.status}`);
+
+            contributionForm.reset();
+            syncContributionPlaceholders();
+            mailtoFallback?.setAttribute('hidden', '');
+            setContributionStatus(
+              'success',
+              '谢谢你的词语。它不会自动公开，我们会在整理后考虑是否收入标本室。',
+              'Thank you for the word. It will not be published automatically; we will review it before considering it for the cabinet.'
+            );
+            return;
+          }
+
+          if (!hasEmail || !email || email.includes('TODO-CONFIGURE')) {
+            mailtoFallback?.setAttribute('hidden', '');
+            setContributionStatus(
+              'error',
+              '投稿邮箱尚未配置。请先在环境变量中设置 PUBLIC_CONTRIBUTION_EMAIL。',
+              'The contribution email is not configured yet. Please set PUBLIC_CONTRIBUTION_EMAIL first.'
+            );
+            return;
+          }
+
+          const mailtoLink = buildMailtoLink(payload, email);
+          if (mailtoFallback) {
+            mailtoFallback.href = mailtoLink;
+            mailtoFallback.removeAttribute('hidden');
+          }
+          window.location.href = mailtoLink;
+          setContributionStatus(
+            'success',
+            '谢谢你的词语。它不会自动公开，我们会在整理后考虑是否收入标本室。',
+            'Thank you for the word. It will not be published automatically; we will review it before considering it for the cabinet.'
+          );
+        } catch (error) {
+          if (hasEmail && email && !email.includes('TODO-CONFIGURE')) {
+            const fallbackLink = buildMailtoLink(payload, email);
+            if (mailtoFallback) {
+              mailtoFallback.href = fallbackLink;
+              mailtoFallback.removeAttribute('hidden');
+            }
+          }
+          setContributionStatus(
+            'error',
+            '提交暂时没有成功。你可以复制内容后通过邮箱发送给我们。',
+            'Submission did not succeed. You can copy the content and send it to us by email.'
+          );
+        }
+      });
+    }
   </script>
 </BaseLayout>

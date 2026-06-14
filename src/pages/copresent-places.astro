@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ShareMenu from '../components/ShareMenu.astro';
 import { withBase } from '../data/site';
 
 const articles = [
@@ -143,6 +144,16 @@ const gridCells = [
                 </dl>
               </div>
             </a>
+            <div class="article-item-actions">
+              <ShareMenu
+                titleZh={article.titleZh}
+                titleEn={article.titleEn}
+                descriptionZh={article.excerptZh}
+                descriptionEn={article.excerptEn}
+                path={article.href}
+                compact
+              />
+            </div>
           </li>
         ))
       }

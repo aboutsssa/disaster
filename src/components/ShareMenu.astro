@@ -1,0 +1,277 @@
+---
+import { withBase } from '../data/site';
+
+interface Props {
+  titleZh: string;
+  titleEn?: string;
+  descriptionZh?: string;
+  descriptionEn?: string;
+  path: string;
+  compact?: boolean;
+}
+
+const { titleZh, titleEn = titleZh, descriptionZh = '', descriptionEn = descriptionZh, path, compact = false } = Astro.props;
+const shareUrl = Astro.site ? new URL(withBase(path), Astro.site).toString() : withBase(path);
+const encodedUrl = encodeURIComponent(shareUrl);
+const shareTextZh = [titleZh, descriptionZh].filter(Boolean).join('\n');
+const shareTextEn = [titleEn, descriptionEn].filter(Boolean).join('\n');
+const encodedShareTextZh = encodeURIComponent(shareTextZh);
+const encodedShareTextEn = encodeURIComponent(shareTextEn);
+---
+
+<section
+  class:list={['share-menu', compact && 'is-compact']}
+  data-share-menu
+  data-share-url={shareUrl}
+  data-share-title-zh={titleZh}
+  data-share-title-en={titleEn}
+  data-share-description-zh={descriptionZh}
+  data-share-description-en={descriptionEn}
+  aria-label="Share"
+>
+  <div class="share-label">
+    <span data-lang-en="SHARE" data-lang-zh="分享">分享</span>
+  </div>
+  <div class="share-body">
+    <div class="share-actions" role="group" aria-label="Share links">
+      <button type="button" class="share-button" data-copy-share data-lang-en="Copy link" data-lang-zh="Copy link">
+        Copy link
+      </button>
+      <a
+        class="share-button"
+        href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedShareTextEn}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        X
+      </a>
+      <a
+        class="share-button"
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
+      <a
+        class="share-button"
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Facebook
+      </a>
+      <a
+        class="share-button"
+        href={`https://service.weibo.com/share/share.php?url=${encodedUrl}&title=${encodedShareTextZh}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-lang-en="Weibo"
+        data-lang-zh="微博"
+      >
+        微博
+      </a>
+      <button type="button" class="share-button" data-copy-channel="wechat" data-lang-en="WeChat" data-lang-zh="微信">
+        微信
+      </button>
+      <button
+        type="button"
+        class="share-button"
+        data-copy-channel="xiaohongshu"
+        data-lang-en="Xiaohongshu"
+        data-lang-zh="小红书"
+      >
+        小红书
+      </button>
+    </div>
+    <p class="share-status" data-share-status aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  const shareMenus = Array.from(document.querySelectorAll<HTMLElement>('[data-share-menu]'));
+
+  const getShareLanguage = () => (document.documentElement.dataset.language === 'en' ? 'en' : 'zh');
+
+  const setShareStatus = (menu: HTMLElement, zh: string, en: string) => {
+    const status = menu.querySelector<HTMLElement>('[data-share-status]');
+    if (!status) return;
+    status.dataset.langZh = zh;
+    status.dataset.langEn = en;
+    status.textContent = getShareLanguage() === 'en' ? en : zh;
+  };
+
+  const getSharePayload = (menu: HTMLElement) => {
+    const language = getShareLanguage();
+    const url = menu.dataset.shareUrl || window.location.href;
+    const title =
+      language === 'en'
+        ? menu.dataset.shareTitleEn || menu.dataset.shareTitleZh || document.title
+        : menu.dataset.shareTitleZh || document.title;
+    const description =
+      language === 'en'
+        ? menu.dataset.shareDescriptionEn || menu.dataset.shareDescriptionZh || ''
+        : menu.dataset.shareDescriptionZh || '';
+    const text = [title, description, url].filter(Boolean).join('\n\n');
+    return { title, description, url, text };
+  };
+
+  const copyShareText = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.append(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    return copied;
+  };
+
+  const copyForChannel = async (menu: HTMLElement, channel: string) => {
+    const payload = getSharePayload(menu);
+    const copied = await copyShareText(payload.text);
+    if (channel === 'wechat') {
+      setShareStatus(
+        menu,
+        copied ? '链接已复制，可在微信中粘贴分享。' : '请复制页面链接后在微信中分享。',
+        copied ? 'Link copied. Paste it into WeChat to share.' : 'Please copy the page link and share it in WeChat.'
+      );
+      return;
+    }
+
+    setShareStatus(
+      menu,
+      copied ? '链接和标题已复制，可粘贴到小红书发布。' : '请复制页面链接后在小红书分享。',
+      copied ? 'Title and link copied. Paste them into Xiaohongshu to share.' : 'Please copy the page link and share it in Xiaohongshu.'
+    );
+  };
+
+  shareMenus.forEach((menu) => {
+    if (menu.dataset.shareBound === 'true') return;
+    menu.dataset.shareBound = 'true';
+
+    menu.querySelector<HTMLButtonElement>('[data-copy-share]')?.addEventListener('click', async () => {
+      const payload = getSharePayload(menu);
+      try {
+        const copied = await copyShareText(payload.url);
+        setShareStatus(
+          menu,
+          copied ? '链接已复制。' : '复制失败，请手动复制页面链接。',
+          copied ? 'Link copied.' : 'Copy failed. Please copy the page link manually.'
+        );
+      } catch {
+        setShareStatus(menu, '复制失败，请手动复制页面链接。', 'Copy failed. Please copy the page link manually.');
+      }
+    });
+
+    menu.querySelectorAll<HTMLButtonElement>('[data-copy-channel]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        try {
+          await copyForChannel(menu, button.dataset.copyChannel || '');
+        } catch {
+          setShareStatus(menu, '复制失败，请手动复制页面链接。', 'Copy failed. Please copy the page link manually.');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .share-menu {
+    display: grid;
+    grid-template-columns: 3.9rem minmax(0, 1fr);
+    gap: 0.45rem 0.68rem;
+    align-items: start;
+    width: 100%;
+    max-width: 980px;
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .share-label {
+    padding-top: 0.24rem;
+    color: #8b8276;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .share-label span {
+    display: block;
+  }
+
+  .share-body {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.32rem 0.34rem;
+  }
+
+  .share-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.48rem;
+    padding: 0.22rem 0.46rem;
+    color: var(--ink);
+    background: rgba(242, 239, 232, 0.72);
+    border: 1px solid rgba(184, 177, 164, 0.5);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.68rem;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .share-button:hover,
+  .share-button:focus-visible {
+    color: var(--white);
+    background: var(--forest);
+    border-color: var(--forest);
+    outline: 0;
+  }
+
+  .share-status {
+    min-height: 1.1rem;
+    margin: 0;
+    color: #7b766d;
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+
+  .share-menu.is-compact {
+    grid-template-columns: 3.7rem minmax(0, 1fr);
+    gap: 0.4rem 0.58rem;
+    max-width: 760px;
+  }
+
+  .share-menu.is-compact .share-button {
+    min-height: 1.42rem;
+    padding: 0.2rem 0.42rem;
+    font-size: 0.68rem;
+  }
+
+  @media (max-width: 680px) {
+    .share-menu,
+    .share-menu.is-compact {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+
+    .share-label {
+      padding-top: 0;
+    }
+  }
+</style>

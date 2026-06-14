@@ -1,6 +1,7 @@
 ---
 import RecoveryTypology from '../../components/RecoveryTypology.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareMenu from '../../components/ShareMenu.astro';
 import { withBase } from '../../data/site';
 ---
 
@@ -14,12 +15,29 @@ import { withBase } from '../../data/site';
 
 
   <div class="recovery-typology-page">
+    <div class="project-detail-share">
+      <ShareMenu
+        titleZh="灾后恢复轨迹类型学"
+        titleEn="Typology of Post-Disaster Recovery Trajectories"
+        descriptionZh="一个通过物质重建与关系重组比较灾后恢复轨迹的类型学项目。"
+        descriptionEn="A typology for comparing post-disaster recovery trajectories through material reconstruction and relational reassembly."
+        path="/projects/recovery-typology/"
+      />
+    </div>
     <RecoveryTypology />
   </div>
 
   <style>
     .recovery-typology-page {
       background: var(--paper);
+    }
+
+    .project-detail-share {
+      display: flex;
+      justify-content: flex-end;
+      max-width: min(1180px, calc(100vw - 3rem));
+      margin: 0 auto;
+      padding: clamp(1.2rem, 3vw, 2rem) 0 0;
     }
 
     .recovery-typology-page :global(.typology-section) {
@@ -121,6 +139,11 @@ import { withBase } from '../../data/site';
     @media (max-width: 900px) {
       .recovery-typology-page :global(.typology-section) {
         max-width: none;
+        padding-inline: 1rem;
+      }
+
+      .project-detail-share {
+        justify-content: flex-start;
         padding-inline: 1rem;
       }
 

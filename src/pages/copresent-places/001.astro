@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareMenu from '../../components/ShareMenu.astro';
 import { withBase } from '../../data/site';
 
 type PetLossCase = {
@@ -116,6 +117,13 @@ const mechanismItems = [
         <a href="#pet-map" data-lang-en="Open the map" data-lang-zh="进入地图">进入地图</a>
         <a href="#pet-mechanism" data-lang-en="View mechanism" data-lang-zh="查看机制">查看机制</a>
       </div>
+      <ShareMenu
+        titleZh="看不见的次生灾害：宠物丧失"
+        titleEn="An Invisible Secondary Disaster: Pet Loss"
+        descriptionZh="一个关于宠物丧失、灾害治理与多物种恢复的研究型交互地图。"
+        descriptionEn="A research story map on pet loss, disaster governance, and multispecies recovery."
+        path="/copresent-places/001/"
+      />
     </section>
 
     <section class="pet-map-story" id="pet-map" aria-label="Pet loss story map">
@@ -241,10 +249,14 @@ const mechanismItems = [
       <h2 data-lang-en="Human-pet-institution disaster risk chain" data-lang-zh="人—宠—制度的灾害风险链条">
         人—宠—制度的灾害风险链条
       </h2>
-      <div class="pet-chain">
+      <div class="pet-chain" data-pet-chain>
         {
           mechanismItems.map((item, index) => (
-            <article>
+            <article
+              data-chain-node
+              tabindex="0"
+              style={`--chain-delay: ${index * 110}ms;`}
+            >
               <span>{String(index + 1).padStart(2, '0')}</span>
               <h3 data-lang-en={item.titleEn} data-lang-zh={item.titleZh}>{item.titleZh}</h3>
               <p data-lang-en={item.textEn} data-lang-zh={item.textZh}>{item.textZh}</p>
@@ -323,11 +335,19 @@ const mechanismItems = [
     .pet-hero-actions a {
       padding: 0.72rem 0.95rem;
       color: var(--forest);
-      background: var(--white);
+      background: transparent;
       border: 1px solid var(--line);
       font-size: 0.86rem;
       font-weight: 850;
       text-decoration: none;
+    }
+
+    .pet-hero-actions a:hover,
+    .pet-hero-actions a:focus-visible,
+    .pet-hero-actions a:active {
+      color: #fff;
+      background: var(--forest);
+      outline: 0;
     }
 
     .pet-map-story {
@@ -587,17 +607,128 @@ const mechanismItems = [
       display: grid;
       gap: 1px;
       margin-top: 1.4rem;
-      background: var(--line);
+      position: relative;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      background: rgba(200, 211, 206, 0.78);
+      border: 1px solid rgba(200, 211, 206, 0.58);
+      overflow: visible;
+      isolation: isolate;
     }
 
-    .pet-chain {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+    .pet-chain::before {
+      position: absolute;
+      top: 3.15rem;
+      left: 2rem;
+      right: 2rem;
+      z-index: 1;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        rgba(162, 76, 56, 0),
+        rgba(162, 76, 56, 0.7),
+        rgba(33, 77, 67, 0.28),
+        rgba(162, 76, 56, 0)
+      );
+      content: "";
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition:
+        opacity 420ms ease,
+        transform 1400ms cubic-bezier(0.2, 0.72, 0.18, 1);
+    }
+
+    .pet-chain.is-visible::before {
+      opacity: 1;
+      transform: scaleX(1);
     }
 
     .pet-chain article {
+      position: relative;
+      z-index: 2;
       min-height: 190px;
       padding: 1.15rem;
-      background: var(--white);
+      background: transparent;
+      outline: 0;
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        background-color 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms ease;
+    }
+
+    .pet-chain.is-visible article {
+      animation: petChainNodeIn 620ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+      animation-delay: var(--chain-delay, 0ms);
+    }
+
+    .pet-chain article::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(162, 76, 56, 0.62), rgba(33, 77, 67, 0.22));
+      content: "";
+      opacity: 0;
+      transform: scaleX(0.32);
+      transform-origin: left center;
+      transition:
+        opacity 220ms ease,
+        transform 260ms ease;
+    }
+
+    .pet-chain article::after {
+      position: absolute;
+      top: 3rem;
+      right: -0.36rem;
+      z-index: 3;
+      width: 0.64rem;
+      height: 0.64rem;
+      border-top: 1px solid rgba(162, 76, 56, 0.52);
+      border-right: 1px solid rgba(162, 76, 56, 0.52);
+      content: "";
+      opacity: 0;
+      transform: translateX(-0.16rem) rotate(45deg);
+      transition:
+        opacity 260ms ease,
+        transform 260ms ease;
+    }
+
+    .pet-chain.is-visible article::after {
+      opacity: 0.72;
+      transform: translateX(0) rotate(45deg);
+      transition-delay: calc(var(--chain-delay, 0ms) + 260ms);
+    }
+
+    .pet-chain article:last-child::after {
+      display: none;
+    }
+
+    .pet-chain article:hover,
+    .pet-chain article:focus-visible {
+      z-index: 4;
+      background: rgba(255, 253, 250, 0.58);
+      box-shadow: 0 18px 38px rgba(31, 52, 46, 0.12);
+      transform: translateY(-5px);
+    }
+
+    .pet-chain article:focus-visible {
+      outline: 1px solid rgba(33, 77, 67, 0.58);
+      outline-offset: -0.45rem;
+    }
+
+    .pet-chain article:hover::before,
+    .pet-chain article:focus-visible::before {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .pet-chain article:hover::after,
+    .pet-chain article:focus-visible::after {
+      opacity: 1;
+      transform: translateX(0.08rem) rotate(45deg);
     }
 
     .pet-chain span {
@@ -606,6 +737,12 @@ const mechanismItems = [
       font-size: 1.4rem;
       font-style: italic;
       font-weight: 800;
+      transition: color 220ms ease;
+    }
+
+    .pet-chain article:hover span,
+    .pet-chain article:focus-visible span {
+      color: var(--forest);
     }
 
     .pet-chain h3 {
@@ -618,6 +755,37 @@ const mechanismItems = [
       color: var(--muted);
       font-size: 0.9rem;
       line-height: 1.58;
+    }
+
+    @keyframes petChainNodeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pet-chain::before,
+      .pet-chain article,
+      .pet-chain article::before,
+      .pet-chain article::after,
+      .pet-chain span {
+        animation: none;
+        transition: none;
+      }
+
+      .pet-chain::before,
+      .pet-chain.is-visible::before,
+      .pet-chain article,
+      .pet-chain.is-visible article {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .pet-endnote-title {
@@ -825,7 +993,16 @@ const mechanismItems = [
       }
 
       .pet-chain {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(5, minmax(220px, 1fr));
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+      }
+
+      .pet-chain::before {
+        right: auto;
+        width: calc(1100px - 4rem);
       }
     }
 
@@ -867,6 +1044,7 @@ const mechanismItems = [
     const activeCard = document.getElementById('pet-active-card');
     const steps = Array.from(document.querySelectorAll('.pet-story-step'));
     const filterButtons = Array.from(document.querySelectorAll('.pet-filter-button'));
+    const petChain = document.querySelector('[data-pet-chain]');
 
     const colors = {
       hurricane: '#3478b8',
@@ -1058,6 +1236,18 @@ const mechanismItems = [
     }, { rootMargin: '-35% 0px -45% 0px', threshold: [0.2, 0.45, 0.7] });
 
     steps.forEach((step) => observer.observe(step));
+
+    if (petChain) {
+      const chainObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          petChain.classList.add('is-visible');
+          chainObserver.disconnect();
+        }
+      }, { rootMargin: '0px 0px -18% 0px', threshold: 0.18 });
+
+      chainObserver.observe(petChain);
+    }
+
     window.addEventListener('respace-language-change', () => {
       const feature = cases.find((item) => item.properties.id === activeCaseId);
       if (feature) {
