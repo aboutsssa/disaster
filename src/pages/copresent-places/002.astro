@@ -34,7 +34,9 @@ const lexiconIntroZh =
   '以下词语并不是简单地“消失”，而是它们所依托的场景正在从日常生活中淡化。人们仍然认识这些词，却越来越少能通过身体、感官和地方经验进入它们。';
 const lexiconIntroEn =
   'The words below do not simply disappear. The scenes they depend on are receding from everyday life. People still recognize these words, yet increasingly struggle to enter them through body, senses, and place-based experience.';
-const contributionFormEndpoint = import.meta.env.PUBLIC_CONTRIBUTION_FORM_ENDPOINT ?? '';
+const defaultContributionEmail = 'aboutsssa@gmail.com';
+const contributionFormEndpoint =
+  import.meta.env.PUBLIC_CONTRIBUTION_FORM_ENDPOINT ?? `https://formsubmit.co/ajax/${defaultContributionEmail}`;
 const contributionEmail = import.meta.env.PUBLIC_CONTRIBUTION_EMAIL ?? 'aboutsssa@gmail.com';
 const hasContributionEmail = Boolean(contributionEmail);
 const contributionSenseOptions = [
@@ -2271,6 +2273,24 @@ const motifSvgs: Record<MotifKey, string> = {
         }
 
         const payload = buildContributionPayload(contributionForm);
+        const endpointPayload = {
+          _subject: `共建标本室投稿：${payload.word}`,
+          _template: 'table',
+          _captcha: 'false',
+          _replyto: payload.contributor_email,
+          word: payload.word,
+          scene: payload.scene,
+          place: payload.place,
+          senses: payload.senses.join('、'),
+          visual_idea: payload.visual_idea,
+          image_link: payload.image_link,
+          contributor_name: payload.contributor_name,
+          contributor_email: payload.contributor_email,
+          attribution: payload.attribution,
+          consent: payload.consent ? 'yes' : 'no',
+          source: payload.source,
+          submitted_at: payload.submitted_at
+        };
         const endpoint = contributionForm.dataset.endpoint || '';
         const email = contributionForm.dataset.email || '';
         const hasEmail = contributionForm.dataset.hasEmail === 'true';
@@ -2279,8 +2299,11 @@ const motifSvgs: Record<MotifKey, string> = {
           if (endpoint) {
             const response = await fetch(endpoint, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(endpointPayload)
             });
 
             if (!response.ok) throw new Error(`Contribution endpoint failed: ${response.status}`);
@@ -2290,8 +2313,8 @@ const motifSvgs: Record<MotifKey, string> = {
             mailtoFallback?.setAttribute('hidden', '');
             setContributionStatus(
               'success',
-              '谢谢你的词语。它不会自动公开，我们会在整理后考虑是否收入标本室。',
-              'Thank you for the word. It will not be published automatically; we will review it before considering it for the cabinet.'
+              '谢谢你的词语。它已发送到维护邮箱，不会自动公开，我们会在整理后考虑是否收入标本室。',
+              'Thank you for the word. It has been sent to the maintainer email and will not be published automatically.'
             );
             return;
           }
@@ -2314,8 +2337,8 @@ const motifSvgs: Record<MotifKey, string> = {
           window.location.href = mailtoLink;
           setContributionStatus(
             'success',
-            '谢谢你的词语。它不会自动公开，我们会在整理后考虑是否收入标本室。',
-            'Thank you for the word. It will not be published automatically; we will review it before considering it for the cabinet.'
+            '已为你打开邮件发送窗口。请在邮件客户端中点击发送，内容才会真正发出。',
+            'Your email app has been opened. Please send the email there to complete the submission.'
           );
         } catch (error) {
           if (hasEmail && email && !email.includes('TODO-CONFIGURE')) {
