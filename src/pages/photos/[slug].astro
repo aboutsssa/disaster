@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { photoItems } from '../../data/photos';
+import { withBase } from '../../data/site';
+
+export function getStaticPaths() {
+  return photoItems.map((photo) => ({
+    params: { slug: photo.slug },
+    props: { photo }
+  }));
+}
+
+const { photo } = Astro.props;
+---
+
+<BaseLayout
+  title={photo.titleZh}
+  titleEn={photo.titleEn}
+  titleZh={photo.titleZh}
+  descriptionEn={`${photo.titleEn} from ${photo.album.titleEn}.`}
+  descriptionZh={`${photo.album.titleZh}：${photo.titleZh}`}
+  canonicalPath={`/photos/${photo.slug}/`}
+  ogImage={photo.image}
+>
+  <section class="photo-detail">
+    <a
+      class="photo-back"
+      href={withBase('/photos/')}
+      data-lang-en="Back to Photos"
+      data-lang-zh="返回照片集"
+    >
+      返回照片集
+    </a>
+
+    <header class="photo-detail-header">
+      <p
+        class="eyebrow"
+        data-lang-en={photo.album.titleEn}
+        data-lang-zh={photo.album.titleZh}
+      >
+        {photo.album.titleZh}
+      </p>
+      <h1 data-lang-en={photo.titleEn} data-lang-zh={photo.titleZh}>{photo.titleZh}</h1>
+    </header>
+
+    <figure class="photo-detail-frame">
+      <img src={withBase(photo.image)} alt="" />
+      <figcaption data-lang-en={photo.titleEn} data-lang-zh={photo.titleZh}>
+        {photo.titleZh}
+      </figcaption>
+    </figure>
+  </section>
+
+  <style>
+    .photo-detail {
+      width: min(1280px, calc(100% - 2.5rem));
+      margin-inline: auto;
+      padding: clamp(1.6rem, 4vw, 3rem) 0 clamp(4rem, 8vw, 6rem);
+    }
+
+    .photo-back {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .photo-back::before {
+      content: "";
+      width: 1.6rem;
+      height: 1px;
+      margin-right: 0.65rem;
+      background: currentColor;
+      transition: width 160ms ease;
+    }
+
+    .photo-back:hover::before {
+      width: 2.2rem;
+    }
+
+    .photo-detail-header {
+      display: grid;
+      gap: 0.45rem;
+      margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+    }
+
+    .photo-detail-header h1 {
+      max-width: 22ch;
+      margin: 0;
+      font-size: clamp(1.8rem, 3.5vw, 3.6rem);
+      line-height: 1.02;
+    }
+
+    .photo-detail-frame {
+      display: grid;
+      gap: 0.85rem;
+      margin: 0;
+      padding: clamp(0.6rem, 1.6vw, 1rem);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 243, 236, 0.96)),
+        var(--white);
+      border: 1px solid rgba(199, 207, 202, 0.95);
+      box-shadow: 0 28px 70px rgba(45, 38, 25, 0.1);
+    }
+
+    .photo-detail-frame img {
+      width: 100%;
+      max-height: min(78vh, 920px);
+      object-fit: contain;
+      background: rgba(238, 235, 226, 0.52);
+    }
+
+    .photo-detail-frame figcaption {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 640px) {
+      .photo-detail {
+        width: min(100% - 1.25rem, 1280px);
+      }
+
+      .photo-detail-frame {
+        padding: 0.45rem;
+      }
+    }
+  </style>
+</BaseLayout>

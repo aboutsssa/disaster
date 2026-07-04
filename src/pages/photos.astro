@@ -1,31 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photoAlbums } from '../data/photos';
 import { withBase } from '../data/site';
-
-const albums = [
-  {
-    titleEn: 'Graduation Memory Album',
-    titleZh: '毕业纪念册',
-
-    photos: [
-      {
-        image: '/assets/photo/graduation-memory/li-rongjia-graduation-dinner-2024.jpg',
-        titleEn: 'Graduation Dinner 2024',
-        titleZh: '李荣佳毕业聚餐2024'
-      },
-      {
-        image: '/assets/photo/graduation-memory/chen-yun-graduation.jpg',
-        titleEn: "Congratulations to Chen Yun on earning her master's degree",
-        titleZh: '祝贺陈芸硕士毕业'
-      },
-      {
-        image: '/assets/photo/graduation-memory/li-zhuo-graduation-dinner-2026.jpg',
-        titleEn: 'Zhuo Li Graduation Dinner 2026',
-        titleZh: '李卓毕业聚餐'
-      }
-    ]
-  }
-];
 ---
 
 <BaseLayout
@@ -42,7 +18,7 @@ const albums = [
 
   <section class="photo-albums" aria-label="Photo albums">
     {
-      albums.map((album) => (
+      photoAlbums.map((album) => (
         <article class="photo-album">
           <header class="photo-album-header">
             <p class="eyebrow" data-lang-en="Album" data-lang-zh="相册">相册</p>
@@ -56,10 +32,16 @@ const albums = [
             {
               album.photos.map((photo) => (
                 <figure class="photo-album-item">
-                  <img src={withBase(photo.image)} alt="" loading="lazy" />
-                  <figcaption data-lang-en={photo.titleEn} data-lang-zh={photo.titleZh}>
-                    {photo.titleZh}
-                  </figcaption>
+                  <a
+                    class="photo-album-link"
+                    href={withBase(`/photos/${photo.slug}/`)}
+                    aria-label={photo.titleEn}
+                  >
+                    <img src={withBase(photo.image)} alt="" loading="lazy" />
+                    <figcaption data-lang-en={photo.titleEn} data-lang-zh={photo.titleZh}>
+                      {photo.titleZh}
+                    </figcaption>
+                  </a>
                 </figure>
               ))
             }
@@ -114,13 +96,29 @@ const albums = [
     }
 
     .photo-album-item {
-      display: grid;
-      grid-template-rows: auto min-content;
       margin: 0;
       overflow: hidden;
       background: var(--white);
       border: 1px solid rgba(200, 211, 206, 0.92);
       box-shadow: 0 16px 38px rgba(45, 38, 25, 0.045);
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        border-color 180ms ease;
+    }
+
+    .photo-album-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(142, 95, 63, 0.28);
+      box-shadow: 0 22px 48px rgba(45, 38, 25, 0.09);
+    }
+
+    .photo-album-link {
+      display: grid;
+      grid-template-rows: auto min-content;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
     }
 
     .photo-album-item img {
