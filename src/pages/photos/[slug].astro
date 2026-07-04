@@ -53,7 +53,7 @@ const { photo } = Astro.props;
 
   <style>
     .photo-detail {
-      width: min(1280px, calc(100% - 2.5rem));
+      width: min(960px, calc(100% - 2.5rem));
       margin-inline: auto;
       padding: clamp(1.6rem, 4vw, 3rem) 0 clamp(4rem, 8vw, 6rem);
     }
@@ -100,19 +100,17 @@ const { photo } = Astro.props;
       display: grid;
       gap: 0.85rem;
       margin: 0;
-      padding: clamp(0.6rem, 1.6vw, 1rem);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 243, 236, 0.96)),
-        var(--white);
-      border: 1px solid rgba(199, 207, 202, 0.95);
-      box-shadow: 0 28px 70px rgba(45, 38, 25, 0.1);
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     .photo-detail-frame img {
       width: 100%;
       max-height: min(78vh, 920px);
       object-fit: contain;
-      background: rgba(238, 235, 226, 0.52);
+      background: transparent;
     }
 
     .photo-detail-frame figcaption {
@@ -124,11 +122,7 @@ const { photo } = Astro.props;
 
     @media (max-width: 640px) {
       .photo-detail {
-        width: min(100% - 1.25rem, 1280px);
-      }
-
-      .photo-detail-frame {
-        padding: 0.45rem;
+        width: min(100% - 1.25rem, 960px);
       }
     }
   </style>
