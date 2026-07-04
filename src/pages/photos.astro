@@ -23,9 +23,6 @@ import { withBase } from '../data/site';
           <header class="photo-album-header">
             <p class="eyebrow" data-lang-en="Album" data-lang-zh="相册">相册</p>
             <h2 data-lang-en={album.titleEn} data-lang-zh={album.titleZh}>{album.titleZh}</h2>
-            <p data-lang-en={album.descriptionEn} data-lang-zh={album.descriptionZh}>
-              {album.descriptionZh}
-            </p>
           </header>
 
           <div class="photo-album-grid">
@@ -79,14 +76,6 @@ import { withBase } from '../data/site';
       max-width: 26ch;
       font-size: clamp(1.4rem, 1.2vw, 2.8rem);
       line-height: 1.04;
-    }
-
-    .photo-album-header p:last-child {
-      max-width: 62ch;
-      margin: 0;
-      color: var(--muted);
-      font-size: clamp(0.98rem, 1.1vw, 1.08rem);
-      line-height: 1.7;
     }
 
     .photo-album-grid {
