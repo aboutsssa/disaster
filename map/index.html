@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Fullscreen global disaster and re-inhabitability observatory with public hazard and exposure layers."><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Map | [object Object]</title><link rel="stylesheet" href="/disaster/_astro/maplibre-gl.DNVN2dqC.css">
+<link rel="stylesheet" href="/disaster/_astro/global.BcuyY1n1.css"></head> <body class="fullscreen-map-page"> <section class="observatory-shell is-fullscreen" aria-label="Global disaster and re-inhabitability observatory"> <aside class="observatory-sidebar"> <div class="observatory-intro"> <p class="eyebrow" data-i18n-en="Living Atlas" data-i18n-zh="全球图谱">Living Atlas</p> <h2 data-i18n-en="Re-Inhabitability Atlas" data-i18n-zh="灾后再栖居图谱">
+Re-Inhabitability Atlas
+</h2> <p data-i18n-en="A slowly turning globe of people, hazards, and places under pressure." data-i18n-zh="一个缓慢转动的地球，呈现人口、灾害与承压之地。">
+A slowly turning globe of people, hazards, and places under pressure.
+</p> </div> <div class="atlas-actions" aria-label="Map controls"> <button class="atlas-button" type="button" id="language-toggle" data-lang="en" data-i18n-en="中文" data-i18n-zh="English">
+中文
+</button> <button class="atlas-button" type="button" id="rotation-toggle" data-rotating="true" data-i18n-en="Pause" data-i18n-zh="暂停旋转">
+Pause
+</button> <button class="atlas-button" type="button" id="case-focus" data-i18n-en="Next story" data-i18n-zh="下一个案例">
+Next story
+</button> <button class="atlas-button" type="button" id="story-auto" data-playing="false" data-i18n-en="Auto story" data-i18n-zh="自动案例">
+Auto story
+</button> <button class="atlas-button" type="button" id="sound-toggle" data-sound="false" data-i18n-en="Sound" data-i18n-zh="声音">
+Sound
+</button> </div> <div class="layer-panel atlas-legend" aria-label="Map layers"> <div class="panel-heading"> <h3 data-i18n-en="Legend" data-i18n-zh="图例">Legend</h3> <span id="earthquake-count" data-i18n-prefix-en="Live" data-i18n-prefix-zh="实时">Loading</span> </div> <label class="layer-toggle" style="--layer-color:#d9a66f"> <input type="checkbox" data-layer="population" checked> <span></span> <strong data-i18n-en="Population" data-i18n-zh="人口分布"> Population </strong> <small data-i18n-en="Where people concentrate" data-i18n-zh="人口最密集的地方"> Where people concentrate </small> </label><label class="layer-toggle" style="--layer-color:#7fb7c9"> <input type="checkbox" data-layer="flood-risk"> <span></span> <strong data-i18n-en="Flood" data-i18n-zh="洪水"> Flood </strong> <small data-i18n-en="Places exposed to flooding" data-i18n-zh="可能受洪水影响的区域"> Places exposed to flooding </small> </label><label class="layer-toggle" style="--layer-color:#c9855c"> <input type="checkbox" data-layer="urban-heat"> <span></span> <strong data-i18n-en="Heat" data-i18n-zh="高温"> Heat </strong> <small data-i18n-en="Urban heat stress" data-i18n-zh="城市热压力"> Urban heat stress </small> </label><label class="layer-toggle" style="--layer-color:#d06f55"> <input type="checkbox" data-layer="active-fire"> <span></span> <strong data-i18n-en="Fire" data-i18n-zh="火灾"> Fire </strong> <small data-i18n-en="Active fire signals" data-i18n-zh="正在发生的火点信号"> Active fire signals </small> </label><label class="layer-toggle" style="--layer-color:#b59ad6"> <input type="checkbox" data-layer="hurricane-tracks"> <span></span> <strong data-i18n-en="Hurricane" data-i18n-zh="飓风"> Hurricane </strong> <small data-i18n-en="Storm paths" data-i18n-zh="风暴移动路径"> Storm paths </small> </label><label class="layer-toggle" style="--layer-color:#77c7b8"> <input type="checkbox" data-layer="tsunami-events"> <span></span> <strong data-i18n-en="Tsunami" data-i18n-zh="海啸"> Tsunami </strong> <small data-i18n-en="Historical tsunami events" data-i18n-zh="历史海啸事件"> Historical tsunami events </small> </label><label class="layer-toggle" style="--layer-color:#8db7d2"> <input type="checkbox" data-layer="earthquakes" checked> <span></span> <strong data-i18n-en="Earthquake" data-i18n-zh="地震"> Earthquake </strong> <small data-i18n-en="Recent seismic activity" data-i18n-zh="近期地震活动"> Recent seismic activity </small> </label> </div> <div class="map-stat-grid"> <div> <strong>7</strong> <span>active layer configs</span> </div> <div> <strong>6</strong> <span>public web services</span> </div> <div> <strong>ee-jakobzhao</strong> <span>GEE pipeline</span> </div> </div> <div class="map-detail" id="map-detail"> <p class="eyebrow">Selected Location</p> <h3>Click an earthquake or switch layers</h3> <p>
+The first version streams USGS events and overlays global raster services. GEE-derived
+        flood, heat, drought, and recovery products should be published as web tiles next.
+</p> </div> <details class="data-notes"> <summary data-i18n-en="Data notes" data-i18n-zh="数据说明">Data notes</summary> <p data-i18n-en="Public layers from OpenStreetMap, WorldPop, NASA, NOAA, USGS, and UNEP-linked services. Milky Way background texture by Solar System Scope, CC BY 4.0, based on NASA imagery." data-i18n-zh="图层来自 OpenStreetMap、WorldPop、NASA、NOAA、USGS 以及 UNEP 相关公开服务。银河背景纹理来自 Solar System Scope，CC BY 4.0，基于 NASA 影像。">
+Public layers from OpenStreetMap, WorldPop, NASA, NOAA, USGS, and UNEP-linked services. Milky Way background texture by Solar System Scope, CC BY 4.0, based on NASA imagery.
+</p> </details> </aside> <div class="atlas-entry" id="atlas-entry" aria-label="Map introduction"> <button class="atlas-entry-lang" type="button" id="welcome-language-toggle" data-i18n-en="中文" data-i18n-zh="English">
+中文
+</button> <div class="atlas-entry-copy"> <div class="atlas-entry-logo" aria-hidden="true"> <span></span> </div> <p class="eyebrow" data-i18n-en="Qiushan Li's Lab" data-i18n-zh="黎秋杉实验室">
+Qiushan Li's Lab
+</p> <h1 data-i18n-en="Re-Inhabitability Atlas" data-i18n-zh="灾后再栖居图谱">
+Re-Inhabitability Atlas
+</h1> <p class="atlas-entry-subtitle" data-i18n-en="A living globe of mountain villages, coastal memories, fragile homes, and the long work of returning to life after disaster." data-i18n-zh="一个关于山地村落、海岸记忆、脆弱住房，以及灾后重新回到生活的动态地球。">
+A living globe of mountain villages, coastal memories, fragile homes, and the long work of returning to life after disaster.
+</p> <p class="atlas-entry-statement" data-i18n-en="Can a place become home again? Not as a dot on a map, but as a landscape people repair, remember, and return to." data-i18n-zh="一个地方能重新成为家吗？不是地图上的一个点，而是人们修复、记忆并重新返回的生活景观。">
+Can a place become home again? Not as a dot on a map, but as a landscape people repair, remember, and return to.
+</p> <button class="atlas-enter-button" type="button" id="atlas-enter" data-i18n-en="Enter ↗" data-i18n-zh="进入 ↗">
+Enter ↗
+</button> <span data-i18n-en="Sound and motion begin after entry" data-i18n-zh="进入后开启声音与案例播放">
+Sound and motion begin after entry
+</span> <em data-i18n-en="Initializing atmosphere..." data-i18n-zh="正在初始化氛围...">
+Initializing atmosphere...
+</em> </div> </div> <div class="observatory-stage"> <div id="global-disaster-map" class="global-disaster-map"></div> </div> <audio id="atlas-background-audio" src="/disaster/assets/videoplayback.mp4" preload="auto" loop></audio> </section> <script type="module" src="/disaster/_astro/GlobalDisasterMap.astro_astro_type_script_index_0_lang.CnX2RXdA.js"></script> </body></html>
