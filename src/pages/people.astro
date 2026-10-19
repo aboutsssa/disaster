@@ -101,7 +101,7 @@ const masterStudents: Person[] = [
     : person
 );
 
-const undergraduateStudents: Person[] = [
+const undergraduateAndProjectMembers: Person[] = [
   {
     nameEn: 'Xiaozihan Wang',
     nameZh: '王肖子涵',
@@ -145,7 +145,18 @@ const undergraduateStudents: Person[] = [
     interestsZh: '护理学与管理学双学士学位',
     image: '/assets/people/yibei wang.jpg'
   },
-  ['Jiayi Wang', '王嘉怡', 'WJ']
+  ['Jiayi Wang', '王嘉怡', 'WJ'],
+  {
+    nameEn: 'Yawen Lai',
+    nameZh: '赖雅文',
+    initials: 'YL',
+    titleEn: 'Research Assistant · HKUST (Guangzhou)',
+    titleZh: '研究助理 · 香港科技大学（广州）',
+    interestsEn:
+      'Post-disaster Ecological Recovery, Remote Sensing & Geospatial Analysis, Spatial Causal Inference, Explainable Machine Learning',
+    interestsZh: '灾后生态恢复、遥感与地理空间分析、空间因果推断、可解释机器学习',
+    image: '/assets/people/Yawen lai.jpg'
+  }
 ].map((person) =>
   Array.isArray(person)
     ? {
@@ -190,11 +201,11 @@ const sections = [
     people: masterStudents
   },
   {
-    eyebrowEn: 'Undergraduate Students',
-    eyebrowZh: '本科生',
-    titleEn: 'Undergraduate Students',
-    titleZh: '本科生',
-    people: undergraduateStudents
+    eyebrowEn: 'Undergraduate Students & Project Members',
+    eyebrowZh: '本科生与项目成员',
+    titleEn: 'Undergraduate Students & Project Members',
+    titleZh: '本科生与项目成员',
+    people: undergraduateAndProjectMembers
   },
   {
     eyebrowEn: 'Lab Mascots',
